@@ -70,6 +70,8 @@ fi
 
 alias composer="composer.phar"
 alias rvm="/usr/local/rvm/bin/rvm"
+alias gs="git status"
+alias gd="git diff"
 
 #rvm
 #source /etc/profile.d/rvm.sh
