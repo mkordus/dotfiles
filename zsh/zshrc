@@ -107,5 +107,5 @@ bindkey '^R' zaw-history
 bindkey '^F' zaw-behat
 
 #ls colors
-eval `dircolors ~/.dircolors`
+eval `dircolors ~/dotfiles/dircolors`
 
