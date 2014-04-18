@@ -1,0 +1,139 @@
+    set nocompatible
+filetype off "required by vundle
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+Bundle 'scrooloose/nerdtree.git'
+Bundle 'bling/vim-airline'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'tomtom/tcomment_vim'
+
+filetype plugin on
+filetype indent on
+"needed for powerfont
+set encoding=utf-8
+
+"enable 256 color mode in gnome-termial
+set t_Co=256
+
+"set completeopt=menuone,longest,preview
+set showmatch
+set showmode
+set smarttab
+set ruler
+set showcmd
+set wildmenu
+set autoread
+"ignore case when searchng
+set ignorecase
+"when searching try to be smart about cases
+set smartcase
+"highlight search results
+set hlsearch
+set incsearch
+"Don't redraw while executing macros(performace)
+set lazyredraw
+"for regexp
+set magic
+"no anoying sound on errors
+set noerrorbells
+set novisualbell
+set tm=500
+"syntac highlighting
+syntax enable
+"background
+set background=light
+"solarized color scheme
+colorscheme solarized
+"turn off backup
+set nobackup
+set noswapfile
+set nowb
+"use spaces insted of tabs
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+"linebreak on 500 characters
+set lbr
+set tw=500
+set ai
+set si
+set nowrap
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 0
+set laststatus=2
+
+let mapleader = ","
+let g:mapleader = ","
+
+"fast escape
+inoremap jk <Esc>
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Fast nerdtree toggle
+nnoremap <leader>n :NERDTreeToggle<cr>
+
+"Undo search heighlight
+nnoremap <leader>/ :noh<cr>
+
+"Folding and unfolding - temporary
+nnoremap <leader>f :set foldmethod=indent<cr>zM<cr>
+nnoremap <leader>F :set foldmethod=manual<cr>zR<cr>
+
+"smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+"speed up scrolling
+set scrolljump=10
+
+
+"line numbers
+set number
+
+" Instead of 1 line, move 3 at a time
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
+" vim-airline
+let g:airline_powerline_fonts = 0
+
+"tabs
+let g:airline_theme='luna'
+let g:airline#extensions#tabline#enabled = 1
+nnoremap <C-b> :tabprevious<CR>
+inoremap <C-b> <Esc>:tabprevious<CR>i
+nnoremap <C-n> :tabnext<CR>
+inoremap <C-n> <Esc>:tabnext<CR>i
+nnoremap <C-t> :tabnew<CR>
+inoremap <C-t> <Esc>:tabnew<CR>i
+nnoremap <C-w> :tabclose<CR>
+inoremap <C-w> <Esc>:tabclose<CR>i
+
+set completeopt=menuone,longest,preview
+
+" copy paste
+vnoremap <C-S-C> "+y
+vnoremap <C-S-V> "+p
+nnoremap <C-S-C> "+Y
+nnoremap <C-S-V> "+p
+
+"adding enter in normal mode
+nmap <Enter> o<Esc>
+
+" wrapping lines in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" gpicker
+noremap <C-P> :GPickFile<CR>
+noremap <C-O> :GPickBuffer<CR>

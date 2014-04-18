@@ -78,7 +78,7 @@ alias rvm="/usr/local/rvm/bin/rvm"
 alias v="vim"
 alias cdp="cd ~/projects/"
 alias cdw="cd ~/projects/websites/"
-alias lg="ls | grep -i"
+alias lg="ls -a | grep -i"
 alias ra="ranger"
 
 #behat autocomplete
