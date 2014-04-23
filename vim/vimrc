@@ -1,5 +1,17 @@
-    set nocompatible
+set nocompatible
 filetype off "required by vundle
+
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+" Setting up Vundle - the vim plugin bundler end
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -74,9 +86,6 @@ let g:mapleader = ","
 "fast escape
 inoremap jk <Esc>
 
-" Fast saving
-nmap <leader>w :w!<cr>
-
 " Fast nerdtree toggle
 nnoremap <leader>n :NERDTreeToggle<cr>
 
@@ -137,3 +146,5 @@ vnoremap > >gv
 " gpicker
 noremap <C-P> :GPickFile<CR>
 noremap <C-O> :GPickBuffer<CR>
+
+nmap <leader>w :w !sudo tee %<CR>

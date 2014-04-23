@@ -111,3 +111,4 @@ bindkey '^F' zaw-behat
 #ls colors
 eval `dircolors ~/dotfiles/dircolors`
 
+setopt hist_ignore_all_dups
