@@ -112,3 +112,6 @@ bindkey '^F' zaw-behat
 eval `dircolors ~/dotfiles/dircolors`
 
 setopt hist_ignore_all_dups
+
+alias tmux="TERM=screen-256color-bce tmux"
+
