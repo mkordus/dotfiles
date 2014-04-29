@@ -115,3 +115,5 @@ setopt hist_ignore_all_dups
 
 alias tmux="TERM=screen-256color-bce tmux"
 
+export TERM=xterm-256color
+
