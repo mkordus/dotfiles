@@ -1,1 +1,2 @@
 sh -c 'wmctrl -xa chromium.Chromium || chromium'
+xvkbd -xsendevent -text "\Ca"
