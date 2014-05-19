@@ -83,22 +83,6 @@ alias cdw="cd ~/projects/websites/"
 alias lg="ls -a | grep -i"
 alias ra="ranger"
 
-#behat autocomplete
-behat_profiles=(`echo "edpauto_de_local edpauto_fr_local qarson_local iq_local edpdealer_local" | sed 's/ $//'`)
-
-function behat_completion {
-    local nword args
-    read -nc nword
-    read -cA args
-
-    if [[ $args[$nword-1] = '-p' ]]; then
-        reply=($behat_profiles)
-    else
-    fi
-}
-
-compctl -K behat_completion bin/behat
-
 #vi-mode
 bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
@@ -117,3 +101,15 @@ alias tmux="TERM=screen-256color-bce tmux"
 
 export TERM=xterm-256color
 
+alias start="sudo systemctl start"
+
+# autosuggestions
+source ~/.zsh-autosuggestions/autosuggestions.zsh
+
+# zle-line-init() {
+#     zle autosuggest-start
+# }
+zle -N zle-line-init
+
+bindkey '^T' autosuggest-toggle
+bindkey '^f' vi-forward-word
