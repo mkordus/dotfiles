@@ -22,6 +22,7 @@ Bundle 'scrooloose/nerdtree.git'
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tomtom/tcomment_vim'
+Bundle 'majutsushi/tagbar'
 
 filetype plugin on
 filetype indent on
@@ -131,10 +132,10 @@ inoremap <C-w> <Esc>:tabclose<CR>i
 set completeopt=menuone,longest,preview
 
 " copy paste
-vnoremap <C-S-C> "+y
-vnoremap <C-S-V> "+p
-nnoremap <C-S-C> "+Y
-nnoremap <C-S-V> "+p
+" vnoremap <C-S-C> "+y
+" vnoremap <C-S-V> "+p
+" nnoremap <C-S-C> "+Y
+" nnoremap <C-S-V> "+p
 
 "adding enter in normal mode
 nmap <Enter> o<Esc>
@@ -148,3 +149,12 @@ noremap <C-P> :GPickFile<CR>
 noremap <C-O> :GPickBuffer<CR>
 
 nmap <leader>w :w !sudo tee %<CR>
+
+" DBGPavim
+let g:dbgPavimPort = 9009
+let g:dbgPavimBreakAtEntry = 0
+
+" tagbar
+nnoremap <leader>l :TagbarToggle<CR>
+nnoremap <leader>f :TagbarOpenAutoClose<CR>
+
