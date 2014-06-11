@@ -126,8 +126,8 @@ nnoremap <C-n> :tabnext<CR>
 inoremap <C-n> <Esc>:tabnext<CR>i
 nnoremap <C-t> :tabnew<CR>
 inoremap <C-t> <Esc>:tabnew<CR>i
-nnoremap <C-w> :tabclose<CR>
-inoremap <C-w> <Esc>:tabclose<CR>i
+" nnoremap <C-w> :tabclose<CR>
+" inoremap <C-w> <Esc>:tabclose<CR>i
 
 set completeopt=menuone,longest,preview
 
@@ -151,10 +151,13 @@ noremap <C-O> :GPickBuffer<CR>
 nmap <leader>w :w !sudo tee %<CR>
 
 " DBGPavim
-let g:dbgPavimPort = 9009
+let g:dbgPavimPort = 9000
 let g:dbgPavimBreakAtEntry = 0
 
 " tagbar
 nnoremap <leader>l :TagbarToggle<CR>
 nnoremap <leader>f :TagbarOpenAutoClose<CR>
+
+" use system clipboard instead of default vim
+set clipboard=unnamedplus
 
