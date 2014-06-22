@@ -68,7 +68,6 @@ fi
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-alias composer="composer.phar"
 alias rvm="/usr/local/rvm/bin/rvm"
 alias gs="git status"
 alias gd="git diff"

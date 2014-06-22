@@ -23,16 +23,23 @@ Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'majutsushi/tagbar'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'evidens/vim-twig'
 
 filetype plugin on
 filetype indent on
+
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+
 "needed for powerfont
 set encoding=utf-8
 
 "enable 256 color mode in gnome-termial
 set t_Co=256
 
-"set completeopt=menuone,longest,preview
 set showmatch
 set showmode
 set smarttab
@@ -129,16 +136,12 @@ inoremap <C-t> <Esc>:tabnew<CR>i
 " nnoremap <C-w> :tabclose<CR>
 " inoremap <C-w> <Esc>:tabclose<CR>i
 
-set completeopt=menuone,longest,preview
-
+set completeopt=menuone,longest
 " copy paste
 " vnoremap <C-S-C> "+y
 " vnoremap <C-S-V> "+p
 " nnoremap <C-S-C> "+Y
 " nnoremap <C-S-V> "+p
-
-"adding enter in normal mode
-nmap <Enter> o<Esc>
 
 " wrapping lines in visual mode
 vnoremap < <gv
