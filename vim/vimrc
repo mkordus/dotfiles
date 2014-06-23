@@ -20,12 +20,15 @@ Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'bling/vim-airline'
-Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-fugitive'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'evidens/vim-twig'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 
 filetype plugin on
 filetype indent on
@@ -33,6 +36,7 @@ filetype indent on
 set guioptions-=T
 set guioptions-=r
 set guioptions-=L
+set guioptions-=m
 
 "needed for powerfont
 set encoding=utf-8
@@ -88,8 +92,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 0
 set laststatus=2
 
-let mapleader = ","
-let g:mapleader = ","
+let g:mapleader = "\<Space>"
 
 "fast escape
 inoremap jk <Esc>
@@ -160,7 +163,21 @@ let g:dbgPavimBreakAtEntry = 0
 " tagbar
 nnoremap <leader>l :TagbarToggle<CR>
 nnoremap <leader>f :TagbarOpenAutoClose<CR>
+let g:tagbar_width = 60
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
+" easymotion
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+
+"other
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+"ultiSnips
+let g:UltiSnipsExpandTrigger="<CR>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
