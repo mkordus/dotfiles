@@ -33,6 +33,14 @@ Bundle 'honza/vim-snippets'
 filetype plugin on
 filetype indent on
 
+set smartindent
+set autoindent
+set foldenable
+
+set mousehide
+
+set linespace=3
+
 set guioptions-=T
 set guioptions-=r
 set guioptions-=L
@@ -44,12 +52,13 @@ set encoding=utf-8
 "enable 256 color mode in gnome-termial
 set t_Co=256
 
+set undolevels=1000
+
 set showmatch
 set showmode
 set smarttab
 set ruler
 set showcmd
-set wildmenu
 set autoread
 "ignore case when searchng
 set ignorecase
@@ -97,8 +106,9 @@ let g:mapleader = "\<Space>"
 "fast escape
 inoremap jk <Esc>
 
-" Fast nerdtree toggle
+"nerdtree
 nnoremap <leader>n :NERDTreeToggle<cr>
+let NERDTreeShowHidden=1
 
 "Undo search heighlight
 nnoremap <leader>/ :noh<cr>
@@ -200,3 +210,10 @@ endfunction
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+set wildmenu
+set wildmode=list:full
+set wildignorecase
+
+nmap <leader>ev :tabedit $MYVIMRC<CR>
+
+nnoremap ; :
