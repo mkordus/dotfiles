@@ -1,160 +1,120 @@
 set nocompatible
 filetype off "required by vundle
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-" Setting up Vundle - the vim plugin bundler end
+set rtp+=~/.vim/bundle/Vundle.vim
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'gmarik/vundle'
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'evidens/vim-twig'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+call vundle#end()
 
-Bundle 'scrooloose/nerdtree.git'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'evidens/vim-twig'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+filetype plugin indent on
 
-filetype plugin on
-filetype indent on
-
-set smartindent
-set autoindent
-set foldenable
-
-set mousehide
-
-set linespace=3
-
-set guioptions-=T
-set guioptions-=r
-set guioptions-=L
-set guioptions-=m
-
-"needed for powerfont
+"main
 set encoding=utf-8
-
-"enable 256 color mode in gnome-termial
-set t_Co=256
-
 set undolevels=1000
 
 set showmatch
 set showmode
-set smarttab
-set ruler
 set showcmd
-set autoread
-"ignore case when searchng
+
+let g:mapleader = "\<Space>"
+inoremap jk <Esc>
+nmap <leader>ev :tabedit $MYVIMRC<CR>
+nmap <leader>w :w !sudo tee %<CR>
+
+set number
+
+map j gj
+map k gk
+
+"command line mode
+set wildmenu
+set wildmode=longest:list,full
+set wildignorecase
+nnoremap ; :
+
+"colors
+syntax enable
+set background=light
+colorscheme solarized
+set t_Co=256
+
+"indent
+set autoindent
+set copyindent
+set smartindent
+set smarttab
+set expandtab
+set shiftwidth=4
+set tabstop=4
+
+"gVim options
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+set guioptions-=m
+set mousehide
+set linespace=3
+
+"searching
 set ignorecase
-"when searching try to be smart about cases
 set smartcase
-"highlight search results
 set hlsearch
 set incsearch
+set magic
+
 "Don't redraw while executing macros(performace)
 set lazyredraw
-"for regexp
-set magic
+
 "no anoying sound on errors
 set noerrorbells
 set novisualbell
-set tm=500
-"syntac highlighting
-syntax enable
-"background
-set background=light
-"solarized color scheme
-colorscheme solarized
+
 "turn off backup
 set nobackup
 set noswapfile
 set nowb
-"use spaces insted of tabs
-set expandtab
-set smarttab
-set shiftwidth=4
-set tabstop=4
-"linebreak on 500 characters
+
 set lbr
 set tw=500
-set ai
-set si
 set nowrap
+
 " vim-airline
+let g:airline_theme='luna'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 0
 set laststatus=2
-
-let g:mapleader = "\<Space>"
-
-"fast escape
-inoremap jk <Esc>
 
 "nerdtree
 nnoremap <leader>n :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 
-"Undo search heighlight
-nnoremap <leader>/ :noh<cr>
-
-"Folding and unfolding - temporary
-nnoremap <leader>f :set foldmethod=indent<cr>zM<cr>
-nnoremap <leader>F :set foldmethod=manual<cr>zR<cr>
-
 "smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <S-j> <C-W>j
+map <S-k> <C-W>k
+map <S-h> <C-W>h
+map <S-l> <C-W>l
 
 "speed up scrolling
 set scrolljump=10
-
-
-"line numbers
-set number
 
 " Instead of 1 line, move 3 at a time
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-" vim-airline
-let g:airline_powerline_fonts = 0
-
-"tabs
-let g:airline_theme='luna'
-let g:airline#extensions#tabline#enabled = 1
-nnoremap <C-b> :tabprevious<CR>
-inoremap <C-b> <Esc>:tabprevious<CR>i
-nnoremap <C-n> :tabnext<CR>
-inoremap <C-n> <Esc>:tabnext<CR>i
-nnoremap <C-t> :tabnew<CR>
-inoremap <C-t> <Esc>:tabnew<CR>i
-" nnoremap <C-w> :tabclose<CR>
-" inoremap <C-w> <Esc>:tabclose<CR>i
-
 set completeopt=menuone,longest
-" copy paste
-" vnoremap <C-S-C> "+y
-" vnoremap <C-S-V> "+p
-" nnoremap <C-S-C> "+Y
-" nnoremap <C-S-V> "+p
 
 " wrapping lines in visual mode
 vnoremap < <gv
@@ -162,9 +122,6 @@ vnoremap > >gv
 
 " gpicker
 noremap <C-P> :GPickFile<CR>
-noremap <C-O> :GPickBuffer<CR>
-
-nmap <leader>w :w !sudo tee %<CR>
 
 " DBGPavim
 let g:dbgPavimPort = 9000
@@ -210,10 +167,3 @@ endfunction
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-set wildmenu
-set wildmode=list:full
-set wildignorecase
-
-nmap <leader>ev :tabedit $MYVIMRC<CR>
-
-nnoremap ; :
