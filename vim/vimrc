@@ -11,12 +11,14 @@ Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'evidens/vim-twig'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'mileszs/ack.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -35,14 +37,23 @@ nmap <leader>ev :tabedit $MYVIMRC<CR>
 nmap <leader>w :w !sudo tee %<CR>
 
 set number
+set ttyfast
 
 map j gj
 map k gk
+
+set splitbelow
+set splitright
+
+set cursorline
+
+nmap <leader>h :noh<CR>
 
 "command line mode
 set wildmenu
 set wildmode=longest:list,full
 set wildignorecase
+set wildignore+=*/.git/*
 nnoremap ; :
 
 "colors
@@ -106,6 +117,8 @@ map <S-j> <C-W>j
 map <S-k> <C-W>k
 map <S-h> <C-W>h
 map <S-l> <C-W>l
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s
 
 "speed up scrolling
 set scrolljump=10
@@ -140,30 +153,31 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
-"YCM
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"neocomplete
+let g:neocomplete_enable_at_startup=1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
+
+function! s:my_cr_function()
+    if pumvisible()
+        return neocomplete#close_popup() . UltiSnips#ExpandSnippet()
+    else
+        return "\<CR>"
+    endif
+endfunction
 
 "ultiSnips
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-j>"
+let g:UltiSnipsExpandTrigger="<C-S-Space>"
 
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-y>\<C-R>=UltiSnips#JumpForwards()\<cr>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
+"fugitive
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+"ack/ag
+if executable('ag')
+    let g:ackprg = "ag --nogroup --column --smart-case --follow"
+endif
