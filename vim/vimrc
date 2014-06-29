@@ -19,6 +19,7 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'amiorin/vim-project'
 call vundle#end()
 
 filetype plugin indent on
@@ -113,12 +114,18 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 
 "smart way to move between windows
-map <S-j> <C-W>j
-map <S-k> <C-W>k
-map <S-h> <C-W>h
-map <S-l> <C-W>l
+nnoremap <S-j> <C-W>j
+nnoremap <S-k> <C-W>k
+nnoremap <S-h> <C-W>h
+nnoremap <S-l> <C-W>l
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
+
+" Resize splitted views faster
+nnoremap <S-C-h> 3<C-w><
+nnoremap <S-C-l> 3<C-w>>
+nnoremap <S-C-k> 3<C-w>+
+nnoremap <S-C-j> 3<C-w>-
 
 "speed up scrolling
 set scrolljump=10
@@ -156,6 +163,9 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 "neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
 let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
@@ -183,3 +193,10 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 if executable('ag')
     let g:ackprg = "ag --nogroup --column --smart-case --follow"
 endif
+
+"project
+let g:project_use_nerdtree = 1
+set rtp+=~/.vim/bundle/vim-project/
+call project#rc("~/projects")
+
+Project '~/projects/symfonycmf', 'cmf'
