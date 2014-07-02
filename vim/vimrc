@@ -163,7 +163,7 @@ let g:dbgPavimBreakAtEntry = 0
 " tagbar
 nnoremap <leader>l :TagbarToggle<CR>
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
-let g:tagbar_width = 60
+let g:tagbar_width = 45
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
