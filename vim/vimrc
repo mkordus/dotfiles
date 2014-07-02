@@ -22,6 +22,9 @@ Plugin 'mileszs/ack.vim'
 Plugin 'amiorin/vim-project'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tacahiroy/ctrlp-funky'
 call vundle#end()
 
 filetype plugin indent on
@@ -63,6 +66,7 @@ nnoremap ; :
 syntax enable
 set background=light
 colorscheme solarized
+let g:solarized_termcolors = 256
 set t_Co=256
 
 "indent
@@ -219,4 +223,8 @@ endif
 
 "ctrlP
 let g:ctrlp_working_path_mode = 'rw'
+let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>b :CtrlPBuffer<CR>
+
+"gitgutter
+let g:gitgutter_enabled = 0
