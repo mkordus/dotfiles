@@ -20,6 +20,8 @@ Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'amiorin/vim-project'
+Plugin 'kien/ctrlp.vim'
+Plugin 'jistr/vim-nerdtree-tabs'
 call vundle#end()
 
 filetype plugin indent on
@@ -54,7 +56,7 @@ nmap <leader>h :noh<CR>
 set wildmenu
 set wildmode=longest:list,full
 set wildignorecase
-set wildignore+=*/.git/*
+set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 nnoremap ; :
 
 "colors
@@ -110,8 +112,10 @@ let g:airline_powerline_fonts = 0
 set laststatus=2
 
 "nerdtree
-nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>n :NERDTreeTabsToggle<cr>
 let NERDTreeShowHidden=1
+let g:NERDTreeChDirMode = 2
+let g:nerdtree_tabs_open_on_gui_startup = 0
 
 "smart way to move between windows
 nnoremap <S-j> <C-W>j
@@ -141,7 +145,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " gpicker
-noremap <C-P> :GPickFile<CR>
+" noremap <C-P> :GPickFile<CR>
 
 " DBGPavim
 let g:dbgPavimPort = 9000
@@ -207,3 +211,6 @@ if executable('ag')
     let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
     let g:unite_source_grep_recursive_opt=''
 endif
+
+"ctrlP
+let g:ctrlp_working_path_mode = 'rw'
