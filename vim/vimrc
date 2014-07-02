@@ -25,6 +25,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'scrooloose/syntastic'
 call vundle#end()
 
 filetype plugin indent on
@@ -228,3 +229,8 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 
 "gitgutter
 let g:gitgutter_enabled = 0
+
+"syntastic
+let g:syntastic_php_checkers = ['php']
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
