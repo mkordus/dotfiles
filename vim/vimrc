@@ -26,9 +26,13 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'spf13/vim-autoclose'
 call vundle#end()
 
 filetype plugin indent on
+
+"vim-autoclose
+let g:autoclose_vim_commentmode = 1
 
 "main
 set encoding=utf-8
@@ -217,6 +221,16 @@ endif
 let g:ctrlp_working_path_mode = 'rw'
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>b :CtrlPBuffer<CR>
+
+if executable('ag')
+    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+elseif executable('ack-grep')
+    let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
+elseif executable('ack')
+    let s:ctrlp_fallback = 'ack %s --nocolor -f'
+else
+    let s:ctrlp_fallback = 'find %s -type f'
+endif
 
 "gitgutter
 let g:gitgutter_enabled = 0
