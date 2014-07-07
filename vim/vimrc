@@ -17,7 +17,6 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/neocomplete.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'amiorin/vim-project'
 Plugin 'kien/ctrlp.vim'
@@ -26,6 +25,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
 call vundle#end()
 
 filetype plugin indent on
@@ -41,7 +41,8 @@ set showcmd
 let g:mapleader = "\<Space>"
 inoremap jk <Esc>
 nmap <leader>ev :edit $MYVIMRC<CR>
-nmap <leader>w :w !sudo tee %<CR>
+nmap <leader>s :w !sudo tee %<CR>
+nmap <leader>w :w<CR>
 
 set number
 set ttyfast
@@ -61,7 +62,6 @@ set wildmenu
 set wildmode=longest:list,full
 set wildignorecase
 set wildignore+=*/.git/*,*/tmp/*,*/cache/*
-nnoremap ; :
 
 "colors
 syntax enable
@@ -122,24 +122,26 @@ let g:airline_symbols.space = "\ua0"
 set laststatus=2
 
 "nerdtree
-nnoremap <leader>n :NERDTreeTabsToggle<cr>
-let NERDTreeShowHidden=1
+nnoremap <leader>n :NERDTreeTabsToggle<CR>
+nnoremap <leader>r :NERDTreeFind<CR>
+let g:NERDTreeShowHidden=1
 let g:NERDTreeChDirMode = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:NERDTreeWinSize = 50
 
 "smart way to move between windows
-nnoremap <S-j> <C-W>j
-nnoremap <S-k> <C-W>k
-nnoremap <S-h> <C-W>h
-nnoremap <S-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
 
 " Resize splitted views faster
-nnoremap <C-h> 3<C-w><
-nnoremap <C-l> 3<C-w>>
-nnoremap <C-k> 3<C-w>+
-nnoremap <C-j> 3<C-w>-
+" nnoremap <C-h> 3<C-w><
+" nnoremap <C-l> 3<C-w>>
+" nnoremap <C-k> 3<C-w>+
+" nnoremap <C-j> 3<C-w>-
 
 "speed up scrolling
 set scrolljump=10
@@ -153,9 +155,6 @@ set completeopt=menuone,longest
 " wrapping lines in visual mode
 vnoremap < <gv
 vnoremap > >gv
-
-" gpicker
-" noremap <C-P> :GPickFile<CR>
 
 " DBGPavim
 let g:dbgPavimPort = 9000
@@ -174,19 +173,12 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
-"neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" YCM
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><CR> <C-r>=<SID>my_cr_function()<CR>
-
-function! s:my_cr_function()
+inoremap <silent><CR> <C-r>=<SID>crFunction()<CR>
+function! s:crFunction()
     if pumvisible()
-        return neocomplete#close_popup() . UltiSnips#ExpandSnippet()
+        return UltiSnips#ExpandSnippet()
     else
         return "\<CR>"
     endif
@@ -215,7 +207,6 @@ Project 'access-api'
 nnoremap <Leader>u :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/git<CR>
 nnoremap <Leader>f :<C-u>Unite -no-split -buffer-name=files -start-insert file<CR>
 nnoremap <Leader>g :<C-u>Unite -no-split grep:.<CR>
-" nnoremap <Leader>b :<C-u>Unite -auto-resize buffer<CR>
 if executable('ag')
     let g:unite_source_grep_command='ag'
     let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
