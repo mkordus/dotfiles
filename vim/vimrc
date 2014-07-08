@@ -203,10 +203,6 @@ let g:project_use_nerdtree = 1
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/projects")
 
-Project '~/projects/symfonycmf', 'cmf'
-Project '~/projects/crm', 'crm'
-Project 'access-api'
-
 "unite
 nnoremap <Leader>u :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/git<CR>
 nnoremap <Leader>f :<C-u>Unite -no-split -buffer-name=files -start-insert file<CR>
@@ -239,3 +235,8 @@ let g:gitgutter_enabled = 0
 let g:syntastic_php_checkers = ['php']
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
+
+if filereadable(expand('~/dotfiles/vim/vimrc.local'))
+    source ~/dotfiles/vim/vimrc.local
+endif
+
