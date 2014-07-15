@@ -45,7 +45,7 @@ set showcmd
 let g:mapleader = "\<Space>"
 inoremap jk <Esc>
 nmap <leader>ev :edit $MYVIMRC<CR>
-nmap <leader>s :w !sudo tee %<CR>
+nmap <leader>ws :w !sudo tee %<CR>
 nmap <leader>w :w<CR>
 
 set number
@@ -69,10 +69,14 @@ set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 
 "colors
 syntax enable
-set background=light
-colorscheme solarized
-let g:solarized_termcolors = 256
-set t_Co=256
+if has('gui_running')
+    set background=light
+    colorscheme solarized
+    let g:solarized_termcolors = 256
+    set t_Co=256
+else
+    set background=dark
+endif
 
 "indent
 set autoindent
@@ -116,7 +120,11 @@ set tw=500
 set nowrap
 
 " vim-airline
-let g:airline_theme='solarized'
+if has('gui_running')
+    let g:airline_theme='solarized'
+else
+    let g:airline_theme='simple'
+endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
