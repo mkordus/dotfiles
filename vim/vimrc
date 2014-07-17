@@ -57,8 +57,6 @@ map k gk
 set splitbelow
 set splitright
 
-set cursorline
-
 nmap <leader>h :noh<CR>
 
 "command line mode
@@ -69,9 +67,10 @@ set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 
 "colors
 syntax enable
+colorscheme molokai
+let g:rehash256 = 1
 if has('gui_running')
     set background=light
-    colorscheme solarized
     let g:solarized_termcolors = 256
     set t_Co=256
 else
@@ -92,14 +91,13 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 set guioptions-=m
-set guifont=Terminus\ 12
+set guifont=Liberation\ Mono\ for\ Powerline\ 12
 set mousehide
 set linespace=3
 
 "searching
 set ignorecase
 set smartcase
-set hlsearch
 set incsearch
 set magic
 
@@ -120,11 +118,7 @@ set tw=500
 set nowrap
 
 " vim-airline
-if has('gui_running')
-    let g:airline_theme='solarized'
-else
-    let g:airline_theme='simple'
-endif
+let g:airline_theme='molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
