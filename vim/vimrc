@@ -44,6 +44,7 @@ set showcmd
 
 let g:mapleader = "\<Space>"
 inoremap jk <Esc>
+inoremap kj <Esc>
 nmap <leader>ev :edit $MYVIMRC<CR>
 nmap <leader>ws :w !sudo tee %<CR>
 nmap <leader>w :w<CR>
@@ -69,13 +70,8 @@ set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 syntax enable
 colorscheme molokai
 let g:rehash256 = 1
-if has('gui_running')
-    set background=light
-    let g:solarized_termcolors = 256
-    set t_Co=256
-else
-    set background=dark
-endif
+set background=dark
+set t_Co=256
 
 "indent
 set autoindent
@@ -93,7 +89,7 @@ set guioptions-=L
 set guioptions-=m
 set guifont=Liberation\ Mono\ for\ Powerline\ 12
 set mousehide
-set linespace=3
+set linespace=1
 
 "searching
 set ignorecase
@@ -156,7 +152,6 @@ set scrolljump=10
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-set completeopt=menuone,longest
 
 " wrapping lines in visual mode
 vnoremap < <gv
@@ -180,21 +175,13 @@ map <Leader>k <Plug>(easymotion-k)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " YCM
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <silent><CR> <C-r>=<SID>crFunction()<CR>
-function! s:crFunction()
-    if pumvisible()
-        return UltiSnips#ExpandSnippet()
-    else
-        return "\<CR>"
-    endif
-endfunction
+set completeopt=menuone,longest
 
 "ultiSnips
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-j>"
-let g:UltiSnipsExpandTrigger="<C-S-Space>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsExpandTrigger="<S-CR>"
 
 "fugitive
 nnoremap <silent> <leader>gs :Gstatus<CR>
