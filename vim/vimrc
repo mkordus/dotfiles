@@ -27,6 +27,8 @@ Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'spf13/vim-autoclose'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
 call vundle#end()
 
 filetype plugin indent on
@@ -115,6 +117,7 @@ set nowrap
 
 " vim-airline
 let g:airline_theme='molokai'
+let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
@@ -223,8 +226,9 @@ let g:gitgutter_enabled = 0
 "syntastic
 let g:syntastic_php_checkers = ['php']
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
+let g:syntastic_check_on_open=1
 
+"local config
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
