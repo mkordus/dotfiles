@@ -1,5 +1,6 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="pure"
+ZSH_TMUX_AUTOSTART=true
 
 plugins=(git common-aliases symfony2 tmux web-search wd)
 
