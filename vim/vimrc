@@ -233,3 +233,5 @@ if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
 
+"markdown syntax fix
+au BufRead,BufNewFile *.md set filetype=markdown
