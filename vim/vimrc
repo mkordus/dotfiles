@@ -23,12 +23,12 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'spf13/vim-autoclose'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
+Plugin 'vim-scripts/dbext.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -151,9 +151,9 @@ nnoremap <leader>s <C-w>s
 "speed up scrolling
 set scrolljump=10
 
-" Instead of 1 line, move 3 at a time
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
+" Instead of 1 line, move 5 at a time
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
 
 
 " wrapping lines in visual mode
@@ -235,3 +235,18 @@ endif
 
 "markdown syntax fix
 au BufRead,BufNewFile *.md set filetype=markdown
+
+" fast save
+inoremap <C-s> <esc>:w<cr>a
+nnoremap <C-s> :w<cr>
+
+" fast windows close
+inoremap <C-q> <esc>:q<cr>
+nnoremap <C-q> :q<cr>
+
+" fast new tab open
+inoremap <C-t> <esc>:tabedit<cr>
+nnoremap <C-t> :tabedit<cr>
+
+" php
+let g:php_sql_query=1
