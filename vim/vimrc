@@ -29,6 +29,7 @@ Plugin 'spf13/vim-autoclose'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-scripts/dbext.vim'
+Plugin 'tpope/vim-surround'
 call vundle#end()
 
 filetype plugin indent on
@@ -245,7 +246,6 @@ inoremap <C-q> <esc>:q<cr>
 nnoremap <C-q> :q<cr>
 
 " fast new tab open
-inoremap <C-t> <esc>:tabedit<cr>
 nnoremap <C-t> :tabedit<cr>
 
 " php
