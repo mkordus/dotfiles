@@ -76,6 +76,7 @@ set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 syntax enable
 colorscheme molokai
 let g:rehash256 = 1
+let g:molokai_original = 1
 set background=dark
 set t_Co=256
 
@@ -94,7 +95,7 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 set guioptions-=m
-set guifont=Liberation\ Mono\ for\ Powerline\ 12
+set guifont=Liberation\ Mono\ for\ Powerline\ 11
 set mousehide
 set linespace=1
 
@@ -212,7 +213,6 @@ endif
 
 "ctrlP
 let g:ctrlp_working_path_mode = 'rw'
-let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>b :CtrlPBuffer<CR>
 
 if executable('ag')
@@ -254,3 +254,20 @@ nnoremap <C-t> :tabedit<cr>
 
 " php
 let g:php_sql_query=1
+
+function! ClearSQLSchema()
+    execute 'g/^--\|^GRANT\|^REVOKE\|OWNER\|PRIVILEGES FOR ROLE\|^$/d'
+    execute 'g/CREATE /\n\0/'
+endfunction
+
+"trailing whitespace
+autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+"indent gudmes
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg = #313131
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg = #3b3b3b
