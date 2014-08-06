@@ -34,6 +34,7 @@ Plugin 'helino/vim-json'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'dhruvasagar/vim-railscasts-theme'
 Plugin 'chrisbra/csv.vim'
+Plugin 'kien/rainbow_parentheses.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -177,7 +178,6 @@ set scrolljump=10
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
-
 " wrapping lines in visual mode
 vnoremap < <gv
 vnoremap > >gv
@@ -281,8 +281,14 @@ autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 "indent gudmes
 let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_start_level = 2
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg = #313131
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg = #3b3b3b
+
+"rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
