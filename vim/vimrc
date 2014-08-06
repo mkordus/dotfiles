@@ -131,6 +131,21 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 set laststatus=2
+let g:airline_detect_modified = 1
+let g:airline_mode_map = {
+  \ '__' : '-',
+  \ 'n'  : 'N',
+  \ 'i'  : 'I',
+  \ 'R'  : 'R',
+  \ 'c'  : 'C',
+  \ 'v'  : 'V',
+  \ 'V'  : 'V',
+  \ '' : 'V',
+  \ 's'  : 'S',
+  \ 'S'  : 'S',
+  \ '' : 'S',
+  \ }
+
 
 "nerdtree
 nnoremap <leader>n :NERDTreeTabsToggle<CR>
@@ -268,6 +283,5 @@ let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg = #313131
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg = #3b3b3b
