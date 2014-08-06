@@ -1,4 +1,5 @@
 set nocompatible
+
 filetype off "required by vundle
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -35,6 +36,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'dhruvasagar/vim-railscasts-theme'
 Plugin 'chrisbra/csv.vim'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'vim-scripts/sql_iabbr.vim'
 call vundle#end()
 
 filetype plugin indent on
