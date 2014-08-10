@@ -12,6 +12,7 @@ export EDITOR='vim'
 alias rvm="/usr/local/rvm/bin/rvm"
 alias gs="git status"
 alias gd="git diff"
+alias gds="git diff --staged"
 alias v="vim"
 alias cdp="cd ~/projects/"
 alias lg="ls -a | grep -i"
