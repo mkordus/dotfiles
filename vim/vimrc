@@ -294,3 +294,12 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+"regex
+vnoremap R :s/\v
+
+"better selection
+nnoremap gG ggVG
+
+"select php heredoc
+vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
