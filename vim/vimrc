@@ -37,6 +37,7 @@ Plugin 'dhruvasagar/vim-railscasts-theme'
 Plugin 'chrisbra/csv.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/sql_iabbr.vim'
+Plugin 'morhetz/gruvbox'
 call vundle#end()
 
 filetype plugin indent on
@@ -78,9 +79,7 @@ set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 
 "colors
 syntax enable
-colorscheme molokai
-let g:rehash256 = 1
-let g:molokai_original = 1
+colorscheme gruvbox
 set background=dark
 set t_Co=256
 
@@ -126,7 +125,7 @@ set tw=500
 set nowrap
 
 " vim-airline
-let g:airline_theme='molokai'
+let g:airline_theme='badwolf'
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
