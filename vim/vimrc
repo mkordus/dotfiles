@@ -8,36 +8,47 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'evidens/vim-twig'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'amiorin/vim-project'
-Plugin 'kien/ctrlp.vim'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'airblade/vim-gitgutter'
+
+Plugin 'kien/ctrlp.vim'
+Plugin 'DavidEGx/ctrlp-smarttabs'
+Plugin 'tpope/vim-fugitive'
+Plugin 'endel/ctrlp-filetype.vim'
+Plugin 'sgur/ctrlp-extensions.vim'
+
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'dhruvasagar/vim-railscasts-theme'
+Plugin 'morhetz/gruvbox'
+
+Plugin 'tomtom/tcomment_vim'
+Plugin 'spf13/vim-autoclose'
+Plugin 'tpope/vim-surround'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'lilydjwg/colorizer'
+
+Plugin 'bling/vim-airline'
+Plugin 'amiorin/vim-project'
+
+Plugin 'vim-scripts/dbext.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'spf13/vim-autoclose'
+Plugin 'tpope/vim-fugitive'
+Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
+
+Plugin 'helino/vim-json'
+Plugin 'evidens/vim-twig'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
-Plugin 'vim-scripts/dbext.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'helino/vim-json'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'dhruvasagar/vim-railscasts-theme'
-Plugin 'chrisbra/csv.vim'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'vim-scripts/sql_iabbr.vim'
-Plugin 'morhetz/gruvbox'
+
+" Plugin 'Shougo/vimproc.vim'
+" Plugin 'Shougo/unite.vim'
+" Plugin 'Lokaltog/vim-easymotion'
+" Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'vim-scripts/sql_iabbr.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -58,7 +69,6 @@ inoremap jk <Esc>
 inoremap kj <Esc>
 nmap <leader>ev :edit $MYVIMRC<CR>
 nmap <leader>ws :w !sudo tee %<CR>
-nmap <leader>w :w<CR>
 
 set number
 set ttyfast
@@ -98,9 +108,10 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 set guioptions-=m
+set guioptions-=e
+set showtabline=0
 set guifont=Liberation\ Mono\ for\ Powerline\ 11
 set mousehide
-set linespace=1
 
 "searching
 set ignorecase
@@ -126,8 +137,11 @@ set nowrap
 
 " vim-airline
 let g:airline_theme='badwolf'
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#ctrlp#color_template = 'normal'
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -148,7 +162,10 @@ let g:airline_mode_map = {
   \ 'S'  : 'S',
   \ '' : 'S',
   \ }
-
+let g:airline#extensions#default#layout = [
+  \ [ 'a', 'b', 'c' ],
+  \ [ 'x', 'y', 'warning' ]
+  \ ]
 
 "nerdtree
 nnoremap <leader>n :NERDTreeTabsToggle<CR>
@@ -156,7 +173,7 @@ nnoremap <leader>r :NERDTreeFind<CR>
 let g:NERDTreeShowHidden=1
 let g:NERDTreeChDirMode = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:NERDTreeWinSize = 50
+let g:NERDTreeWinSize = 40
 
 "smart way to move between windows
 nnoremap <C-j> <C-W>j
@@ -173,7 +190,7 @@ nnoremap <leader>s <C-w>s
 " nnoremap <C-j> 3<C-w>-
 
 "speed up scrolling
-set scrolljump=10
+set scrolljump=8
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 5<C-e>
@@ -211,7 +228,7 @@ let g:UltiSnipsExpandTrigger="<S-CR>"
 
 "fugitive
 nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gd :Gvdiff<CR>
 
 "project
 let g:project_use_nerdtree = 1
@@ -231,6 +248,7 @@ endif
 "ctrlP
 let g:ctrlp_working_path_mode = 'rw'
 nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <C-T> :CtrlPSmartTabs<CR>
 
 if executable('ag')
     let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
@@ -242,13 +260,11 @@ else
     let s:ctrlp_fallback = 'find %s -type f'
 endif
 
-"gitgutter
-let g:gitgutter_enabled = 0
+let g:ctrlp_extensions = ['filetype']
 
 "syntastic
 let g:syntastic_php_checkers = ['php']
-let g:airline#extensions#syntastic#enabled = 1
-let g:syntastic_check_on_open=1
+let g:syntastic_check_on_open=0
 
 "local config
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
@@ -265,9 +281,6 @@ nnoremap <C-s> :w<cr>
 " fast windows close
 inoremap <C-q> <esc>:q<cr>
 nnoremap <C-q> :q<cr>
-
-" fast new tab open
-nnoremap <C-t> :tabedit<cr>
 
 " php
 let g:php_sql_query=1
@@ -289,16 +302,16 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg = #313131
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg = #3b3b3b
 
 "rainbow parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-"regex
-vnoremap R :s/\v
+au VimEnter sql,php,vim RainbowParenthesesToggle
+au Syntax sql,php,vim RainbowParenthesesLoadRound
+au Syntax sql,php,vim RainbowParenthesesLoadSquare
+au Syntax sql,php,vim RainbowParenthesesLoadBraces
 
 "better selection
 nnoremap gG ggVG
 
 "select php heredoc
 vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
+
+"disable blinking cursor
+set guicursor=a:blinkon0
