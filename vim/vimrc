@@ -19,7 +19,7 @@ Plug 'morhetz/gruvbox'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround', { 'on': [] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
-Plug 'lilydjwg/colorizer'
+Plug 'lilydjwg/colorizer', {'for': ['css']}
 
 Plug 'itchyny/lightline.vim'
 Plug 'amiorin/vim-project'
