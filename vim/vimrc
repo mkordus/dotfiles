@@ -87,7 +87,9 @@ set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 syntax enable
 colorscheme gruvbox
 set background=dark
-set t_Co=256
+if !has('gui_running')
+  set t_Co=256
+endif
 
 "indent
 set autoindent
@@ -179,12 +181,6 @@ nnoremap <C-l> <C-W>l
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
 
-" Resize splitted views faster
-" nnoremap <C-h> 3<C-w><
-" nnoremap <C-l> 3<C-w>>
-" nnoremap <C-k> 3<C-w>+
-" nnoremap <C-j> 3<C-w>-
-
 "speed up scrolling
 set scrolljump=8
 
@@ -208,11 +204,6 @@ let g:tagbar_width = 45
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-" easymotion
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-
 " YCM
 set completeopt=menuone,longest
 
@@ -231,16 +222,6 @@ let g:project_use_nerdtree = 1
 set rtp+=~/.vim/bundle/vim-project/
 call project#rc("~/projects")
 
-"unite
-nnoremap <Leader>u :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/git<CR>
-nnoremap <Leader>f :<C-u>Unite -no-split -buffer-name=files -start-insert file<CR>
-nnoremap <Leader>g :<C-u>Unite -no-split grep:.<CR>
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt=''
-endif
-
 "ctrlP
 let g:ctrlp_working_path_mode = 'rw'
 nnoremap <Leader>b :CtrlPBuffer<CR>
@@ -256,8 +237,6 @@ else
     let s:ctrlp_fallback = 'find %s -type f'
 endif
 
-let g:ctrlp_extensions = ['filetype']
-
 "syntastic
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
@@ -270,15 +249,11 @@ endif
 "markdown syntax fix
 au BufRead,BufNewFile *.md set filetype=markdown
 
-" fast save
-inoremap <C-s> <esc>:w<cr>a
-nnoremap <C-s> :w<cr>
-
 " fast windows close
 inoremap <C-q> <esc>:q<cr>
 nnoremap <C-q> :q<cr>
 
-" php
+" sql
 let g:php_sql_query=1
 
 function! ClearSQLSchema()
@@ -289,19 +264,11 @@ endfunction
 "trailing whitespace
 autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-"indent gudmes
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-let g:indent_guides_start_level = 2
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg = #313131
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg = #3b3b3b
-
 "rainbow parentheses
-au VimEnter sql,php,vim RainbowParenthesesToggle
-au Syntax sql,php,vim RainbowParenthesesLoadRound
-au Syntax sql,php,vim RainbowParenthesesLoadSquare
-au Syntax sql,php,vim RainbowParenthesesLoadBraces
+" au VimEnter sql,php,vim RainbowParenthesesToggle
+" au Syntax sql,php,vim RainbowParenthesesLoadRound
+" au Syntax sql,php,vim RainbowParenthesesLoadSquare
+" au Syntax sql,php,vim RainbowParenthesesLoadBraces
 
 "better selection
 nnoremap gG ggVG
