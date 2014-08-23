@@ -250,21 +250,15 @@ let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
 " }}}
 " LightlineColorscheme: {{{
-let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
-let s:p.normal.left = [ ['white', 'gray2'] ]
-let s:p.normal.right = [ ['gray5', 'gray10'], ['gray10', 'gray2'] ]
-let s:p.inactive.right = [ ['gray6', 'gray2'], ['gray6', 'gray2']]
-let s:p.inactive.left = s:p.inactive.right[1:]
-let s:p.insert.left = [ ['white', 'darkestblue']]
-let s:p.insert.right = [ [ 'darkestcyan', 'darkestblue' ], [ 'mediumcyan', 'darkestblue' ]]
-let s:p.replace.left = [ ['white', 'brightred', 'bold'], ['white', 'gray4'] ]
-let s:p.visual.left = [ ['darkred', 'brightorange', 'bold'], ['white', 'gray4'] ]
-let s:p.normal.middle = [ [ 'gray7', 'gray2' ] ]
-let s:p.insert.middle = [ [ 'mediumcyan', 'darkestblue' ] ]
-let s:p.replace.middle = s:p.normal.middle
-let s:p.replace.right = s:p.normal.right
+let s:p = {'normal': {}, 'inactive': {}}
+let s:p.normal.left = [ ['white', 'gray3'] ]
+let s:p.normal.right = [ ['gray5', 'gray10'], ['gray10', 'gray3'] ]
+let s:p.normal.middle = [['gray7', 'gray3']]
 let s:p.normal.error = [ [ 'gray9', 'brightestred' ] ]
 let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
+let s:p.inactive.right = [ ['gray6', 'gray0'], ['gray6', 'gray0']]
+let s:p.inactive.left = s:p.inactive.right[1:]
+let s:p.inactive.middle = [['gray7', 'gray0']]
 
 let g:lightline#colorscheme#colorscheme#palette = lightline#colorscheme#fill(s:p)
 " }}}
@@ -356,11 +350,11 @@ augroup filespecific
     autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
-" augroup cursorline
-"     autocmd!
-"     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"     autocmd WinLeave * setlocal nocursorline
-" augroup END
+augroup cursorline
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+augroup END
 " }}}
 " localConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
