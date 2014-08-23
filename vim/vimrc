@@ -1,57 +1,53 @@
 set nocompatible
 
-filetype off "required by vundle
+filetype off "required by plugin manager
 
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'DavidEGx/ctrlp-smarttabs'
 
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'jistr/vim-nerdtree-tabs'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'dhruvasagar/vim-railscasts-theme'
+Plug 'morhetz/gruvbox'
 
-Plugin 'kien/ctrlp.vim'
-Plugin 'DavidEGx/ctrlp-smarttabs'
-Plugin 'tpope/vim-fugitive'
-Plugin 'endel/ctrlp-filetype.vim'
-Plugin 'sgur/ctrlp-extensions.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'spf13/vim-autoclose', { 'on': [] }
+Plug 'tpope/vim-surround', { 'on': [] }
+" Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
+Plug 'lilydjwg/colorizer'
 
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'dhruvasagar/vim-railscasts-theme'
-Plugin 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
+Plug 'amiorin/vim-project'
 
-Plugin 'tomtom/tcomment_vim'
-Plugin 'spf13/vim-autoclose'
-Plugin 'tpope/vim-surround'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'lilydjwg/colorizer'
+Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
+Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'honza/vim-snippets', { 'on': [] }
+Plug 'tpope/vim-fugitive'
+Plug 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
 
-Plugin 'bling/vim-airline'
-Plugin 'amiorin/vim-project'
+Plug 'helino/vim-json', { 'for': ['json']}
+Plug 'evidens/vim-twig', { 'for': ['twig']}
 
-Plugin 'vim-scripts/dbext.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-fugitive'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-
-Plugin 'helino/vim-json'
-Plugin 'evidens/vim-twig'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
-
-" Plugin 'Shougo/vimproc.vim'
-" Plugin 'Shougo/unite.vim'
-" Plugin 'Lokaltog/vim-easymotion'
-" Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'vim-scripts/sql_iabbr.vim'
-call vundle#end()
+Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
+Plug 'pangloss/vim-javascript', { 'for': ['javascript']}
+call plug#end()
 
 filetype plugin indent on
+
+"lazy loading
+augroup load_us_ycm
+    autocmd!
+    autocmd InsertEnter *
+        \ call plug#load('ultisnips', 'vim-snippets', 'YouCompleteMe')
+        \| call plug#load('vim-autoclose', 'vim-surround')
+        \| call youcompleteme#Enable() | autocmd! load_us_ycm
+augroup END
 
 "vim-autoclose
 let g:autoclose_vim_commentmode = 1
