@@ -1,3 +1,6 @@
+" vi: fdm=marker
+
+" Plugins: {{{
 set nocompatible
 
 filetype off "required by plugin manager
@@ -14,7 +17,6 @@ Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'morhetz/gruvbox'
 
 Plug 'tomtom/tcomment_vim'
-Plug 'spf13/vim-autoclose', { 'on': [] }
 Plug 'tpope/vim-surround', { 'on': [] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
 Plug 'lilydjwg/colorizer'
@@ -30,6 +32,7 @@ Plug 'honza/vim-snippets', { 'on': [] }
 Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'helino/vim-json', { 'for': ['json']}
 Plug 'evidens/vim-twig', { 'for': ['twig']}
@@ -45,17 +48,16 @@ augroup load_us_ycm
     autocmd!
     autocmd InsertEnter *
         \ call plug#load('ultisnips', 'vim-snippets', 'YouCompleteMe')
-        \| call plug#load('vim-autoclose', 'vim-surround')
+        \| call plug#load('vim-surround')
         \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
 
-"vim-autoclose
-let g:autoclose_vim_commentmode = 1
+" }}}
+" Settings: {{{
 
 "main
 set encoding=utf-8
 set undolevels=1000
-
 set showmatch
 set showmode
 set showcmd
@@ -133,14 +135,6 @@ set lbr
 set tw=500
 set nowrap
 
-"nerdtree
-nnoremap <leader>n :NERDTreeTabsToggle<CR>
-nnoremap <leader>r :NERDTreeFind<CR>
-let g:NERDTreeShowHidden=1
-let g:NERDTreeChDirMode = 2
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:NERDTreeWinSize = 30
-
 "smart way to move between windows
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -160,6 +154,55 @@ nnoremap <C-y> 5<C-y>
 vnoremap < <gv
 vnoremap > >gv
 
+" use system clipboard instead of default vim
+set clipboard=unnamedplus
+
+" mode aware cursors
+set gcr=a:block
+set gcr+=o:hor50-Cursor
+set gcr+=n:Cursor
+set gcr+=i-ci-sm:InsertCursor
+set gcr+=r-cr:ReplaceCursor-hor20
+set gcr+=c:CommandCursor
+set gcr+=v-ve:VisualCursor
+
+set gcr+=a:blinkon0
+
+hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
+hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
+hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
+set laststatus=2
+
+" fast windows close
+inoremap <C-q> <esc>:q<cr>
+nnoremap <C-q> :q<cr>
+
+" sql
+let g:php_sql_query=1
+
+function! ClearSQLSchema()
+    execute 'g/^--\|^GRANT\|^REVOKE\|OWNER\|PRIVILEGES FOR ROLE\|^$/d'
+    execute 'g/CREATE /\n\0/'
+endfunction
+
+"better selection
+nnoremap gG ggVG
+
+"select php heredoc
+vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
+
+"autocolose
+" }}}
+" PluginsSettings {{{
+"nerdtree
+nnoremap <leader>n :NERDTreeTabsToggle<CR>
+nnoremap <leader>r :NERDTreeFind<CR>
+let g:NERDTreeShowHidden=1
+let g:NERDTreeChDirMode = 2
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:NERDTreeWinSize = 30
+
 " DBGPavim
 let g:dbgPavimPort = 9000
 let g:dbgPavimBreakAtEntry = 0
@@ -168,9 +211,6 @@ let g:dbgPavimBreakAtEntry = 0
 nnoremap <leader>l :TagbarToggle<CR>
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
-
-" use system clipboard instead of default vim
-set clipboard=unnamedplus
 
 " YCM
 set completeopt=menuone,longest
@@ -208,57 +248,33 @@ endif
 "syntastic
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
+" }}}
+" LightlineColorscheme: {{{
+let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
+let s:p.normal.left = [ ['white', 'gray2'] ]
+let s:p.normal.right = [ ['gray5', 'gray10'], ['gray10', 'gray2'] ]
+let s:p.inactive.right = [ ['gray6', 'gray2'], ['gray6', 'gray2']]
+let s:p.inactive.left = s:p.inactive.right[1:]
+let s:p.insert.left = [ ['white', 'darkestblue']]
+let s:p.insert.right = [ [ 'darkestcyan', 'darkestblue' ], [ 'mediumcyan', 'darkestblue' ]]
+let s:p.replace.left = [ ['white', 'brightred', 'bold'], ['white', 'gray4'] ]
+let s:p.visual.left = [ ['darkred', 'brightorange', 'bold'], ['white', 'gray4'] ]
+let s:p.normal.middle = [ [ 'gray7', 'gray2' ] ]
+let s:p.insert.middle = [ [ 'mediumcyan', 'darkestblue' ] ]
+let s:p.replace.middle = s:p.normal.middle
+let s:p.replace.right = s:p.normal.right
+let s:p.normal.error = [ [ 'gray9', 'brightestred' ] ]
+let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
 
-"local config
-if filereadable(expand('~/dotfiles/vim/vimrc.local'))
-    source ~/dotfiles/vim/vimrc.local
-endif
-
-"markdown syntax fix
-au BufRead,BufNewFile *.md set filetype=markdown
-
-" fast windows close
-inoremap <C-q> <esc>:q<cr>
-nnoremap <C-q> :q<cr>
-
-" sql
-let g:php_sql_query=1
-
-function! ClearSQLSchema()
-    execute 'g/^--\|^GRANT\|^REVOKE\|OWNER\|PRIVILEGES FOR ROLE\|^$/d'
-    execute 'g/CREATE /\n\0/'
-endfunction
-
-"trailing whitespace
-autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-"rainbow parentheses
-" au VimEnter sql,php,vim RainbowParenthesesToggle
-" au Syntax sql,php,vim RainbowParenthesesLoadRound
-" au Syntax sql,php,vim RainbowParenthesesLoadSquare
-" au Syntax sql,php,vim RainbowParenthesesLoadBraces
-
-"better selection
-nnoremap gG ggVG
-
-"select php heredoc
-vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
-
-"lightline
+let g:lightline#colorscheme#colorscheme#palette = lightline#colorscheme#fill(s:p)
+" }}}
+" Lightline: {{{
 let g:lightline = {
-    \ 'colorscheme': 'powerline',
-    \ 'active': {
-    \   'left': [ [ 'mode' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-    \   'right': [ [ 'syntastic' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
-    \ },
     \ 'component_function': {
     \   'fugitive': 'MyFugitive',
     \   'filename': 'MyFilename',
-    \   'fileformat': 'MyFileformat',
     \   'filetype': 'MyFiletype',
-    \   'fileencoding': 'MyFileencoding',
     \   'mode': 'MyMode',
-    \   'ctrlpmark': 'CtrlPMark',
     \ },
     \ 'component_expand': {
     \   'syntastic': 'SyntasticStatuslineFlag',
@@ -266,8 +282,17 @@ let g:lightline = {
     \ 'component_type': {
     \   'syntastic': 'error',
     \ },
-    \ 'separator': { 'left': '', 'right': '' },
     \ 'subseparator': { 'left': '', 'right': '' }
+    \ }
+let g:lightline.colorscheme = 'colorscheme'
+
+let g:lightline.active = {
+    \ 'left': [['filename']],
+    \ 'right': [['syntastic' ], ['filetype', 'fugitive']]
+    \ }
+let g:lightline.inactive = {
+    \ 'left': [['filename']],
+    \ 'right': [[]]
     \ }
 
 function! MyModified()
@@ -280,9 +305,9 @@ endfunction
 
 function! MyFilename()
   let fname = expand('%:t')
-  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+  return fname == 'ControlP' ? 'CtrlP  ' . g:lightline.ctrlp_item :
         \ fname == '__Tagbar__' ? g:lightline.fname :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? vimshell#get_status_string() :
@@ -294,7 +319,7 @@ endfunction
 function! MyFugitive()
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = ''  " edit here for cool mark
+      let mark = ' '  " edit here for cool mark
       let _ = fugitive#head()
       return strlen(_) ? mark._ : ''
     endif
@@ -303,39 +328,8 @@ function! MyFugitive()
   return ''
 endfunction
 
-function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
 function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! MyFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! MyMode()
-  let fname = expand('%:t')
-  return fname == '__Tagbar__' ? 'Tagbar' :
-        \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! CtrlPMark()
-  if expand('%:t') =~ 'ControlP'
-    call lightline#link('iR'[g:lightline.ctrlp_regex])
-    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-          \ , g:lightline.ctrlp_next], 0)
-  else
-    return ''
-  endif
+  return strlen(&filetype) && &filetype != 'nerdtree' ? &filetype : ''
 endfunction
 
 let g:ctrlp_status_func = {
@@ -354,23 +348,22 @@ endfunction
 function! CtrlPStatusFunc_2(str)
   return lightline#statusline(0)
 endfunction
+" }}}
+" AutoCMSs: {{{
+augroup filespecific
+    autocmd!
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+    autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
+augroup END
 
-set gcr=a:block
-
-" mode aware cursors
-set gcr+=o:hor50-Cursor
-set gcr+=n:Cursor
-set gcr+=i-ci-sm:InsertCursor
-set gcr+=r-cr:ReplaceCursor-hor20
-set gcr+=c:CommandCursor
-set gcr+=v-ve:VisualCursor
-
-set gcr+=a:blinkon0
-
-hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
-hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
-hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
-hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
-
-"gruvbox colorscheme
-let g:gruvbox_invert_selection=0
+" augroup cursorline
+"     autocmd!
+"     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"     autocmd WinLeave * setlocal nocursorline
+" augroup END
+" }}}
+" localConfig: {{{
+if filereadable(expand('~/dotfiles/vim/vimrc.local'))
+    source ~/dotfiles/vim/vimrc.local
+endif
+" }}}
