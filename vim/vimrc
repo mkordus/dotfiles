@@ -39,6 +39,8 @@ Plug 'evidens/vim-twig', { 'for': ['twig']}
 
 Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 Plug 'pangloss/vim-javascript', { 'for': ['javascript']}
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
 call plug#end()
 
 filetype plugin indent on
@@ -69,6 +71,7 @@ nmap <leader>ev :edit $MYVIMRC<CR>
 nmap <leader>ws :w !sudo tee %<CR>
 
 set number
+nnoremap <Leader>l :set nonumber!<CR>
 set ttyfast
 
 map j gj
@@ -208,7 +211,6 @@ let g:dbgPavimPort = 9000
 let g:dbgPavimBreakAtEntry = 0
 
 " tagbar
-nnoremap <leader>l :TagbarToggle<CR>
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
 
@@ -248,6 +250,10 @@ endif
 "syntastic
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
+
+" search vim-oblique
+hi! def link ObliquePrompt       None
+hi! def link ObliqueCurrentMatch Function
 " }}}
 " LightlineColorscheme: {{{
 let s:p = {'normal': {}, 'inactive': {}}
