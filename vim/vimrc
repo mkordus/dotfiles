@@ -41,6 +41,7 @@ Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 Plug 'pangloss/vim-javascript', { 'for': ['javascript']}
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -254,6 +255,10 @@ let g:syntastic_check_on_open=0
 " search vim-oblique
 hi! def link ObliquePrompt       None
 hi! def link ObliqueCurrentMatch Function
+
+" Goyo
+nnoremap <Leader>go :Goyo<CR>
+
 " }}}
 " LightlineColorscheme: {{{
 let s:p = {'normal': {}, 'inactive': {}}
