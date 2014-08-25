@@ -42,6 +42,7 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript']}
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/goyo.vim'
+Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
 call plug#end()
 
 filetype plugin indent on
@@ -258,6 +259,9 @@ hi! def link ObliqueCurrentMatch Function
 
 " Goyo
 nnoremap <Leader>go :Goyo<CR>
+
+"postgresql
+let g:sql_type_default = 'pgsql'
 
 " }}}
 " LightlineColorscheme: {{{
