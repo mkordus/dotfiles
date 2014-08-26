@@ -12,7 +12,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kien/ctrlp.vim'
 Plug 'DavidEGx/ctrlp-smarttabs'
 
-" Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 " Plug 'dhruvasagar/vim-railscasts-theme'
 Plug 'morhetz/gruvbox'
 
@@ -64,7 +64,7 @@ set encoding=utf-8
 set undolevels=1000
 set showmatch
 set showmode
-set showcmd
+set noshowcmd
 
 let g:mapleader = "\<Space>"
 inoremap jk <Esc>
@@ -184,7 +184,7 @@ inoremap <C-q> <esc>:q<cr>
 nnoremap <C-q> :q<cr>
 
 " sql
-let g:php_sql_query=1
+let g:php_sql_query=0
 
 function! ClearSQLSchema()
     execute 'g/^--\|^GRANT\|^REVOKE\|OWNER\|PRIVILEGES FOR ROLE\|^$/d'
@@ -365,11 +365,11 @@ augroup filespecific
     autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
 
-augroup cursorline
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
-augroup END
+" augroup cursorline
+"     autocmd!
+"     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"     autocmd WinLeave * setlocal nocursorline
+" augroup END
 " }}}
 " localConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
