@@ -6,6 +6,7 @@ set nocompatible
 filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
+
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 
@@ -13,13 +14,13 @@ Plug 'kien/ctrlp.vim'
 Plug 'DavidEGx/ctrlp-smarttabs'
 
 Plug 'altercation/vim-colors-solarized'
-" Plug 'dhruvasagar/vim-railscasts-theme'
 Plug 'morhetz/gruvbox'
+" Plug 'dhruvasagar/vim-railscasts-theme'
 
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround', { 'on': [] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
-Plug 'lilydjwg/colorizer', {'for': ['css']}
+" Plug 'lilydjwg/colorizer', {'for': ['css']}
 
 Plug 'itchyny/lightline.vim'
 Plug 'amiorin/vim-project'
@@ -34,15 +35,14 @@ Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'helino/vim-json', { 'for': ['json']}
-Plug 'evidens/vim-twig', { 'for': ['twig']}
+Plug 'sheerun/vim-polyglot'
+Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
+" Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 
-Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
-Plug 'pangloss/vim-javascript', { 'for': ['javascript']}
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/goyo.vim'
-Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
+
 call plug#end()
 
 filetype plugin indent on
