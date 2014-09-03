@@ -31,6 +31,7 @@ bindkey '^R' zaw-history
 
 setopt hist_ignore_all_dups
 alias tmux="TERM=screen-256color-bce tmux"
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 PATH="`ruby -rubygems -e 'puts Gem.user_dir'`/bin:$PATH"
+~/.vim/plugged/gruvbox/gruvbox_256palette.sh
