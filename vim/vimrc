@@ -40,6 +40,8 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 Plug 'junegunn/goyo.vim'
 
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 
 filetype plugin indent on
@@ -140,10 +142,10 @@ set tw=500
 set nowrap
 
 "smart way to move between windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
+" nnoremap <C-j> <C-W>j
+" nnoremap <C-k> <C-W>k
+" nnoremap <C-h> <C-W>h
+" nnoremap <C-l> <C-W>l
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
 
