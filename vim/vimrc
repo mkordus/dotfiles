@@ -191,6 +191,8 @@ nnoremap gG ggVG
 "select php heredoc
 vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
 
+set mouse=a
+
 "autocolose
 " }}}
 " PluginsSettings {{{
