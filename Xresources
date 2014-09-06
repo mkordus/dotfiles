@@ -1,0 +1,17 @@
+#include "~/gruvbox-generalized/xresources/gruvbox-dark.xresources"
+
+Xft.autohint:	0
+Xft.lcdfilter:	lcddefault
+Xft.antialias:	1
+Xft.hinting: 1
+Xft.hintstyle:	hintfull
+Xft.rgba:	rgb
+Xft.dpi:	96
+
+URxvt.letterSpace: -2
+
+URxvt.scrollBar: false
+! terminal font
+urxvt.font: xft:Liberation Mono for Powerline:size=10
+urxvt.boldFont: xft:Liberation Mono for Powerline:size=10:style=bold
+
