@@ -1,4 +1,4 @@
-#include "~/gruvbox-generalized/xresources/gruvbox-dark.xresources"
+#include "/home/gintoki/gruvbox-generalized/xresources/gruvbox-dark.xresources"
 
 Xft.autohint:	0
 Xft.lcdfilter:	lcddefault
