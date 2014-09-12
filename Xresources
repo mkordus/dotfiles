@@ -8,10 +8,10 @@ Xft.hintstyle:	hintfull
 Xft.rgba:	rgb
 Xft.dpi:	96
 
-URxvt.letterSpace: -2
+URxvt.letterSpace: -1
 
 URxvt.scrollBar: false
 ! terminal font
-urxvt.font: xft:Liberation Mono for Powerline:size=10
-urxvt.boldFont: xft:Liberation Mono for Powerline:size=10:style=bold
+urxvt.font: xft:Liberation Mono for Powerline:size=11
+urxvt.boldFont: xft:Liberation Mono for Powerline:size=11:style=bold
 

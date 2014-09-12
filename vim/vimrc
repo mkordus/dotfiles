@@ -173,6 +173,9 @@ set gcr+=a:blinkon0
 " hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
 set laststatus=2
 
+" coments
+hi Comment cterm=NONE
+
 " fast windows close
 inoremap <C-q> <esc>:q<cr>
 nnoremap <C-q> :q<cr>
