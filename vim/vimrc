@@ -9,17 +9,19 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'mileszs/ack.vim'
+Plug 'tyok/nerdtree-ack'
 
 Plug 'kien/ctrlp.vim'
-Plug 'DavidEGx/ctrlp-smarttabs'
+"Plug 'DavidEGx/ctrlp-smarttabs'
 
 Plug 'morhetz/gruvbox'
 
 Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-surround', { 'on': [] }
+" Plug 'tpope/vim-surround', { 'on': [] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
 
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'amiorin/vim-project'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
@@ -29,16 +31,20 @@ Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'honza/vim-snippets', { 'on': [] }
 Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
-Plug 'mileszs/ack.vim'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'sheerun/vim-polyglot'
-Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
+"Plug 'sheerun/vim-polyglot'
+"Plug 'tpope/vim-git'
+Plug 'othree/html5.vim'
+Plug 'tpope/vim-markdown'
+Plug 'StanAngeloff/php.vim'
+
+"Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
+Plug 'brookhong/DBGPavim', {'for': ['php']}
 " Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
-Plug 'junegunn/goyo.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -141,11 +147,6 @@ set lbr
 set tw=500
 set nowrap
 
-"smart way to move between windows
-" nnoremap <C-j> <C-W>j
-" nnoremap <C-k> <C-W>k
-" nnoremap <C-h> <C-W>h
-" nnoremap <C-l> <C-W>l
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
 
@@ -163,14 +164,9 @@ vnoremap > >gv
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-" mode aware cursors
 set gcr=a:block
 set gcr+=a:blinkon0
 
-" hi InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
-" hi VisualCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#d33682
-" hi ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#dc322f
-" hi CommandCursor ctermfg=15 guifg=#fdf6e3 ctermbg=166 guibg=#cb4b16
 set laststatus=2
 
 " coments
@@ -196,7 +192,8 @@ vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
 
 set mouse=a
 
-"autocolose
+set listchars=tab:▸\ ,eol:¬
+set list
 " }}}
 " PluginsSettings {{{
 "nerdtree
@@ -227,6 +224,7 @@ let g:UltiSnipsExpandTrigger="<S-CR>"
 "fugitive
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gvdiff<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
 
 "project
 let g:project_use_nerdtree = 1
@@ -260,102 +258,8 @@ hi! def link ObliqueCurrentMatch Function
 nnoremap <Leader>go :Goyo<CR>
 
 "postgresql
-let g:sql_type_default = 'pgsql'
+"let g:sql_type_default = 'pgsql'
 
-" }}}
-" LightlineColorscheme: {{{
-let s:p = {'normal': {}, 'inactive': {}}
-let s:p.normal.left = [ ['white', 'gray3'] ]
-let s:p.normal.right = [ ['gray5', 'gray10'], ['gray10', 'gray3'] ]
-let s:p.normal.middle = [['gray7', 'gray3']]
-let s:p.normal.error = [ [ 'gray9', 'brightestred' ] ]
-let s:p.normal.warning = [ [ 'gray1', 'yellow' ] ]
-let s:p.inactive.right = [ ['gray6', 'gray0'], ['gray6', 'gray0']]
-let s:p.inactive.left = s:p.inactive.right[1:]
-let s:p.inactive.middle = [['gray7', 'gray0']]
-
-let g:lightline#colorscheme#colorscheme#palette = lightline#colorscheme#fill(s:p)
-" }}}
-" Lightline: {{{
-let g:lightline = {
-    \ 'component_function': {
-    \   'fugitive': 'MyFugitive',
-    \   'filename': 'MyFilename',
-    \   'filetype': 'MyFiletype',
-    \   'mode': 'MyMode',
-    \ },
-    \ 'component_expand': {
-    \   'syntastic': 'SyntasticStatuslineFlag',
-    \ },
-    \ 'component_type': {
-    \   'syntastic': 'error',
-    \ },
-    \ 'subseparator': { 'left': '', 'right': '' }
-    \ }
-let g:lightline.colorscheme = 'colorscheme'
-
-let g:lightline.active = {
-    \ 'left': [['filename']],
-    \ 'right': [['syntastic' ], ['filetype', 'fugitive']]
-    \ }
-let g:lightline.inactive = {
-    \ 'left': [['filename']],
-    \ 'right': [[]]
-    \ }
-
-function! MyModified()
-  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! MyReadonly()
-  return &ft !~? 'help' && &readonly ? '' : ''
-endfunction
-
-function! MyFilename()
-  let fname = expand('%:t')
-  return fname == 'ControlP' ? 'CtrlP  ' . g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? g:lightline.fname :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ &ft == 'unite' ? unite#get_status_string() :
-        \ &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ ('' != fname ? fname : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
-
-function! MyFugitive()
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = ' '  " edit here for cool mark
-      let _ = fugitive#head()
-      return strlen(_) ? mark._ : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
-
-function! MyFiletype()
-  return strlen(&filetype) && &filetype != 'nerdtree' ? &filetype : ''
-endfunction
-
-let g:ctrlp_status_func = {
-  \ 'main': 'CtrlPStatusFunc_1',
-  \ 'prog': 'CtrlPStatusFunc_2',
-  \ }
-
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
-  let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
-  return lightline#statusline(0)
-endfunction
-
-function! CtrlPStatusFunc_2(str)
-  return lightline#statusline(0)
-endfunction
 " }}}
 " AutoCMSs: {{{
 augroup filespecific
@@ -363,12 +267,6 @@ augroup filespecific
     autocmd BufRead,BufNewFile *.md set filetype=markdown
     autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
 augroup END
-
-" augroup cursorline
-"     autocmd!
-"     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"     autocmd WinLeave * setlocal nocursorline
-" augroup END
 " }}}
 " localConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
