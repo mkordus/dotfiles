@@ -7,13 +7,13 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'scrooloose/nerdtree'
+" Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'tyok/nerdtree-ack'
 Plug 'mileszs/ack.vim'
-Plug 'tyok/nerdtree-ack'
+Plug 'tpope/vim-vinegar'
 
 Plug 'kien/ctrlp.vim'
-"Plug 'DavidEGx/ctrlp-smarttabs'
 
 Plug 'morhetz/gruvbox'
 
@@ -22,7 +22,8 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
 
 " Plug 'itchyny/lightline.vim'
-Plug 'amiorin/vim-project'
+"Plug 'amiorin/vim-project'
+Plug 'szw/vim-ctrlspace'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
@@ -33,15 +34,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 
-"Plug 'sheerun/vim-polyglot'
-"Plug 'tpope/vim-git'
+Plug 'tpope/vim-git'
 Plug 'othree/html5.vim'
 Plug 'tpope/vim-markdown'
 Plug 'StanAngeloff/php.vim'
+Plug 'beyondwords/vim-twig'
+Plug 'leshill/vim-json'
+" Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 
 "Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
 Plug 'brookhong/DBGPavim', {'for': ['php']}
-" Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
@@ -121,7 +123,7 @@ set guioptions-=r
 set guioptions-=L
 set guioptions-=m
 set guioptions-=e
-set showtabline=0
+set showtabline=1
 set guifont=Liberation\ Mono\ for\ Powerline\ 11
 set mousehide
 
@@ -199,14 +201,6 @@ set listchars=tab:▸\ ,eol:¬
 set list
 " }}}
 " PluginsSettings {{{
-"nerdtree
-nnoremap <leader>n :NERDTreeTabsToggle<CR>
-nnoremap <leader>r :NERDTreeFind<CR>
-let g:NERDTreeShowHidden=1
-let g:NERDTreeChDirMode = 2
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:NERDTreeWinSize = 30
-
 " DBGPavim
 let g:dbgPavimPort = 9000
 let g:dbgPavimBreakAtEntry = 0
@@ -228,11 +222,6 @@ let g:UltiSnipsExpandTrigger="<S-CR>"
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gvdiff<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
-
-"project
-let g:project_use_nerdtree = 1
-set rtp+=~/.vim/bundle/vim-project/
-call project#rc("~/projects")
 
 "ctrlP
 let g:ctrlp_working_path_mode = 'rw'
@@ -260,15 +249,18 @@ hi! def link ObliqueCurrentMatch Function
 " Goyo
 nnoremap <Leader>go :Goyo<CR>
 
-"postgresql
-"let g:sql_type_default = 'pgsql'
-
 " }}}
 " AutoCMSs: {{{
 augroup filespecific
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
     autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
+augroup END
+
+augroup Tmux "{{{
+    autocmd!
+    autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
+    autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
 augroup END
 " }}}
 " localConfig: {{{
