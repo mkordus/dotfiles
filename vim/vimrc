@@ -172,6 +172,9 @@ set laststatus=2
 " coments
 hi Comment cterm=NONE
 
+"visual
+hi Visual cterm=NONE ctermbg=239
+
 " fast windows close
 inoremap <C-q> <esc>:q<cr>
 nnoremap <C-q> :q<cr>
