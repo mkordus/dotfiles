@@ -149,6 +149,8 @@ set lbr
 set tw=500
 set nowrap
 
+set noruler
+
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
 
@@ -199,6 +201,8 @@ set mouse=a
 
 set listchars=tab:▸\ ,eol:¬
 set list
+
+set colorcolumn=120
 " }}}
 " PluginsSettings {{{
 " DBGPavim
@@ -244,7 +248,7 @@ let g:syntastic_check_on_open=0
 
 " search vim-oblique
 hi! def link ObliquePrompt       None
-hi! def link ObliqueCurrentMatch Function
+hi! def link ObliqueCurrentMatch Error
 
 " Goyo
 nnoremap <Leader>go :Goyo<CR>
