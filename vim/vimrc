@@ -7,9 +7,6 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'scrooloose/nerdtree'
-" Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'tyok/nerdtree-ack'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 
@@ -21,8 +18,6 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'tpope/vim-surround', { 'on': [] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
 
-" Plug 'itchyny/lightline.vim'
-"Plug 'amiorin/vim-project'
 Plug 'szw/vim-ctrlspace'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
@@ -43,12 +38,14 @@ Plug 'leshill/vim-json'
 " Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 
 "Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
-Plug 'brookhong/DBGPavim', {'for': ['php']}
+Plug 'joonty/vdebug', {'for': ['php']}
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
 Plug 'christoomey/vim-tmux-navigator'
+
+"Plug 'AndrewRadev/linediff.vim'
 
 call plug#end()
 
@@ -191,9 +188,6 @@ function! ClearSQLSchema()
     execute 'g/CREATE /\n\0/'
 endfunction
 
-"better selection
-nnoremap gG ggVG
-
 "select php heredoc
 vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
 
@@ -203,11 +197,42 @@ set listchars=tab:▸\ ,eol:¬
 set list
 
 set colorcolumn=120
+
+set foldmethod=manual
+"speed up YCM tags
+set complete-=i
 " }}}
 " PluginsSettings {{{
-" DBGPavim
-let g:dbgPavimPort = 9000
-let g:dbgPavimBreakAtEntry = 0
+" Vdebug
+let g:vdebug_keymap = {
+    \    "run" : "<F5>",
+    \    "step_over" : "<F6>",
+    \    "step_into" : "<F7>",
+    \    "step_out" : "<F8>",
+    \    "get_context" : "<F9>",
+    \    "set_breakpoint" : "<F10>",
+    \    "detach" : "<F11>",
+    \    "close" : "<F12>",
+    \    "eval_under_cursor" : "<Leader>euc",
+    \    "run_to_cursor" : "<Leader>c",
+    \    "eval_visual" : "<Leader>e",
+    \}
+let g:vdebug_options= {
+    \    "port" : 9000,
+    \    "server" : 'localhost',
+    \    "timeout" : 20,
+    \    "on_close" : 'detach',
+    \    "break_on_open" : 1,
+    \    "ide_key" : '',
+    \    "path_maps" : {},
+    \    "debug_window_level" : 0,
+    \    "debug_file_level" : 0,
+    \    "debug_file" : "",
+    \    "watch_window_style" : 'compact',
+    \    "marker_default" : '⬦',
+    \    "marker_closed_tree" : '▸',
+    \    "marker_open_tree" : '▾'
+    \}
 
 " tagbar
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
@@ -249,9 +274,6 @@ let g:syntastic_check_on_open=0
 " search vim-oblique
 hi! def link ObliquePrompt       None
 hi! def link ObliqueCurrentMatch Error
-
-" Goyo
-nnoremap <Leader>go :Goyo<CR>
 
 " }}}
 " AutoCMSs: {{{
