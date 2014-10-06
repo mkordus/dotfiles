@@ -36,6 +36,7 @@ Plug 'StanAngeloff/php.vim'
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
 " Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
+Plug 'andersoncustodio/vim-tmux'
 
 "Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
 Plug 'joonty/vdebug', {'for': ['php']}
@@ -183,11 +184,6 @@ nnoremap <C-q> :q<cr>
 " sql
 let g:php_sql_query=0
 
-function! ClearSQLSchema()
-    execute 'g/^--\|^GRANT\|^REVOKE\|OWNER\|PRIVILEGES FOR ROLE\|^$/d'
-    execute 'g/CREATE /\n\0/'
-endfunction
-
 "select php heredoc
 vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
 
@@ -220,9 +216,9 @@ let g:vdebug_keymap = {
 let g:vdebug_options= {
     \    "port" : 9000,
     \    "server" : 'localhost',
-    \    "timeout" : 20,
+    \    "timeout" : 60,
     \    "on_close" : 'detach',
-    \    "break_on_open" : 1,
+    \    "break_on_open" : 0,
     \    "ide_key" : '',
     \    "path_maps" : {},
     \    "debug_window_level" : 0,
@@ -231,7 +227,8 @@ let g:vdebug_options= {
     \    "watch_window_style" : 'compact',
     \    "marker_default" : '⬦',
     \    "marker_closed_tree" : '▸',
-    \    "marker_open_tree" : '▾'
+    \    "marker_open_tree" : '▾',
+    \    "continuous_mode" : 1
     \}
 
 " tagbar
