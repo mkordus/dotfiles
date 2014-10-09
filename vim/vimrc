@@ -192,8 +192,6 @@ set mouse=a
 set listchars=tab:▸\ ,eol:¬
 set list
 
-set colorcolumn=120
-
 set foldmethod=manual
 "speed up YCM tags
 set complete-=i
