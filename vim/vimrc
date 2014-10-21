@@ -37,6 +37,7 @@ Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
 " Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 Plug 'andersoncustodio/vim-tmux'
+Plug 'groenewege/vim-less'
 
 "Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
 Plug 'joonty/vdebug', {'for': ['php']}
@@ -197,6 +198,16 @@ set foldmethod=manual
 set complete-=i
 " }}}
 " PluginsSettings {{{
+" CtrlSpace
+if executable("ag")
+    let g:ctrlspace_glob_command = 'ag -l --nocolor --hidden -g ""'
+endif
+let g:ctrlspace_save_workspace_on_exit = 1
+let g:ctrlspace_max_search_results = -1
+let g:ctrlspace_height = 18
+let g:ctrlspace_max_height = 18
+" let g:ctrlspace_search_resonators = ['.', '/']
+let g:ctrlspace_search_resonators = []
 " Vdebug
 let g:vdebug_keymap = {
     \    "run" : "<F5>",
