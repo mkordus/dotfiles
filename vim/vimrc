@@ -187,12 +187,18 @@ vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
 
 set mouse=a
 
-set listchars=tab:▸\ ,eol:¬
-set list
+set listchars=tab:▸\
+set nolist
 
 set foldmethod=manual
 "speed up YCM tags
 set complete-=i
+"hard mode :)
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 " }}}
 " PluginsSettings {{{
 " CtrlSpace
@@ -201,8 +207,8 @@ if executable("ag")
 endif
 let g:ctrlspace_save_workspace_on_exit = 1
 let g:ctrlspace_max_search_results = -1
-let g:ctrlspace_height = 18
-let g:ctrlspace_max_height = 18
+let g:ctrlspace_height = 12
+let g:ctrlspace_max_height = 12
 let g:ctrlspace_search_resonators = ['.', '/']
 " Vdebug
 let g:vdebug_keymap = {
