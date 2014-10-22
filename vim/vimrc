@@ -10,15 +10,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'szw/vim-ctrlspace'
 
 Plug 'morhetz/gruvbox'
 
 Plug 'tomtom/tcomment_vim'
 " Plug 'tpope/vim-surround', { 'on': [] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
-
-Plug 'szw/vim-ctrlspace'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
@@ -35,11 +34,9 @@ Plug 'tpope/vim-markdown'
 Plug 'StanAngeloff/php.vim'
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
-" Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript']}
 Plug 'andersoncustodio/vim-tmux'
 Plug 'groenewege/vim-less'
 
-"Plug 'exu/pgsql.vim', {'for': ['php', 'sql']}
 Plug 'joonty/vdebug', {'for': ['php']}
 
 Plug 'junegunn/vim-pseudocl'
@@ -206,8 +203,7 @@ let g:ctrlspace_save_workspace_on_exit = 1
 let g:ctrlspace_max_search_results = -1
 let g:ctrlspace_height = 18
 let g:ctrlspace_max_height = 18
-" let g:ctrlspace_search_resonators = ['.', '/']
-let g:ctrlspace_search_resonators = []
+let g:ctrlspace_search_resonators = ['.', '/']
 " Vdebug
 let g:vdebug_keymap = {
     \    "run" : "<F5>",
@@ -266,7 +262,7 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 "ctrlP
 let g:ctrlp_working_path_mode = 'rw'
 nnoremap <Leader>b :CtrlPBuffer<CR>
-nnoremap <C-T> :CtrlPSmartTabs<CR>
+nnoremap <C-T> :FZF<CR>
 
 if executable('ag')
     let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'

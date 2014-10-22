@@ -37,3 +37,4 @@ PATH="`ruby -rubygems -e 'puts Gem.user_dir'`/bin:$PATH"
 #~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 #source ~/.rvm/scripts/rvm
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
