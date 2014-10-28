@@ -44,6 +44,7 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-scripts/listmaps.vim'
 
 "Plug 'AndrewRadev/linediff.vim'
 
@@ -254,12 +255,11 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 
-
 "ultiSnips
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-let g:UltiSnipsExpandTrigger="<S-CR>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
+let g:UltiSnipsExpandTrigger="<c-e>"
 
 "fugitive
 nnoremap <silent> <leader>gs :Gstatus<CR>
