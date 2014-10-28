@@ -1,14 +1,10 @@
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="pure"
-ZSH_TMUX_AUTOSTART=false
+# prezto config
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
-plugins=(git common-aliases symfony2 tmux web-search wd)
-
-source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 export EDITOR='vim'
-
 alias rvm="/usr/local/rvm/bin/rvm"
 alias gs="git status"
 alias gd="git diff"
@@ -18,23 +14,13 @@ alias cdp="cd ~/projects/"
 alias lg="ls -a | grep -i"
 
 #vi-mode
-# bindkey -v
-# bindkey -M viins 'jk' vi-cmd-mode
-# bindkey '^f' vi-forward-word
-
-#zaw
-source /home/gintoki/zaw/zaw.zsh
-bindkey '^R' zaw-history
-
-#ls colors
-#eval `dircolors ~/dotfiles/dircolors`
+bindkey -M viins 'jk' vi-cmd-mode
 
 setopt hist_ignore_all_dups
 alias tmux="TERM=screen-256color-bce tmux"
-# export TERM=xterm-256color
 
 PATH="`ruby -rubygems -e 'puts Gem.user_dir'`/bin:$PATH"
-#~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 #source ~/.rvm/scripts/rvm
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
