@@ -3,6 +3,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR='vim'
 alias rvm="/usr/local/rvm/bin/rvm"
