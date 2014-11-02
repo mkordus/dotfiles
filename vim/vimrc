@@ -32,6 +32,7 @@ Plug 'tpope/vim-markdown'
 Plug 'StanAngeloff/php.vim'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
+Plug 'docteurklein/vim-symfony'
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
 Plug 'andersoncustodio/vim-tmux'
@@ -283,6 +284,10 @@ hi! def link ObliqueCurrentMatch Error
 " PhpFolding.vim {{{
 let g:DisableAutoPHPFolding = 1
 nnoremap zp :EnableFastPHPFolds<Cr>
+" }}}
+" Vim-symfony {{{
+let g:symfony_enable_shell_mapping = 0
+nnoremap <leader>sf :execute ":!"g:symfony_enable_shell_cmd<CR><CR>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
