@@ -1,8 +1,6 @@
 " vi: fdm=marker
-
-" Plugins: {{{
+" Plug: {{{
 set nocompatible
-
 filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
@@ -37,6 +35,7 @@ Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
 Plug 'andersoncustodio/vim-tmux'
 Plug 'groenewege/vim-less'
+Plug 'othree/javascript-libraries-syntax.vim'
 
 Plug 'joonty/vdebug', {'for': ['php']}
 
@@ -51,8 +50,8 @@ Plug 'vim-scripts/listmaps.vim'
 call plug#end()
 
 filetype plugin indent on
-
-"lazy loading
+" }}}
+" PlugLazyLoading {{{
 augroup load_us_ycm
     autocmd!
     autocmd InsertEnter *
@@ -60,10 +59,8 @@ augroup load_us_ycm
         \| call plug#load('vim-surround')
         \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
-
 " }}}
-" Settings: {{{
-
+" VimSettings: {{{
 "main
 set encoding=utf-8
 set undolevels=1000
@@ -202,8 +199,10 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 " }}}
-" PluginsSettings {{{
-" CtrlSpace
+" JavascriptLibrariesSyntax {{{
+let g:used_javascript_libs = 'jquery,angularjs,jasmine'
+" }}}
+" CtrlSpace {{{
 if executable("ag")
     let g:ctrlspace_glob_command = 'ag -l --nocolor --hidden -g ""'
 endif
@@ -212,7 +211,8 @@ let g:ctrlspace_max_search_results = -1
 let g:ctrlspace_height = 12
 let g:ctrlspace_max_height = 12
 let g:ctrlspace_search_resonators = ['.', '/']
-" Vdebug
+" }}}
+" Vdebug {{{
 let g:vdebug_keymap = {
     \    "run" : "<F5>",
     \    "step_over" : "<F6>",
@@ -243,30 +243,30 @@ let g:vdebug_options= {
     \    "marker_open_tree" : '▾',
     \    "continuous_mode" : 1
     \}
-
-" tagbar
+" }}}
+" Tagbar {{{
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
-
-" YCM
+" }}}
+" YCM {{{
 set completeopt=menuone,longest
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
-
-"ultiSnips
+" }}}
+" UltiSnips {{{
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
 let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 let g:UltiSnipsExpandTrigger="<c-e>"
-
-"fugitive
+" }}}
+" Fugitive {{{
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gvdiff<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
-
-"ctrlP
+" }}}
+" CtrlP {{{
 let g:ctrlp_working_path_mode = 'rw'
 nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <C-T> :FZF<CR>
@@ -280,30 +280,31 @@ elseif executable('ack')
 else
     let s:ctrlp_fallback = 'find %s -type f'
 endif
-
-"syntastic
+" }}}
+" Syntastic {{{
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
-
-" search vim-oblique
+" }}}
+" Vim-oblique {{{
 hi! def link ObliquePrompt       None
 hi! def link ObliqueCurrentMatch Error
-
 " }}}
-" AutoCMSs: {{{
+" AutoCMD-fileSpecific: {{{
 augroup filespecific
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
     autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
+    autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
 augroup END
-
-augroup Tmux "{{{
+" }}}
+" AutoCMD-tmux {{{
+augroup Tmux
     autocmd!
     autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
     autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
 augroup END
 " }}}
-" localConfig: {{{
+" LocalConfig {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
