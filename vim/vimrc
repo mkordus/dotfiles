@@ -31,6 +31,7 @@ Plug 'othree/html5.vim'
 Plug 'tpope/vim-markdown'
 Plug 'StanAngeloff/php.vim'
 Plug 'shawncplus/phpcomplete.vim'
+Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
 Plug 'andersoncustodio/vim-tmux'
@@ -61,7 +62,6 @@ augroup load_us_ycm
 augroup END
 " }}}
 " VimSettings: {{{
-"main
 set encoding=utf-8
 set undolevels=1000
 set showmatch
@@ -84,21 +84,11 @@ map k gk
 set splitbelow
 set splitright
 
-nmap <leader>h :noh<CR>
-
 "command line mode
 set wildmenu
 set wildmode=longest:list,full
 set wildignorecase
 set wildignore+=*/.git/*,*/tmp/*,*/cache/*
-
-"colors
-syntax enable
-colorscheme gruvbox
-set background=dark
-if !has('gui_running')
-  set t_Co=256
-endif
 
 let loaded_matchparen = 0
 
@@ -110,17 +100,6 @@ set smarttab
 set expandtab
 set shiftwidth=4
 set tabstop=4
-set et
-
-"gVim options
-set guioptions-=T
-set guioptions-=r
-set guioptions-=L
-set guioptions-=m
-set guioptions-=e
-set showtabline=1
-set guifont=Liberation\ Mono\ for\ Powerline\ 11
-set mousehide
 
 "searching
 set ignorecase
@@ -163,16 +142,7 @@ vnoremap > >gv
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-set gcr=a:block
-set gcr+=a:blinkon0
-
 set laststatus=2
-
-" coments
-hi Comment cterm=NONE
-
-"visual
-hi Visual cterm=NONE ctermbg=239
 
 " fast windows close
 inoremap <C-q> <esc>:q<cr>
@@ -186,9 +156,7 @@ vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
 
 set mouse=a
 
-set listchars=tab:▸\
 set nolist
-
 set foldmethod=manual
 "speed up YCM tags
 set complete-=i
@@ -197,7 +165,30 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+" }}}
+" Gvim {{{
+set gcr=a:block
+set gcr+=a:blinkon0
 
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+set guioptions-=m
+set guioptions-=e
+set showtabline=1
+set guifont=Liberation\ Mono\ for\ Powerline\ 11
+set mousehide
+" }}}
+" Colorscheme {{{
+syntax enable
+colorscheme gruvbox
+set background=dark
+if !has('gui_running')
+  set t_Co=256
+endif
+
+hi Comment cterm=NONE
+hi Visual cterm=NONE ctermbg=239
 " }}}
 " JavascriptLibrariesSyntax {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
@@ -288,6 +279,10 @@ let g:syntastic_check_on_open=0
 " Vim-oblique {{{
 hi! def link ObliquePrompt       None
 hi! def link ObliqueCurrentMatch Error
+" }}}
+" PhpFolding.vim {{{
+let g:DisableAutoPHPFolding = 1
+nnoremap zp :EnableFastPHPFolds<Cr>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
