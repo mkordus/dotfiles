@@ -48,8 +48,12 @@ function precmd {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         GIT_VIEW="$(basename $(readlink -f ./$(git rev-parse --show-cdup)))"
         PATH_VIEW="$(echo ${PATH_VIEW} | sed 's/'${GIT_VIEW}'/%F{red}'${GIT_VIEW}'%f/')"
+        GIT_BRANCH="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
+        GIT_BRANCH_VIEW=" %F{cyan}(${GIT_BRANCH})%f"
+    else
+        GIT_BRANCH_VIEW=''
     fi
-    PROMPT="${NEW_LINE}%B${PATH_VIEW}%b${NEW_LINE}${INSERT_MODE} "
+    PROMPT="${NEW_LINE}%B${PATH_VIEW}%b${GIT_BRANCH_VIEW}${NEW_LINE}${INSERT_MODE} "
 }
 NEW_LINE=$'\n'
 INSERT_MODE="%B%F{red}❯%F{yellow}❯%F{green}❯%f%b"
