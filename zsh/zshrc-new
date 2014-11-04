@@ -1,0 +1,62 @@
+# auto load
+autoload -U compinit zsh-mime-setup promptinit colors
+compinit
+promptinit
+colors
+zsh-mime-setup
+
+# options
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' verbose yes
+
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=1024
+SAVEHIST=1024
+setopt append_history
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt inc_append_history
+setopt share_history
+
+# other
+unsetopt beep
+unsetopt bg_nice
+unsetopt hist_beep
+unsetopt hup
+unsetopt list_beep
+unsetopt rm_star_silent
+
+setopt list_ambiguous
+
+export EDITOR='vim'
+
+#vi-mode
+bindkey -v
+bindkey -M viins 'jk' vi-cmd-mode
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
+# prompt
+function precmd {
+    PATH_VIEW="$(pwd | sed 's/\/\([^/]\+\)/%F{magenta}\/%F{blue}\1%f/g')"
+
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        GIT_VIEW="$(basename $(readlink -f ./$(git rev-parse --show-cdup)))"
+        PATH_VIEW="$(echo ${PATH_VIEW} | sed 's/'${GIT_VIEW}'/%F{red}'${GIT_VIEW}'%f/')"
+    fi
+    PROMPT="${NEW_LINE}%B${PATH_VIEW}%b${NEW_LINE}${INSERT_MODE} "
+}
+NEW_LINE=$'\n'
+INSERT_MODE="%B%F{red}❯%F{yellow}❯%F{green}❯%f%b"
+NORMAL_MODE="%B%F{green}❮%F{yellow}❮%F{red}❮%f%b"
+
+alias tmux="TERM=screen-256color-bce tmux"
+alias ls='ls --color=auto'
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
