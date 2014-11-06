@@ -12,6 +12,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'szw/vim-ctrlspace'
 
 Plug 'morhetz/gruvbox'
+Plug 'jnurmine/Zenburn'
 
 Plug 'tomtom/tcomment_vim'
 " Plug 'tpope/vim-surround', { 'on': [] }
