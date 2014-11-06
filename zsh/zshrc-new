@@ -62,5 +62,32 @@ NORMAL_MODE="%B%F{green}❮%F{yellow}❮%F{red}❮%f%b"
 alias tmux="TERM=screen-256color-bce tmux"
 alias ls='ls --color=auto'
 
+DIRSTACKSIZE=50
+setopt auto_pushd # Make cd push the old directory onto the directory stack.
+setopt pushd_ignore_dups # Ignore duplicates at the directory stack.
+setopt pushd_minus # makes the whole pushd list easier to use from 'cd'
+setopt pushd_silent # dont talk on start
+
+function cdp {
+    cd $(dirs -pl | tac | fzf)
+}
+
+function loadDirstack {
+    local DIRSTACK_PATH="$(cd; pwd)/.dirstack"
+    if [[ -a "$DIRSTACK_PATH" ]]; then
+        local CURRENT_PATH="$(pwd)"
+
+        for i in $(cat "$DIRSTACK_PATH"); do 
+            pushd $i; 
+        done
+
+        cd $CURRENT_PATH
+    fi
+}
+
+loadDirstack
+
+
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
