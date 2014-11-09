@@ -1,29 +1,68 @@
-# prezto config
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+# auto load
+autoload -U compinit zsh-mime-setup promptinit colors
+compinit
+promptinit
+colors
+zsh-mime-setup
 
+# options
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' verbose yes
+
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=1024
+SAVEHIST=1024
+setopt append_history
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt inc_append_history
+setopt share_history
+
+# other
+unsetopt beep
+unsetopt bg_nice
+unsetopt hist_beep
+unsetopt hup
+unsetopt list_beep
+unsetopt rm_star_silent
+
+setopt list_ambiguous
+
+export EDITOR='vim'
+
+#vi-mode
+bindkey -v
+bindkey -M viins 'jk' vi-cmd-mode
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export EDITOR='vim'
-alias rvm="/usr/local/rvm/bin/rvm"
-alias gs="git status"
-alias gd="git diff"
-alias gds="git diff --staged"
-alias v="vim"
-alias cdp="cd ~/projects/"
-alias lg="ls -a | grep -i"
+# prompt
+setopt promptsubst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' stagedstr "%F{yellow}"
+zstyle ':vcs_info:*' unstagedstr "%F{white}"
+zstyle ':vcs_info:*' formats ' %F{cyan}%u(%c%b%F{cyan}%u)'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' enable git
 
-#vi-mode
-bindkey -M viins 'jk' vi-cmd-mode
+DEFAULT_USERNAME="gintoki"
 
-setopt hist_ignore_all_dups
+function precmd {
+    vcs_info
+
+    PROMPT="${NEW_LINE}%B%F{blue}${(%):-%~}%f%b${vcs_info_msg_0_}${NEW_LINE}${INSERT_MODE} "
+}
+NEW_LINE=$'\n'
+INSERT_MODE="%B%F{red}❯%F{yellow}❯%F{green}❯%f%b"
+NORMAL_MODE="%B%F{green}❮%F{yellow}❮%F{red}❮%f%b"
+
 alias tmux="TERM=screen-256color-bce tmux"
+alias ls='ls --color=auto'
 
-PATH="`ruby -rubygems -e 'puts Gem.user_dir'`/bin:$PATH"
-~/.vim/plugged/gruvbox/gruvbox_256palette.sh
-#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-#source ~/.rvm/scripts/rvm
+# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

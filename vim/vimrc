@@ -183,14 +183,8 @@ set mousehide
 " }}}
 " Colorscheme {{{
 syntax enable
-colorscheme gruvbox
-set background=dark
-if !has('gui_running')
-  set t_Co=256
-endif
-
-hi Comment cterm=NONE
-hi Visual cterm=NONE ctermbg=239
+" let g:zenburn_high_Contrast=1
+colorscheme zenburn
 " }}}
 " JavascriptLibrariesSyntax {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
