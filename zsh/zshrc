@@ -41,25 +41,7 @@ bindkey -M viins 'jk' vi-cmd-mode
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
-# prompt
-setopt promptsubst
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' stagedstr "%F{yellow}"
-zstyle ':vcs_info:*' unstagedstr "%F{white}"
-zstyle ':vcs_info:*' formats ' %F{cyan}%u(%c%b%F{cyan}%u)'
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' enable git
-
-DEFAULT_USERNAME="gintoki"
-
-function precmd {
-    vcs_info
-
-    PROMPT="${NEW_LINE}%B%F{blue}${(%):-%~}%f%b${vcs_info_msg_0_}${NEW_LINE}${INSERT_MODE} "
-}
-NEW_LINE=$'\n'
-INSERT_MODE="%B%F{red}❯%F{yellow}❯%F{green}❯%f%b"
-NORMAL_MODE="%B%F{green}❮%F{yellow}❮%F{red}❮%f%b"
+source ~/dotfiles/zsh/prompt.zsh
 
 alias tmux="TERM=screen-256color-bce tmux"
 alias ls='ls --color=auto'
