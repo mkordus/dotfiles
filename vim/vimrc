@@ -15,8 +15,6 @@ Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 
 Plug 'tomtom/tcomment_vim'
-" Plug 'tpope/vim-surround', { 'on': [] }
-" Plug 'kien/rainbow_parentheses.vim', { 'for': ['php', 'sql']}
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
@@ -33,7 +31,7 @@ Plug 'tpope/vim-markdown'
 Plug 'StanAngeloff/php.vim'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
-Plug 'docteurklein/vim-symfony'
+
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json'
 Plug 'andersoncustodio/vim-tmux'
@@ -47,8 +45,7 @@ Plug 'junegunn/vim-oblique'
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/listmaps.vim'
-
-"Plug 'AndrewRadev/linediff.vim'
+Plug 'Lokaltog/vim-easymotion'
 
 call plug#end()
 
@@ -59,7 +56,6 @@ augroup load_us_ycm
     autocmd!
     autocmd InsertEnter *
         \ call plug#load('ultisnips', 'vim-snippets', 'YouCompleteMe')
-        \| call plug#load('vim-surround')
         \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
 " }}}
@@ -280,9 +276,37 @@ hi! def link ObliqueCurrentMatch Error
 let g:DisableAutoPHPFolding = 1
 nnoremap zp :EnableFastPHPFolds<Cr>
 " }}}
-" Vim-symfony {{{
-let g:symfony_enable_shell_mapping = 0
-nnoremap <leader>sf :execute ":!"g:symfony_enable_shell_cmd<CR><CR>
+" Easy-motion {{{
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+" }}}
+" Ranger {{{
+function! RangeChooser()
+    let temp = tempname()
+    exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    if !filereadable(temp)
+        redraw!
+        " Nothing to read.
+        return
+    endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        " Nothing to open.
+        return
+    endif
+    " Edit the first item.
+    exec 'edit ' . fnameescape(names[0])
+    " Add any remaning items to the arg list/buffer list.
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
+    redraw!
+endfunction
+command! -bar RangerChooser call RangeChooser()
+nnoremap <leader>r :<C-U>RangerChooser<CR>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
