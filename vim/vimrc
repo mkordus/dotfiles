@@ -7,46 +7,50 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'szw/vim-ctrlspace'
-
-Plug 'morhetz/gruvbox'
-Plug 'jnurmine/Zenburn'
 
 Plug 'tomtom/tcomment_vim'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
-Plug 'Valloric/YouCompleteMe', { 'on': [] }
+Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'honza/vim-snippets', { 'on': [] }
-Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
-
-Plug 'tpope/vim-git'
-Plug 'othree/html5.vim'
-Plug 'tpope/vim-markdown'
-Plug 'StanAngeloff/php.vim'
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
-
-Plug 'beyondwords/vim-twig'
-Plug 'leshill/vim-json'
-Plug 'andersoncustodio/vim-tmux'
-Plug 'groenewege/vim-less'
-Plug 'othree/javascript-libraries-syntax.vim'
-
 Plug 'joonty/vdebug', {'for': ['php']}
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'vim-scripts/listmaps.vim'
 Plug 'Lokaltog/vim-easymotion'
 
+Plug 'tpope/vim-eunuch'
+" colorschemes {{{
+Plug 'morhetz/gruvbox'
+Plug 'jnurmine/Zenburn'
+" }}}
+" git {{{
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
+" }}}
+" languages {{{
+Plug 'othree/html5.vim'
+Plug 'tpope/vim-markdown'
+Plug 'StanAngeloff/php.vim', { 'for': ['php']}
+Plug 'shawncplus/phpcomplete.vim', { 'for': ['php']}
+Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
+Plug 'beyondwords/vim-twig'
+Plug 'leshill/vim-json'
+Plug 'andersoncustodio/vim-tmux'
+Plug 'groenewege/vim-less'
+Plug 'othree/javascript-libraries-syntax.vim'
+" }}}
+" other {{{
+Plug 'vim-scripts/listmaps.vim'
+" }}}
 call plug#end()
 
 filetype plugin indent on
@@ -54,15 +58,13 @@ filetype plugin indent on
 " PlugLazyLoading {{{
 augroup load_us_ycm
     autocmd!
-    autocmd InsertEnter *
-        \ call plug#load('ultisnips', 'vim-snippets', 'YouCompleteMe')
-        \| call youcompleteme#Enable() | autocmd! load_us_ycm
+    autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
 augroup END
 " }}}
 " VimSettings: {{{
 set encoding=utf-8
 set undolevels=1000
-set showmatch
+set noshowmatch
 set showmode
 set noshowcmd
 
@@ -156,14 +158,14 @@ set mouse=a
 
 set nolist
 set foldmethod=manual
-"speed up YCM tags
-set complete-=i
+set completeopt=longest,menuone
 "hard mode :)
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-map ; :
+nnoremap <C-w>, 8<C-w><
+nnoremap <C-w>. 8<C-w>>
 " }}}
 " Gvim {{{
 set gcr=a:block
@@ -232,18 +234,11 @@ let g:vdebug_options= {
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
 " }}}
-" YCM {{{
-set completeopt=menuone,longest
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-" }}}
 " UltiSnips {{{
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
-let g:UltiSnipsJumpForwardTrigger="<c-f>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
-let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsExpandTrigger="<C-@>"
+let g:UltiSnipsJumpForwardTrigger="<C-@>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 " }}}
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -308,6 +303,9 @@ function! RangeChooser()
 endfunction
 command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
+" }}}
+" supertab {{{
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
