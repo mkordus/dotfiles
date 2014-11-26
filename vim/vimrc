@@ -75,6 +75,7 @@ nmap <leader>ev :edit $MYVIMRC<CR>
 nmap <leader>ws :w !sudo tee %<CR>
 
 set number
+set cpoptions+=n
 nnoremap <Leader>l :set nonumber!<CR>
 set ttyfast
 
