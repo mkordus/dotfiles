@@ -249,7 +249,7 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 " CtrlP {{{
 let g:ctrlp_working_path_mode = 'rw'
 nnoremap <Leader>b :CtrlPBuffer<CR>
-nnoremap <C-T> :FZF<CR>
+nnoremap <C-T> :FZF!<CR>
 
 if executable('ag')
     let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
