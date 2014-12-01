@@ -230,6 +230,11 @@ let g:vdebug_options= {
     \    "marker_open_tree" : '▾',
     \    "continuous_mode" : 1
     \}
+let g:vdebug_features = {
+    \    'max_depth' : 2048,
+    \    'max_children' : 128,
+    \    'max_data' : 20000
+    \}
 " }}}
 " Tagbar {{{
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
