@@ -167,6 +167,8 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 nnoremap <C-w>, 8<C-w><
 nnoremap <C-w>. 8<C-w>>
+
+set wildignorecase
 " }}}
 " Gvim {{{
 set gcr=a:block
