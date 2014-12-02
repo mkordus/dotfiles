@@ -5,6 +5,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'yegappan/mru'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
@@ -255,8 +256,6 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 " }}}
 " CtrlP {{{
 let g:ctrlp_working_path_mode = 'rw'
-nnoremap <Leader>b :CtrlPBuffer<CR>
-nnoremap <C-T> :FZF!<CR>
 
 if executable('ag')
     let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
@@ -314,6 +313,9 @@ nnoremap <leader>r :<C-U>RangerChooser<CR>
 " }}}
 " supertab {{{
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+" }}}
+" FZF: {{{
+nnoremap <C-T> :FZF!<CR>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
