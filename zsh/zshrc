@@ -46,6 +46,7 @@ source ~/dotfiles/zsh/prompt.zsh
 alias tmux="TERM=screen-256color-bce tmux"
 alias ls='ls --color=auto'
 alias gs='git status --short'
+alias gd='git diff'
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

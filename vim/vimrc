@@ -5,6 +5,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'dart-lang/dart-vim-plugin'
 Plug 'yegappan/mru'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
@@ -15,7 +16,7 @@ Plug 'tomtom/tcomment_vim'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
-Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'honza/vim-snippets', { 'on': [] }
 Plug 'majutsushi/tagbar'
@@ -245,8 +246,8 @@ let g:tagbar_width = 45
 " }}}
 " UltiSnips {{{
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
-let g:UltiSnipsExpandTrigger="<C-@>"
-let g:UltiSnipsJumpForwardTrigger="<C-@>"
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 " }}}
 " Fugitive {{{
@@ -311,8 +312,13 @@ endfunction
 command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
 " }}}
-" supertab {{{
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+" YouCompleteMe {{{
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_filetype_specific_completion_to_disable = {'php': 1}
 " }}}
 " FZF: {{{
 nnoremap <C-T> :FZF!<CR>
