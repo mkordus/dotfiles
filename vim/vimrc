@@ -5,6 +5,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'godlygeek/tabular'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'yegappan/mru'
 Plug 'mileszs/ack.vim'
