@@ -6,7 +6,6 @@ filetype off "required by plugin manager
 call plug#begin('~/.vim/plugged')
 
 Plug 'godlygeek/tabular'
-Plug 'dart-lang/dart-vim-plugin'
 Plug 'yegappan/mru'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
@@ -23,14 +22,15 @@ Plug 'honza/vim-snippets', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joonty/vdebug', {'for': ['php']}
-
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
+Plug 'mattn/webapi-vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'vim-scripts/YankRing.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Lokaltog/vim-easymotion'
 
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
 Plug 'jimsei/winresizer'
 " colorschemes {{{
 Plug 'morhetz/gruvbox'
@@ -50,6 +50,7 @@ Plug 'leshill/vim-json'
 Plug 'andersoncustodio/vim-tmux'
 Plug 'groenewege/vim-less'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'dart-lang/dart-vim-plugin'
 " }}}
 " other {{{
 Plug 'vim-scripts/listmaps.vim'
@@ -148,10 +149,6 @@ set clipboard=unnamedplus
 
 set laststatus=2
 
-" fast windows close
-inoremap <C-q> <esc>:q<cr>
-nnoremap <C-q> :q<cr>
-
 " sql
 let g:php_sql_query=0
 
@@ -172,6 +169,8 @@ nnoremap <C-w>, 8<C-w><
 nnoremap <C-w>. 8<C-w>>
 
 set wildignorecase
+
+let php_minlines=1000
 " }}}
 " Gvim {{{
 set gcr=a:block
@@ -256,26 +255,9 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gvdiff<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 " }}}
-" CtrlP {{{
-let g:ctrlp_working_path_mode = 'rw'
-
-if executable('ag')
-    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-elseif executable('ack-grep')
-    let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-elseif executable('ack')
-    let s:ctrlp_fallback = 'ack %s --nocolor -f'
-else
-    let s:ctrlp_fallback = 'find %s -type f'
-endif
-" }}}
 " Syntastic {{{
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
-" }}}
-" Vim-oblique {{{
-hi! def link ObliquePrompt       None
-hi! def link ObliqueCurrentMatch Error
 " }}}
 " PhpFolding.vim {{{
 let g:DisableAutoPHPFolding = 1
@@ -320,6 +302,7 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_filetype_specific_completion_to_disable = {'php': 1}
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 " }}}
 " FZF: {{{
 nnoremap <C-T> :FZF!<CR>
@@ -331,13 +314,6 @@ augroup filespecific
     autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
 augroup END
-" }}}
-" AutoCMD-tmux {{{
-" augroup Tmux
-"     autocmd!
-"     autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
-"     autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
-" augroup END
 " }}}
 " LocalConfig {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
