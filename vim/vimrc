@@ -16,9 +16,8 @@ Plug 'tomtom/tcomment_vim'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'honza/vim-snippets', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joonty/vdebug', {'for': ['php']}
@@ -62,7 +61,9 @@ filetype plugin indent on
 " PlugLazyLoading {{{
 augroup load_us_ycm
     autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips', 'vim-snippets')
+    autocmd InsertEnter *
+        \ call plug#load('ultisnips', 'YouCompleteMe')
+        \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
 " }}}
 " VimSettings: {{{
@@ -245,10 +246,10 @@ nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
 " }}}
 " UltiSnips {{{
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
+let g:UltiSnipsEditSplit = "vertical"
 " }}}
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -296,13 +297,15 @@ command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
 " }}}
 " YouCompleteMe {{{
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_filetype_specific_completion_to_disable = {'php': 1}
 let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_use_ultisnips_completer = 1
 " }}}
 " FZF: {{{
 nnoremap <C-T> :FZF!<CR>
