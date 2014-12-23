@@ -295,6 +295,16 @@ snippet ve "Dumb debug helper in HTML"
     echo '<pre>' . var_export($1, 1) . '</pre>';$0
 endsnippet
 
+snippet vd "Dumb debug helper"
+#var_dump
+ini_set('xdebug.var_display_max_depth', 15);
+ini_set('xdebug.var_display_max_children', 1024);
+ini_set('xdebug.var_display_max_data', 4086);
+var_dump($$1);
+#var_dump
+$0
+endsnippet
+
 snippet pc "Dumb debug helper in cli"
 var_export($1);$0
 endsnippet
