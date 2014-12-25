@@ -1,6 +1,6 @@
 URxvt.foreground: #dcdccc
  
-URxvt.depth: 32
+! URxvt.depth: 32
 URxvt*background: #3f3f3f
  
 URxvt.saveLines:32767
@@ -36,3 +36,10 @@ URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
 URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
 
 URxvt*iso14755: false
+
+URxvt.perl-ext-common: ...,keyboard-select,clipboard
+URxvt.keysym.M-y: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+
+URxvt.keysym.M-p:   perl:clipboard:paste
+URxvt.clipboard.autocopy: true

@@ -22,7 +22,6 @@ Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joonty/vdebug', {'for': ['php']}
 Plug 'mattn/webapi-vim'
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'vim-scripts/YankRing.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
@@ -50,6 +49,7 @@ Plug 'andersoncustodio/vim-tmux'
 Plug 'groenewege/vim-less'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'octol/vim-cpp-enhanced-highlight'
 " }}}
 " other {{{
 Plug 'vim-scripts/listmaps.vim'

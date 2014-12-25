@@ -146,4 +146,4 @@ exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
 #  Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
 bindsym $mod+x move workspace to output right
-bindsym $mod+p exec "xdotool getactivewindow getwindowname | grep -iqE 'VIM' && xvkbd -xsendevent -text '\Cwh' || i3 'focus left'"
+# bindsym $mod+p exec "xdotool getactivewindow getwindowname | grep -iqE 'VIM' && xvkbd -xsendevent -text '\Cwh' || i3 'focus left'"
