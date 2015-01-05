@@ -20,7 +20,6 @@ Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
-Plug 'joonty/vdebug', {'for': ['php']}
 Plug 'mattn/webapi-vim'
 Plug 'vim-scripts/YankRing.vim'
 
@@ -33,6 +32,7 @@ Plug 'jimsei/winresizer'
 " colorschemes {{{
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
 " }}}
 " git {{{
 Plug 'tpope/vim-git'
@@ -74,14 +74,12 @@ set showmode
 set noshowcmd
 
 let g:mapleader = "\<Space>"
-inoremap jk <Esc>
-inoremap kj <Esc>
 nmap <leader>ev :edit $MYVIMRC<CR>
 nmap <leader>ws :w !sudo tee %<CR>
 
 set number
 set cpoptions+=n
-nnoremap <Leader>l :set nonumber!<CR>
+nnoremap <Leader>n :set nonumber!<CR>
 set ttyfast
 
 map j gj
@@ -131,11 +129,9 @@ set nowrap
 
 set noruler
 
-nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>s <C-w>s
-
 "speed up scrolling
-set scrolljump=8
+" set scrolljump=8
+set scrolloff=10
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 5<C-e>
@@ -153,21 +149,17 @@ set laststatus=2
 " sql
 let g:php_sql_query=0
 
-"select php heredoc
-vnoremap ih <ESC>?<<<<CR>jV/SQL;<CR>k
-
 set mouse=a
 
 set nolist
 set foldmethod=manual
 set completeopt=longest,menuone
+
 "hard mode :)
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-nnoremap <C-w>, 8<C-w><
-nnoremap <C-w>. 8<C-w>>
 
 set wildignorecase
 
@@ -203,43 +195,6 @@ let g:ctrlspace_max_search_results = -1
 let g:ctrlspace_height = 12
 let g:ctrlspace_max_height = 12
 let g:ctrlspace_search_resonators = ['.', '/']
-" }}}
-" Vdebug {{{
-let g:vdebug_keymap = {
-    \    "run" : "<F5>",
-    \    "step_over" : "<F6>",
-    \    "step_into" : "<F7>",
-    \    "step_out" : "<F8>",
-    \    "get_context" : "<F9>",
-    \    "set_breakpoint" : "<F10>",
-    \    "detach" : "<F11>",
-    \    "close" : "<F12>",
-    \    "eval_under_cursor" : "<Leader>euc",
-    \    "run_to_cursor" : "<Leader>c",
-    \    "eval_visual" : "<Leader>e",
-    \}
-let g:vdebug_options= {
-    \    "port" : 9000,
-    \    "server" : 'localhost',
-    \    "timeout" : 60,
-    \    "on_close" : 'detach',
-    \    "break_on_open" : 0,
-    \    "ide_key" : '',
-    \    "path_maps" : {},
-    \    "debug_window_level" : 0,
-    \    "debug_file_level" : 0,
-    \    "debug_file" : "",
-    \    "watch_window_style" : 'compact',
-    \    "marker_default" : '⬦',
-    \    "marker_closed_tree" : '▸',
-    \    "marker_open_tree" : '▾',
-    \    "continuous_mode" : 1
-    \}
-let g:vdebug_features = {
-    \    'max_depth' : 2048,
-    \    'max_children' : 128,
-    \    'max_data' : 20000
-    \}
 " }}}
 " Tagbar {{{
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
@@ -308,7 +263,10 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
 " }}}
 " FZF: {{{
-nnoremap <C-T> :FZF!<CR>
+nnoremap <Leader>f :FZF!<CR>
+" }}}
+" WinResizer: {{{
+let g:winresizer_start_key = '<Leader>wr'
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
