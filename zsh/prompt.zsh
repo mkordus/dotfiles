@@ -27,16 +27,14 @@ function git_prompt_info {
   fi
 
   if [[ -n $ref ]]; then
-    echo "%{$fg_bold[green]%} ${ref#refs/heads/}%{$reset_color%}$gitstatus$pairname"
+    echo "%F{green} ${ref#refs/heads/}%{$reset_color%}$gitstatus$pairname"
   fi
 }
 
 NEW_LINE=$'\n'
-INSERT_MODE="%B%F{red}❯%F{yellow}❯%F{green}❯%f%b"
-NORMAL_MODE="%B%F{green}❮%F{yellow}❮%F{red}❮%f%b"
 
-vim_ins_mode="%B%F{red}❯%F{yellow}❯%F{green}❯%f%b"
-vim_cmd_mode="%B%F{green}❮%F{yellow}❮%F{red}❮%f%b"
+vim_ins_mode="%F{red}❯%F{yellow}❯%F{green}❯%f"
+vim_cmd_mode="%F{green}❮%F{yellow}❮%F{red}❮%f"
 vim_mode=$vim_ins_mode
 
 function zle-keymap-select {
@@ -55,5 +53,5 @@ function TRAPINT() {
   return $(( 128 + $1 ))
 }
 
-PROMPT='${NEW_LINE}%{$fg_bold[blue]%}%~%{$reset_color%}%<<$(git_prompt_info)${NEW_LINE}${vim_mode}%{${reset_color}%} '
+PROMPT='${NEW_LINE}%F{blue}%~%{$reset_color%}%<<$(git_prompt_info)${NEW_LINE}${vim_mode}%{${reset_color}%} '
 
