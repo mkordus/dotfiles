@@ -8,10 +8,12 @@ URxvt.letterSpace: -2
 URxvt.saveLines:32767
 URxvt.scrollBar: false
 URxvt*iso14755: false
+
 URxvt.perl-ext-common: ...,keyboard-select,clipboard
+
 URxvt.keysym.M-y: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
-URxvt.keysym.M-p:   perl:clipboard:paste
+URxvt.keysym.M-p: perl:clipboard:paste
 URxvt.clipboard.autocopy: true
 
 URxvt*font: xft:Liberation Mono:pixelsize=15
@@ -65,8 +67,8 @@ URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=15
 
 *background:              S_base03
 *foreground:              S_base0
-*fading:                  40
-*fadeColor:               S_base03
+! *fading:                  40
+! *fadeColor:               S_base03
 *cursorColor:             S_base1
 *pointerColorBackground:  S_base01
 *pointerColorForeground:  S_base1
