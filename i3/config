@@ -50,10 +50,10 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-# bindsym $mod+h split h
+bindsym $mod+v split h
 
 # split in vertical orientation
-# bindsym $mod+v split v
+bindsym $mod+c split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+m fullscreen
@@ -147,3 +147,6 @@ exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
 # (effectively toggles when you only have two outputs)
 bindsym $mod+x move workspace to output right
 # bindsym $mod+p exec "xdotool getactivewindow getwindowname | grep -iqE 'VIM' && xvkbd -xsendevent -text '\Cwh' || i3 'focus left'"
+# for_window [class="[.]*"] border none #1pixel
+bindsym $mod+equal exec amixer -q set Master 1dB+ unmute
+bindsym $mod+minus exec amixer -q set Master 1dB- unmute
