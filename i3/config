@@ -142,6 +142,7 @@ exec --no-startup-id gnome-settings-daemon
 exec --on-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
 exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
+exec --no-startup-id xcape -e '#66=Escape'
 
 #  Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
