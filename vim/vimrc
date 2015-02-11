@@ -21,21 +21,20 @@ Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/webapi-vim'
-Plug 'vim-scripts/YankRing.vim'
+" Plug 'vim-scripts/YankRing.vim'
 
-Plug 'Lokaltog/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 
-Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jimsei/winresizer'
 
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
-Plug 'kshenoy/vim-signature'
-
-Plug 'airblade/vim-gitgutter'
+" Plug 'kshenoy/vim-signature'
+" Plug 'airblade/vim-gitgutter'
 " colorschemes {{{
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
@@ -101,7 +100,8 @@ set splitright
 
 "command line mode
 set wildmenu
-set wildmode=longest:list,full
+" set wildmode=longest:list,full
+set wildmode=longest,list
 set wildignorecase
 set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 
@@ -142,7 +142,7 @@ set noruler
 
 "speed up scrolling
 " set scrolljump=8
-set scrolloff=10
+set scrolloff=6
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 5<C-e>
@@ -194,7 +194,7 @@ syntax enable
 " let g:zenburn_high_Contrast=1
 " colorscheme zenburn
 set bg=dark
-let g:solarized_contrast="low"
+" let g:solarized_contrast="low"
 colorscheme solarized
 highlight clear SignColumn
 " }}}
@@ -223,7 +223,8 @@ let g:UltiSnipsEditSplit = "vertical"
 " }}}
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gvdiff<CR>
+nnoremap <silent> <leader>gvd :Gvdiff<CR>
+nnoremap <silent> <leader>gd :Git! diff<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 " }}}
 " Syntastic {{{
@@ -233,12 +234,6 @@ let g:syntastic_check_on_open=0
 " PhpFolding.vim {{{
 let g:DisableAutoPHPFolding = 1
 nnoremap zp :EnableFastPHPFolds<Cr>
-" }}}
-" Easy-motion {{{
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
 " }}}
 " Ranger {{{
 function! RangeChooser()
@@ -313,5 +308,26 @@ autocmd User ObliqueRepeat normal! zz
 
 let g:oblique#incsearch_highlight_all=1
 
-nnoremap <leader>gg :GitGutterToggle<CR>
 let g:gitgutter_enabled = 0
+set virtualedit=block
+
+:nnoremap <Esc>P P'[v']=
+:nnoremap <Esc>p p'[v']=
+
+"replace 'f' with 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+
+set cursorline
+set cursorcolumn
