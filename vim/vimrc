@@ -80,7 +80,17 @@ set noshowcmd
 
 let g:mapleader = "\<Space>"
 nmap <leader>ev :edit $MYVIMRC<CR>
-nmap <leader>ws :w !sudo tee %<CR>
+nmap <leader>es :w !sudo tee %<CR>
+nmap <leader>ew :w<CR>
+
+nmap <leader>ws <c-w>s
+nmap <leader>wv <c-w>v
+nmap <leader>wH <c-w>H
+nmap <leader>wJ <c-w>J
+nmap <leader>wK <c-w>K
+nmap <leader>wL <c-w>L
+
+nmap <c-d> <c-w>c
 
 set number
 " set cpoptions+=n
@@ -100,7 +110,6 @@ set splitright
 
 "command line mode
 set wildmenu
-" set wildmode=longest:list,full
 set wildmode=longest,list
 set wildignorecase
 set wildignore+=*/.git/*,*/tmp/*,*/cache/*
@@ -329,5 +338,4 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-set cursorline
-set cursorcolumn
+nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>

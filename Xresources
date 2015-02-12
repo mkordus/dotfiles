@@ -16,8 +16,8 @@ URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-p: perl:clipboard:paste
 URxvt.clipboard.autocopy: true
 
-URxvt*font: xft:Liberation Mono:pixelsize=15
-URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=15
+URxvt*font: xft:Liberation Mono:pixelsize=16
+URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=16
 
 ! Solarized color scheme for the X Window System
 !
