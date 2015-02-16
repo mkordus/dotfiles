@@ -9,7 +9,7 @@ Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'saks/gpicker.vim'
+" Plug 'saks/gpicker.vim'
 Plug 'szw/vim-ctrlspace'
 
 Plug 'tomtom/tcomment_vim'
@@ -22,6 +22,9 @@ Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/webapi-vim'
 " Plug 'vim-scripts/YankRing.vim'
+
+Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/goyo.vim'
 
 Plug 'justinmk/vim-sneak'
 
@@ -39,6 +42,7 @@ Plug 'junegunn/vim-oblique'
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/seoul256.vim'
 " }}}
 " git {{{
 Plug 'tpope/vim-git'
@@ -281,11 +285,11 @@ let g:ycm_use_ultisnips_completer = 1
 " }}}
 " File Picker: {{{
 " if has("gui_running")
-if exists('$WINDOWID')
-    nnoremap <Leader>f :GPickFile<CR>
-else
+" if exists('$WINDOWID')
+"     nnoremap <Leader>f :GPickFile<CR>
+" else
     nnoremap <Leader>f :FZF!<CR>
-endif
+" endif
 " }}}
 " WinResizer: {{{
 let g:winresizer_start_key = '<Leader>wr'
@@ -320,8 +324,8 @@ let g:oblique#incsearch_highlight_all=1
 let g:gitgutter_enabled = 0
 set virtualedit=block
 
-:nnoremap <Esc>P P'[v']=
-:nnoremap <Esc>p p'[v']=
+nnoremap <Esc>P P'[v']=
+nnoremap <Esc>p p'[v']=
 
 "replace 'f' with 1-char Sneak
 nmap f <Plug>Sneak_f
@@ -339,3 +343,5 @@ omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
 nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
+
+nnoremap <leader><leader> :Goyo<CR>
