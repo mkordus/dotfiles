@@ -51,7 +51,7 @@ Plug 'tpope/vim-fugitive'
 " languages {{{
 Plug 'othree/html5.vim', {'for': ['html']}
 Plug 'tpope/vim-markdown'
-Plug 'StanAngeloff/php.vim', { 'for': ['php']}
+" Plug 'StanAngeloff/php.vim', { 'for': ['php']}
 Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
