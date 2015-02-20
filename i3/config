@@ -104,7 +104,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -138,16 +139,23 @@ bar {
         status_command i3status
 }
 
-exec --no-startup-id gnome-settings-daemon
+# exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --on-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
 exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
 exec --no-startup-id xcape -e '#66=Escape'
+exec --no-startup-id xset r rate 200 25
 
 #  Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
 bindsym $mod+x move workspace to output right
 # bindsym $mod+p exec "xdotool getactivewindow getwindowname | grep -iqE 'VIM' && xvkbd -xsendevent -text '\Cwh' || i3 'focus left'"
-# for_window [class="[.]*"] border none #1pixel
+for_window [class="[.]*"] border 1pixel
 bindsym $mod+equal exec amixer -q set Master 1dB+ unmute
 bindsym $mod+minus exec amixer -q set Master 1dB- unmute
+
+focus_follows_mouse no
+# mouse_warping none
+
+bindsym $mod+b bar mode toggle

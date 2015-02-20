@@ -22,6 +22,7 @@ Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/webapi-vim'
 " Plug 'vim-scripts/YankRing.vim'
+Plug 'shawncplus/phpcomplete.vim'
 
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/goyo.vim'
@@ -208,7 +209,7 @@ syntax enable
 " colorscheme zenburn
 set bg=dark
 " let g:solarized_contrast="low"
-colorscheme solarized
+colorscheme seoul256
 highlight clear SignColumn
 " }}}
 " JavascriptLibrariesSyntax {{{
