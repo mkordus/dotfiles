@@ -12,6 +12,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Plug 'saks/gpicker.vim'
 Plug 'szw/vim-ctrlspace'
 
+Plug 'tpope/vim-unimpaired'
+
 Plug 'tomtom/tcomment_vim'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
@@ -346,3 +348,7 @@ omap T <Plug>Sneak_T
 nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
 
 nnoremap <leader><leader> :Goyo<CR>
+
+function! DBextPostResult(db_type, buf_nr)
+    set syntax=sql
+endfunction
