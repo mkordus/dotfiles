@@ -13,6 +13,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'szw/vim-ctrlspace'
 
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
 
 Plug 'tomtom/tcomment_vim'
 
@@ -31,7 +32,7 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'justinmk/vim-sneak'
 
-" Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jimsei/winresizer'
 
@@ -159,6 +160,7 @@ set noruler
 "speed up scrolling
 " set scrolljump=8
 set scrolloff=6
+set sidescrolloff=5
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 5<C-e>
