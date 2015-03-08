@@ -99,7 +99,7 @@ nmap <leader>wL <c-w>L
 
 nmap <c-d> <c-w>c
 
-set number
+" set number
 " set cpoptions+=n
 nnoremap <Leader>n :set nonumber!<CR>
 set ttyfast
@@ -346,13 +346,12 @@ omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
 nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
-set cursorline
-set cursorcolumn
+" set cursorline
+" set cursorcolumn
 
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
 endfunction
-
 command! -nargs=1 Silent
     \ | execute ':silent !'.<q-args>
     \ | execute ':redraw!'
@@ -362,3 +361,6 @@ let g:EclimCompletionMethod = 'omnifunc'
 nnoremap <C-@> :CtrlPBuffer<CR>
 
 nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
+
+set foldcolumn=4                  " Add a left margin
+highlight! FoldColumn ctermfg=237 ctermbg=237 " Make it the background colour
