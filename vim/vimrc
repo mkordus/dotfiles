@@ -9,8 +9,7 @@ Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-" Plug 'saks/gpicker.vim'
-Plug 'szw/vim-ctrlspace'
+Plug 'kien/ctrlp.vim'
 
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
@@ -24,11 +23,9 @@ Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/webapi-vim'
-" Plug 'vim-scripts/YankRing.vim'
-Plug 'shawncplus/phpcomplete.vim'
 
 Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 Plug 'justinmk/vim-sneak'
@@ -41,8 +38,6 @@ Plug 'jimsei/winresizer'
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
-Plug 'yegappan/mru'
-
 " Plug 'kshenoy/vim-signature'
 " Plug 'airblade/vim-gitgutter'
 " colorschemes {{{
@@ -50,6 +45,7 @@ Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/seoul256.vim'
+Plug 'Lokaltog/vim-distinguished'
 " }}}
 " git {{{
 Plug 'tpope/vim-git'
@@ -161,9 +157,8 @@ set nowrap
 set noruler
 
 "speed up scrolling
-" set scrolljump=8
-set scrolloff=6
-set sidescrolloff=5
+set scrolloff=5
+set sidescrolloff=2
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 5<C-e>
@@ -217,20 +212,20 @@ syntax enable
 set bg=dark
 " let g:solarized_contrast="low"
 colorscheme seoul256
-highlight clear SignColumn
+" highlight clear SignColumn
 " }}}
 " JavascriptLibrariesSyntax {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
 " CtrlSpace {{{
-if executable("ag")
-    let g:ctrlspace_glob_command = 'ag -l --nocolor --hidden -g ""'
-endif
-let g:ctrlspace_save_workspace_on_exit = 1
-let g:ctrlspace_max_search_results = -1
-let g:ctrlspace_height = 12
-let g:ctrlspace_max_height = 12
-let g:ctrlspace_search_resonators = ['.', '/']
+" if executable("ag")
+"     let g:ctrlspace_glob_command = 'ag -l --nocolor --hidden -g ""'
+" endif
+" let g:ctrlspace_save_workspace_on_exit = 1
+" let g:ctrlspace_max_search_results = -1
+" let g:ctrlspace_height = 12
+" let g:ctrlspace_max_height = 12
+" let g:ctrlspace_search_resonators = ['.', '/']
 " }}}
 " Tagbar {{{
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
@@ -286,7 +281,7 @@ nnoremap <leader>r :<C-U>RangerChooser<CR>
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
-let g:ycm_filetype_specific_completion_to_disable = {'php': 1}
+" let g:ycm_filetype_specific_completion_to_disable = {'php': 1}
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
@@ -351,9 +346,19 @@ omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
 nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
-
-nnoremap <leader><leader> :Goyo<CR>
+set cursorline
+set cursorcolumn
 
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
 endfunction
+
+command! -nargs=1 Silent
+    \ | execute ':silent !'.<q-args>
+    \ | execute ':redraw!'
+
+let g:EclimCompletionMethod = 'omnifunc'
+
+nnoremap <C-@> :CtrlPBuffer<CR>
+
+nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
