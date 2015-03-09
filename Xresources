@@ -16,8 +16,8 @@ URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-p: perl:clipboard:paste
 URxvt.clipboard.autocopy: true
 
-URxvt*font: xft:Liberation Mono:pixelsize=16
-URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=16
+URxvt*font: xft:Liberation Mono:pixelsize=14
+URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=14
 
 ! seoul256 (dark) theme adapted for URxvt
 ! append the content of this file to your .Xresources
