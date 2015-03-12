@@ -164,4 +164,6 @@ focus_follows_mouse no
 bindsym $mod+b bar mode toggle
 
 assign [class="Firefox"] 8
+assign [class="Eclipse"] 9
+assign [class="Skype"] 10
 for_window [title="Hello OpenGL"] floating enable
