@@ -5,62 +5,65 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+" Plug 'vim-scripts/vim-auto-save'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'kien/ctrlp.vim'
+
+" Plug 'fholgado/minibufexpl.vim'
 
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
-
 Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
+
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
-Plug 'scrooloose/syntastic', { 'for': ['php', 'javascript', 'python']}
+Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/webapi-vim'
+" Plug 'mattn/webapi-vim'
 
-Plug 'junegunn/vim-peekaboo'
+" Plug 'junegunn/vim-peekaboo'
 " Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'amdt/vim-niji'
+" Plug 'kien/rainbow_parentheses.vim'
 
 Plug 'justinmk/vim-sneak'
 
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'jimsei/winresizer'
-
 " Plug 'Yggdroot/indentLine'
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
 
 " Plug 'kshenoy/vim-signature'
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " colorschemes {{{
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/seoul256.vim'
-Plug 'Lokaltog/vim-distinguished'
 " }}}
 " git {{{
-Plug 'tpope/vim-git'
-Plug 'tpope/vim-fugitive'
 " }}}
 " languages {{{
 Plug 'othree/html5.vim', {'for': ['html']}
 Plug 'tpope/vim-markdown'
 " Plug 'StanAngeloff/php.vim', { 'for': ['php']}
-Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
+" Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 Plug 'groenewege/vim-less', { 'for': ['less', 'css'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
-Plug 'dart-lang/dart-vim-plugin'
+" Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 " }}}
 " other {{{
@@ -81,7 +84,6 @@ augroup END
 " VimSettings: {{{
 set encoding=utf-8
 set undolevels=1000
-set noshowmatch
 set showmode
 set noshowcmd
 
@@ -99,10 +101,8 @@ nmap <leader>wL <c-w>L
 
 nmap <c-d> <c-w>q
 
-" set number
 " set cpoptions+=n
-nnoremap <Leader>n :set nonumber!<CR>
-set ttyfast
+nnoremap <Leader>l :set nonumber!<CR>
 
 map j gj
 map k gk
@@ -121,7 +121,9 @@ set wildmode=longest,list
 set wildignorecase
 set wildignore+=*/.git/*,*/tmp/*,*/cache/*
 
+"matchparen
 let loaded_matchparen = 1
+set noshowmatch
 
 "indent
 set autoindent
@@ -140,6 +142,7 @@ set magic
 
 "Don't redraw while executing macros(performace)
 set lazyredraw
+set ttyfast
 
 "no anoying sound on errors
 set noerrorbells
@@ -207,29 +210,17 @@ set mousehide
 " }}}
 " Colorscheme {{{
 syntax enable
-" let g:zenburn_high_Contrast=1
-" colorscheme zenburn
 set bg=dark
-" let g:solarized_contrast="low"
 colorscheme seoul256
-" highlight clear SignColumn
 " }}}
 " JavascriptLibrariesSyntax {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
-" CtrlSpace {{{
-" if executable("ag")
-"     let g:ctrlspace_glob_command = 'ag -l --nocolor --hidden -g ""'
-" endif
-" let g:ctrlspace_save_workspace_on_exit = 1
-" let g:ctrlspace_max_search_results = -1
-" let g:ctrlspace_height = 12
-" let g:ctrlspace_max_height = 12
-" let g:ctrlspace_search_resonators = ['.', '/']
-" }}}
 " Tagbar {{{
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
+let g:tagbar_compact = 1
+let g:tagbar_sort = 0
 " }}}
 " UltiSnips {{{
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -246,36 +237,6 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 " Syntastic {{{
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
-" }}}
-" PhpFolding.vim {{{
-let g:DisableAutoPHPFolding = 1
-nnoremap zp :EnableFastPHPFolds<Cr>
-" }}}
-" Ranger {{{
-function! RangeChooser()
-    let temp = tempname()
-    exec 'silent !ranger --choosefiles=' . shellescape(temp)
-    if !filereadable(temp)
-        redraw!
-        " Nothing to read.
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        " Nothing to open.
-        return
-    endif
-    " Edit the first item.
-    exec 'edit ' . fnameescape(names[0])
-    " Add any remaning items to the arg list/buffer list.
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
-command! -bar RangerChooser call RangeChooser()
-nnoremap <leader>r :<C-U>RangerChooser<CR>
 " }}}
 " YouCompleteMe {{{
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -296,6 +257,8 @@ let g:ycm_use_ultisnips_completer = 1
 " }}}
 " WinResizer: {{{
 let g:winresizer_start_key = '<Leader>wr'
+let g:winresizer_vert_resize=5
+let g:winresizer_horiz_resize=5
 " }}}
 " ACK: {{{
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -304,7 +267,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 augroup filespecific
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd FileType sql,php,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
+    autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
 augroup END
 " }}}
@@ -324,46 +287,41 @@ autocmd User ObliqueRepeat normal! zz
 
 let g:oblique#incsearch_highlight_all=1
 
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
+let g:gitgutter_sign_column_always = 1
+
 set virtualedit=block
 
 nnoremap <Esc>P P'[v']=
 nnoremap <Esc>p p'[v']=
 
-"replace 'f' with 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-"replace 't' with 1-char Sneak
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
-
-nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
-" set cursorline
+" nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
+set cursorline
 " set cursorcolumn
 
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
 endfunction
+
 command! -nargs=1 Silent
     \ | execute ':silent !'.<q-args>
     \ | execute ':redraw!'
 
 let g:EclimCompletionMethod = 'omnifunc'
 
-nnoremap <C-@> :CtrlPBuffer<CR>
-nnoremap <C-m> :CtrlPMRUFiles<CR>
+" nnoremap <C-@> :FufBuffer<CR>
 
-nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
+" nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
 
 set foldcolumn=4                  " Add a left margin
 highlight! FoldColumn ctermfg=237 ctermbg=237 " Make it the background colour
 
-nmap <C-[> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
+nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
+
+" let g:auto_save = 1  " enable AutoSave on Vim startup
+" let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
+" let g:auto_save_postsave_hook = 'SyntasticCheck'
+" let g:auto_save_silent = 1  " do not display the auto-save notification
+
+nnoremap gb :ls<CR>:b
+

@@ -1,23 +1,29 @@
-Xft.dpi:	96
-Xft.antialias: true
-Xft.rgba: rgb
-Xft.hinting: true
-Xft.hintstyle: hintslight
+Xft.dpi       : 96
+Xft.antialias : true
+Xft.rgba      : rgb
+Xft.hinting   : true
+Xft.hintstyle : hintslight
 
-URxvt.letterSpace: -2
-URxvt.saveLines:32767
-URxvt.scrollBar: false
-URxvt*iso14755: false
+URxvt.letterSpace : -2
+URxvt.saveLines   : 32767
+URxvt.scrollBar   : false
+URxvt*iso14755    : false
 
-URxvt.perl-ext-common: ...,keyboard-select,clipboard
+URxvt.perl-ext-common: keyboard-select,clipboard,font-size
+
+URxvt.keysym.C-S-Up:   perl:font-size:increase
+URxvt.keysym.C-S-Down: perl:font-size:decrease
 
 URxvt.keysym.M-y: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-p: perl:clipboard:paste
 URxvt.clipboard.autocopy: true
 
-URxvt*font: xft:Liberation Mono:pixelsize=14
-URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=14
+! URxvt*font: xft:Liberation Mono:pixelsize=14
+! URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=14
+
+URxvt.font:     xft:bitstream vera sans mono:size=11
+URxvt.boldFont: xft:bitstream vera sans mono:bold:size=11
 
 ! seoul256 (dark) theme adapted for URxvt
 ! append the content of this file to your .Xresources
