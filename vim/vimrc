@@ -252,7 +252,7 @@ let g:ycm_use_ultisnips_completer = 1
 " if exists('$WINDOWID')
 "     nnoremap <Leader>f :GPickFile<CR>
 " else
-    nnoremap <Leader>f :FZF!<CR>
+    nnoremap <Leader>f :FZFFind<CR>
 " endif
 " }}}
 " WinResizer: {{{
@@ -309,12 +309,10 @@ command! -nargs=1 Silent
 
 let g:EclimCompletionMethod = 'omnifunc'
 
-" nnoremap <C-@> :FufBuffer<CR>
-
 " nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
 
-set foldcolumn=4                  " Add a left margin
-highlight! FoldColumn ctermfg=237 ctermbg=237 " Make it the background colour
+set foldcolumn=0
+" highlight! FoldColumn ctermfg=237 ctermbg=237 " Make it the background colour
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
@@ -325,3 +323,49 @@ nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
 nnoremap gb :ls<CR>:b
 
+let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
+
+command! FZFMru call fzf#run({
+    \'source': v:oldfiles,
+    \'sink' : 'e ',
+    \'options' : '-m',
+    \'up' : '60%',
+    \})
+
+function! ClassTagCommand()
+  return "cat "
+      \ . join(tagfiles(), ' ')
+      \ . " | egrep '/\\^\\s*(public|private|protected|abstract)?\\s*class' "
+      \ . "| awk '{print $1}' "
+      \ . "| uniq"
+    " return 'echo kaczka'
+endfunction
+
+command! FZFTag call fzf#run({
+    \'source'     : ClassTagCommand(),
+    \'sink'       : 'tag ',
+    \'up' : '60%',
+    \})
+
+command! FZFFind call fzf#run({
+    \'sink' : 'e',
+    \'up' : '60%',
+    \})
+
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(substitute(substitute(ls, '\s*wiersz \d\+\s*', '', 'g'), '"', '', 'g'), '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <C-@> :call fzf#run({
+    \   'source':  reverse(<sid>buflist()),
+    \   'sink':    function('<sid>bufopen'),
+    \   'options': '+m',
+    \   'up': '60%',
+    \ })<CR>

@@ -167,3 +167,4 @@ assign [class="Firefox"] 8
 assign [class="Eclipse"] 9
 assign [class="Skype"] 10
 for_window [title="Hello OpenGL"] floating enable
+for_window [title="fzf-picker"] floating enable
