@@ -4,20 +4,19 @@ Xft.rgba      : rgb
 Xft.hinting   : true
 Xft.hintstyle : hintslight
 
-URxvt.letterSpace : -2
-URxvt.saveLines   : 32767
+URxvt.letterSpace : -1
 URxvt.scrollBar   : false
 URxvt*iso14755    : false
 
-URxvt.perl-ext-common: keyboard-select,clipboard,font-size
+! URxvt.perl-ext-common: keyboard-select,clipboard,font-size
 
-URxvt.keysym.C-S-Up:   perl:font-size:increase
-URxvt.keysym.C-S-Down: perl:font-size:decrease
-
-URxvt.keysym.M-y: perl:keyboard-select:activate
-URxvt.keysym.M-s: perl:keyboard-select:search
-URxvt.keysym.M-p: perl:clipboard:paste
-URxvt.clipboard.autocopy: true
+! URxvt.keysym.C-S-Up:   perl:font-size:increase
+! URxvt.keysym.C-S-Down: perl:font-size:decrease
+!
+! URxvt.keysym.M-y: perl:keyboard-select:activate
+! URxvt.keysym.M-s: perl:keyboard-select:search
+! URxvt.keysym.M-p: perl:clipboard:paste
+! URxvt.clipboard.autocopy: true
 
 ! URxvt*font: xft:Liberation Mono:pixelsize=14
 ! URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=14
