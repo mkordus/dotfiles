@@ -12,6 +12,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
+Plug 'christoomey/vim-tmux-navigator'
+
 " Plug 'fholgado/minibufexpl.vim'
 
 Plug 'tpope/vim-unimpaired'
@@ -107,10 +109,10 @@ nnoremap <Leader>l :set nonumber!<CR>
 map j gj
 map k gk
 
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-l> <c-w>l
 
 set splitbelow
 set splitright
@@ -363,7 +365,7 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <C-@> :call fzf#run({
+nnoremap <silent> <Leader>b :call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
     \   'options': '+m',

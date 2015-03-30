@@ -27,7 +27,7 @@ floating_modifier $mod
 bindsym $mod+Return exec urxvt
 
 # kill focused window
-bindsym Control+q kill
+bindsym Control+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
@@ -107,7 +107,7 @@ bindsym $mod+Shift+r restart
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+e exit
 
-bindsym $mod+Shift+s exec i3lock -c 000000
+bindsym $mod+Shift+s exec i3lock -c 006699
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -164,6 +164,7 @@ focus_follows_mouse no
 bindsym $mod+b bar mode toggle
 
 assign [class="Firefox"] 8
+assign [class="Chromium-browser"] 2
 assign [class="Eclipse"] 9
 assign [class="Skype"] 10
 for_window [title="Hello OpenGL"] floating enable
