@@ -12,6 +12,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
+Plug 'michaeljsmith/vim-indent-object'
+
 Plug 'christoomey/vim-tmux-navigator'
 
 " Plug 'fholgado/minibufexpl.vim'
@@ -21,6 +23,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
+
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
@@ -31,7 +34,7 @@ Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 " Plug 'mattn/webapi-vim'
 
