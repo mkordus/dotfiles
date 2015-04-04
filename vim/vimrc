@@ -6,6 +6,8 @@ filetype off "required by plugin manager
 call plug#begin('~/.vim/plugged')
 
 " Plug 'vim-scripts/vim-auto-save'
+"
+Plug 'bling/vim-bufferline'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
@@ -15,8 +17,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'christoomey/vim-tmux-navigator'
-
-" Plug 'fholgado/minibufexpl.vim'
 
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
@@ -39,7 +39,7 @@ Plug 'jiangmiao/auto-pairs'
 " Plug 'mattn/webapi-vim'
 
 " Plug 'junegunn/vim-peekaboo'
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'amdt/vim-niji'
@@ -50,12 +50,14 @@ Plug 'justinmk/vim-sneak'
 " Plug 'Yggdroot/indentLine'
 
 " Plug 'kshenoy/vim-signature'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 " colorschemes {{{
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/seoul256.vim'
+Plug 'tomasr/molokai'
+Plug 'chriskempson/vim-tomorrow-theme'
 " }}}
 " git {{{
 " }}}
@@ -104,7 +106,7 @@ nmap <leader>wJ <c-w>J
 nmap <leader>wK <c-w>K
 nmap <leader>wL <c-w>L
 
-nmap <c-d> <c-w>q
+nmap <c-d> <c-w>c
 
 " set cpoptions+=n
 nnoremap <Leader>l :set nonumber!<CR>
@@ -162,10 +164,10 @@ set lbr
 set tw=500
 set nowrap
 
-set noruler
+set ruler
 
 "speed up scrolling
-set scrolloff=5
+set scrolloff=0
 set sidescrolloff=2
 
 " Instead of 1 line, move 5 at a time
@@ -292,16 +294,16 @@ autocmd User ObliqueRepeat normal! zz
 
 let g:oblique#incsearch_highlight_all=1
 
-let g:gitgutter_enabled = 1
-let g:gitgutter_sign_column_always = 1
-
 set virtualedit=block
+
+set hidden
+set shortmess=aIT
 
 nnoremap <Esc>P P'[v']=
 nnoremap <Esc>p p'[v']=
 
 " nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
-set cursorline
+" set cursorline
 " set cursorcolumn
 
 function! DBextPostResult(db_type, buf_nr)
@@ -320,11 +322,6 @@ set foldcolumn=0
 " highlight! FoldColumn ctermfg=237 ctermbg=237 " Make it the background colour
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
-
-" let g:auto_save = 1  " enable AutoSave on Vim startup
-" let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
-" let g:auto_save_postsave_hook = 'SyntasticCheck'
-" let g:auto_save_silent = 1  " do not display the auto-save notification
 
 nnoremap gb :ls<CR>:b
 
@@ -354,7 +351,7 @@ command! FZFTag call fzf#run({
 
 command! FZFFind call fzf#run({
     \'sink' : 'e',
-    \'up' : '60%',
+    \'down' : '60%',
     \})
 
 function! s:buflist()
@@ -372,5 +369,9 @@ nnoremap <silent> <Leader>b :call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
     \   'options': '+m',
-    \   'up': '60%',
+    \   'down': '40%',
     \ })<CR>
+
+set updatetime=100
+let &showbreak = '↳ '
+set nostartofline
