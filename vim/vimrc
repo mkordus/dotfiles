@@ -106,7 +106,9 @@ nmap <leader>wJ <c-w>J
 nmap <leader>wK <c-w>K
 nmap <leader>wL <c-w>L
 
-nmap <c-d> <c-w>c
+nmap <c-d> :bd<CR>
+nmap <c-n> :bn<CR>
+nmap <c-p> :bp<CR>
 
 " set cpoptions+=n
 nnoremap <Leader>l :set nonumber!<CR>
@@ -372,6 +374,6 @@ nnoremap <silent> <Leader>b :call fzf#run({
     \   'down': '40%',
     \ })<CR>
 
-set updatetime=100
+set updatetime=500
 let &showbreak = '↳ '
 set nostartofline
