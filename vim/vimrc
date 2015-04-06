@@ -393,3 +393,4 @@ set nostartofline
       bdelete
     endif
   endfunction "}}}
+map Q @q
