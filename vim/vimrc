@@ -106,7 +106,7 @@ nmap <leader>wJ <c-w>J
 nmap <leader>wK <c-w>K
 nmap <leader>wL <c-w>L
 
-nmap <c-d> :bd<CR>
+nmap <c-d> :call CloseWindowOrKillBuffer()<cr>
 nmap <c-n> :bn<CR>
 nmap <c-p> :bp<CR>
 
@@ -377,3 +377,19 @@ nnoremap <silent> <Leader>b :call fzf#run({
 set updatetime=500
 let &showbreak = '↳ '
 set nostartofline
+
+ function! CloseWindowOrKillBuffer() "{{{
+    let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
+
+    " never bdelete a nerd tree
+    " if matchstr(expand("%"), 'NERD') == 'NERD'
+    "   wincmd c
+    "   return
+    " endif
+
+    if number_of_windows_to_this_buffer > 1
+      wincmd c
+    else
+      bdelete
+    endif
+  endfunction "}}}
