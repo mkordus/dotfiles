@@ -5,9 +5,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'vim-scripts/vim-auto-save'
-"
-Plug 'bling/vim-bufferline'
+Plug 'szw/vim-ctrlspace'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
@@ -34,12 +32,12 @@ Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
 Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
-" Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 " Plug 'mattn/webapi-vim'
 
 " Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'amdt/vim-niji'
@@ -68,7 +66,7 @@ Plug 'tpope/vim-markdown'
 " Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
-Plug 'groenewege/vim-less', { 'for': ['less', 'css'] }
+Plug 'groenewege/vim-less', { 'for': ['less'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
 " Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
@@ -227,7 +225,7 @@ let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
 " Tagbar {{{
 nnoremap <leader>t :TagbarOpenAutoClose<CR>
-let g:tagbar_width = 45
+let g:tagbar_width = 40
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
 " }}}
@@ -317,6 +315,7 @@ command! -nargs=1 Silent
     \ | execute ':redraw!'
 
 let g:EclimCompletionMethod = 'omnifunc'
+nnoremap <silent> <buffer> <cr> :PhpSearchContext<cr>
 
 " nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
 
@@ -342,14 +341,19 @@ function! ClassTagCommand()
       \ . " | egrep '/\\^\\s*(public|private|protected|abstract)?\\s*class' "
       \ . "| awk '{print $1}' "
       \ . "| uniq"
-    " return 'echo kaczka'
 endfunction
 
-command! FZFTag call fzf#run({
+nmap <leader>c :call fzf#run({
     \'source'     : ClassTagCommand(),
-    \'sink'       : 'tag ',
-    \'up' : '60%',
-    \})
+    \'sink'       : 'tjump',
+    \'down' : '60%',
+    \})<CR>
+
+
+command! FZFTag2 if !empty(tagfiles()) | call fzf#run({
+\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
+\   'sink':   'tag',
+\ }) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
     \'sink' : 'e',
@@ -394,3 +398,4 @@ set nostartofline
     endif
   endfunction "}}}
 map Q @q
+
