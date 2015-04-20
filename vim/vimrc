@@ -118,6 +118,7 @@ nmap <c-n> :CtrlSpaceGoDown<CR>
 
 " set cpoptions+=n
 nnoremap <Leader>l :set nonumber!<CR>
+set nu
 
 map j gj
 map k gk
