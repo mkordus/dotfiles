@@ -5,6 +5,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'yegappan/mru'
 Plug 'tpope/vim-abolish'
 Plug 'szw/vim-ctrlspace'
 Plug 'godlygeek/tabular'
@@ -105,7 +106,8 @@ nmap <leader>wJ <c-w>J
 nmap <leader>wK <c-w>K
 nmap <leader>wL <c-w>L
 
-nmap <c-d> :call CloseWindowOrKillBuffer()<cr>
+nmap <c-d> <c-w>c
+
 " nmap <c-n> ]b
 " nmap <c-p> [b
 " omap <c-n> ]b
@@ -249,6 +251,7 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gvd :Gvdiff<CR>
 nnoremap <silent> <leader>gd :Git! diff<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :silent Glog -n 10 --no-merges<CR>:copen<CR>
 " }}}
 " Syntastic {{{
 let g:syntastic_php_checkers = ['php']
@@ -273,8 +276,8 @@ let g:ycm_use_ultisnips_completer = 1
 " }}}
 " WinResizer: {{{
 let g:winresizer_start_key = '<Leader>wr'
-let g:winresizer_vert_resize=5
-let g:winresizer_horiz_resize=5
+let g:winresizer_vert_resize=3
+let g:winresizer_horiz_resize=3
 " }}}
 " ACK: {{{
 let g:ackprg = 'ag --nogroup --nocolor --column'

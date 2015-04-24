@@ -21,8 +21,10 @@ URxvt*iso14755    : false
 ! URxvt*font: xft:Liberation Mono:pixelsize=14
 ! URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=14
 
-URxvt.font:     xft:bitstream vera sans mono:size=10
-URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10
+! URxvt.font:     xft:bitstream vera sans mono:size=10
+! URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10
+URxvt.font:     xft:DejaVu Sans Mono for Powerline:size=10
+URxvt.boldfont: xft:DejaVu Sans Mono for Powerline:bold:size=10
 
 ! seoul256 (dark) theme adapted for URxvt
 ! append the content of this file to your .Xresources
