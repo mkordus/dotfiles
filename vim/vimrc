@@ -5,6 +5,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'vim-scripts/wombat256.vim'
 Plug 'yegappan/mru'
 Plug 'tpope/vim-abolish'
 Plug 'szw/vim-ctrlspace'
