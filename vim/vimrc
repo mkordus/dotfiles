@@ -5,6 +5,11 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'edkolev/tmuxline.vim'
+Plug 'itchyny/lightline.vim'
+
+Plug 'vim-scripts/xoria256.vim'
+Plug 'prestidigitator92/vim-wombat256i'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'yegappan/mru'
 Plug 'tpope/vim-abolish'
@@ -96,9 +101,8 @@ set showmode
 set noshowcmd
 
 let g:mapleader = "\<Space>"
-nmap <leader>ev :edit $MYVIMRC<CR>
+nmap <leader>ev :e ~/dotfiles/vim/vimrc<CR>
 nmap <leader>es :w !sudo tee %<CR>
-nmap <leader>ew :w<CR>
 
 nmap <leader>ws <c-w>s
 nmap <leader>wv <c-w>v
@@ -109,13 +113,6 @@ nmap <leader>wL <c-w>L
 
 nmap <c-d> <c-w>c
 
-" nmap <c-n> ]b
-" nmap <c-p> [b
-" omap <c-n> ]b
-" omap <c-p> [b
-" xmap <c-n> ]b
-" xmap <c-p> [b
-"
 nmap <c-p> :CtrlSpaceGoUp<CR>
 nmap <c-n> :CtrlSpaceGoDown<CR>
 
@@ -125,11 +122,6 @@ set nu
 
 map j gj
 map k gk
-
-" nnoremap <c-h> <c-w>h
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-k> <c-w>k
-" nnoremap <c-l> <c-w>l
 
 set splitbelow
 set splitright
@@ -230,7 +222,8 @@ set mousehide
 " Colorscheme {{{
 syntax enable
 set bg=dark
-colorscheme seoul256
+" colorscheme seoul256
+colorscheme wombat256i
 " }}}
 " JavascriptLibrariesSyntax {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
@@ -342,11 +335,13 @@ nnoremap gb :ls<CR>:b
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 
 command! FZFMru call fzf#run({
-    \'source': v:oldfiles,
+    \'source': "cat ~/.vim_mru_files | tail -n +2",
     \'sink' : 'e ',
-    \'options' : '-m',
-    \'up' : '60%',
+    \'down' : '40%',
+    \'options': '+m',
     \})
+
+nnoremap <leader>m :FZFMru<CR>
 
 function! ClassTagCommand()
   return "cat "
@@ -412,3 +407,67 @@ set nostartofline
   endfunction "}}}
 map Q @q
 
+let g:lightline = {
+      \ 'colorscheme': 'solarized_dark',
+      \ 'active': {
+      \   'left': [ [],
+      \             [ 'fugitive', 'filename' ] ],
+      \   'right': [ [ 'syntastic' ], ['percent'], ['filetype'] ]
+      \ },
+      \ 'inactive': {
+      \   'right': []
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'readonly': 'MyReadonly',
+      \   'modified': 'MyModified',
+      \   'filename': 'MyFilename'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
+function! MyModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! MyReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! MyFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? ' '._ : ''
+  endif
+  return ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+       \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! GetGitRootDir()
+    let filePath = expand('%:p:h')
+    let shellcmd = 'cd ' . filePath . ';'
+        \ . 'basename $(readlink -f $(git rev-parse --show-cdup))'
+        \ . '| sed "s/[ \r\n]//g"'
+
+    return system(shellcmd)
+endfunction
