@@ -335,7 +335,7 @@ nnoremap gb :ls<CR>:b
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 
 command! FZFMru call fzf#run({
-    \'source': "cat ~/.vim_mru_files | tail -n +2",
+    \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e ',
     \'down' : '40%',
     \'options': '+m',
@@ -471,3 +471,5 @@ function! GetGitRootDir()
 
     return system(shellcmd)
 endfunction
+
+let MRU_Max_Menu_Entries = 500
