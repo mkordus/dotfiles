@@ -364,8 +364,9 @@ command! FZFTag2 if !empty(tagfiles()) | call fzf#run({
 \ }) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
-    \'sink' : 'e',
-    \'down' : '60%',
+    \'sink': 'e',
+    \'down': '60%',
+    \'options': '-x',
     \})
 
 function! s:buflist()
