@@ -255,10 +255,11 @@ let g:syntastic_check_on_open=0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
-" let g:ycm_filetype_specific_completion_to_disable = {'php': 1}
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
+
+nnoremap <leader>y :YcmDiags<CR>
 " }}}
 " File Picker: {{{
 " if has("gui_running")
@@ -338,7 +339,7 @@ command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e ',
     \'down' : '40%',
-    \'options': '+m',
+    \'options': '-x -m',
     \})
 
 nnoremap <leader>m :FZFMru<CR>
@@ -366,7 +367,7 @@ command! FZFTag2 if !empty(tagfiles()) | call fzf#run({
 command! FZFFind call fzf#run({
     \'sink': 'e',
     \'down': '60%',
-    \'options': '-x',
+    \'options': '-x -m',
     \})
 
 function! s:buflist()
