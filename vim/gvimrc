@@ -1,0 +1,11 @@
+set gcr=a:block
+set gcr+=a:blinkon0
+
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+set guioptions-=m
+set guioptions-=e
+set showtabline=1
+set guifont=Liberation\ Mono\ 11
+set mousehide

@@ -1,4 +1,3 @@
-" vi: fdm=marker
 " Plug: {{{
 set nocompatible
 filetype off "required by plugin manager
@@ -8,9 +7,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'edkolev/tmuxline.vim'
 Plug 'itchyny/lightline.vim'
 
-Plug 'vim-scripts/xoria256.vim'
-Plug 'prestidigitator92/vim-wombat256i'
-Plug 'vim-scripts/wombat256.vim'
 Plug 'yegappan/mru'
 Plug 'tpope/vim-abolish'
 Plug 'szw/vim-ctrlspace'
@@ -33,7 +29,6 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
-Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
@@ -48,16 +43,18 @@ Plug 'jiangmiao/auto-pairs'
 " Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
-" Plug 'amdt/vim-niji'
-" Plug 'kien/rainbow_parentheses.vim'
 
 Plug 'justinmk/vim-sneak'
 
-" Plug 'Yggdroot/indentLine'
-
+" Plug 'vim-scripts/listmaps.vim'
+" gutter: {{{
 " Plug 'kshenoy/vim-signature'
 " Plug 'airblade/vim-gitgutter'
+" }}}
 " colorschemes {{{
+Plug 'vim-scripts/xoria256.vim'
+Plug 'prestidigitator92/vim-wombat256i'
+Plug 'vim-scripts/wombat256.vim'
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
@@ -65,9 +62,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/vim-tomorrow-theme'
 " }}}
-" git {{{
-" }}}
-" languages {{{
+" syntax {{{
+Plug 'tpope/vim-git'
 Plug 'othree/html5.vim', {'for': ['html']}
 Plug 'tpope/vim-markdown'
 " Plug 'StanAngeloff/php.vim', { 'for': ['php']}
@@ -79,13 +75,9 @@ Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
 " Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 " }}}
-" other {{{
-" Plug 'vim-scripts/listmaps.vim'
-" }}}
 call plug#end()
 
 filetype plugin indent on
-" }}}
 " PlugLazyLoading {{{
 augroup load_us_ycm
     autocmd!
@@ -94,34 +86,21 @@ augroup load_us_ycm
         \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
 " }}}
+" }}}
+" Colorscheme {{{
+syntax enable
+set bg=dark
+colorscheme wombat256i
+" }}}
 " VimSettings: {{{
+
 set encoding=utf-8
 set undolevels=1000
 set showmode
 set noshowcmd
 
-let g:mapleader = "\<Space>"
-nmap <leader>v :e ~/dotfiles/vim/vimrc<CR>
-nmap <leader>s :w !sudo tee %<CR>
-
-nmap <leader>ws <c-w>s
-nmap <leader>wv <c-w>v
-nmap <leader>wH <c-w>H
-nmap <leader>wJ <c-w>J
-nmap <leader>wK <c-w>K
-nmap <leader>wL <c-w>L
-
-nmap <c-d> <c-w>c
-
-nmap <c-p> :CtrlSpaceGoUp<CR>
-nmap <c-n> :CtrlSpaceGoDown<CR>
-
 " set cpoptions+=n
-nnoremap <Leader>l :set nonumber!<CR>
 set nu
-
-map j gj
-map k gk
 
 set splitbelow
 set splitright
@@ -168,26 +147,15 @@ set lbr
 set tw=500
 set nowrap
 
-set ruler
-
 "speed up scrolling
 set scrolloff=0
 set sidescrolloff=2
-
-" Instead of 1 line, move 5 at a time
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
-
-" wrapping lines in visual mode
-vnoremap < <gv
-vnoremap > >gv
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
 set laststatus=2
 
-" sql
 let g:php_sql_query=0
 
 set mouse=a
@@ -196,40 +164,31 @@ set nolist
 set foldmethod=manual
 set completeopt=longest,menuone
 
-"hard mode :)
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-
 set wildignorecase
 
 let php_minlines=1000
-" }}}
-" Gvim {{{
-set gcr=a:block
-set gcr+=a:blinkon0
 
-set guioptions-=T
-set guioptions-=r
-set guioptions-=L
-set guioptions-=m
-set guioptions-=e
-set showtabline=1
-set guifont=Liberation\ Mono\ 11
-set mousehide
+set virtualedit=block
+
+set hidden
+set shortmess=aIT
+
+set foldcolumn=0
+
+set updatetime=500
+let &showbreak = '↳ '
+set nostartofline
+
 " }}}
-" Colorscheme {{{
-syntax enable
-set bg=dark
-" colorscheme seoul256
-colorscheme wombat256i
+" LocalConfig {{{
+if filereadable(expand('~/dotfiles/vim/vimrc.local'))
+    source ~/dotfiles/vim/vimrc.local
+endif
 " }}}
 " JavascriptLibrariesSyntax {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
 " Tagbar {{{
-nnoremap <leader>t :TagbarOpenAutoClose<CR>
 let g:tagbar_width = 45
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
@@ -239,13 +198,6 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 let g:UltiSnipsEditSplit = "vertical"
-" }}}
-" Fugitive {{{
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gvd :Gvdiff<CR>
-nnoremap <silent> <leader>gd :Git! diff<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :silent Glog -n 10 --no-merges<CR>:copen<CR>
 " }}}
 " Syntastic {{{
 let g:syntastic_php_checkers = ['php']
@@ -260,17 +212,6 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
-
-nnoremap <leader>y :YcmDiags<CR>
-nnoremap <leader>e :Errors<CR>
-" }}}
-" File Picker: {{{
-" if has("gui_running")
-" if exists('$WINDOWID')
-"     nnoremap <Leader>f :GPickFile<CR>
-" else
-    nnoremap <Leader>f :FZFFind<CR>
-" endif
 " }}}
 " WinResizer: {{{
 let g:winresizer_start_key = '<Leader>wr'
@@ -280,19 +221,7 @@ let g:winresizer_horiz_resize=3
 " ACK: {{{
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " }}}
-" AutoCMD-fileSpecific: {{{
-augroup filespecific
-    autocmd!
-    autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
-    autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
-augroup END
-" }}}
-" LocalConfig {{{
-if filereadable(expand('~/dotfiles/vim/vimrc.local'))
-    source ~/dotfiles/vim/vimrc.local
-endif
-" }}}
+" Oblique: {{{
 " Clear autocommand
 autocmd! User Oblique
 autocmd! User ObliqueStar
@@ -303,40 +232,17 @@ autocmd User ObliqueStar   normal! zz
 autocmd User ObliqueRepeat normal! zz
 
 let g:oblique#incsearch_highlight_all=1
-
-set virtualedit=block
-
-set hidden
-set shortmess=aIT
-
-nnoremap <Esc>P P'[v']=
-nnoremap <Esc>p p'[v']=
-
-" nmap <Leader>c :set cursorline!<Bar>set cursorcolumn!<CR>
-" set cursorline
-" set cursorcolumn
-
+" }}}
+" DBext: {{{
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
 endfunction
-
-command! -nargs=1 Silent
-    \ | execute ':silent !'.<q-args>
-    \ | execute ':redraw!'
-
+" }}}
+" Eclim: {{{
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimFileTypeValidate = 0
-nnoremap <silent> <buffer> <cr> :PhpSearchContext<cr>
-
-" nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
-
-set foldcolumn=0
-" highlight! FoldColumn ctermfg=237 ctermbg=237 " Make it the background colour
-
-nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
-
-nnoremap gb :ls<CR>:b
-
+" }}}
+" FZF: {{{
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 
 command! FZFMru call fzf#run({
@@ -345,8 +251,6 @@ command! FZFMru call fzf#run({
     \'down' : '40%',
     \'options': '-x -m',
     \})
-
-nnoremap <leader>m :FZFMru<CR>
 
 function! ClassTagCommand()
   return "cat "
@@ -369,12 +273,10 @@ command! FZFGitCheckoutBranch call fzf#run({
     \'options': '-x',
     \})
 
-nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
-
 command! FZFTag2 if !empty(tagfiles()) | call fzf#run({
-\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
-\   'sink':   'tag',
-\ }) | else | echo 'No tags' | endif
+    \'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
+    \'sink':   'tag',
+    \}) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
@@ -383,14 +285,14 @@ command! FZFFind call fzf#run({
     \})
 
 function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(substitute(substitute(ls, '\s*wiersz \d\+\s*', '', 'g'), '"', '', 'g'), '\n')
+    redir => ls
+    silent ls
+    redir END
+    return split(substitute(substitute(ls, '\s*wiersz \d\+\s*', '', 'g'), '"', '', 'g'), '\n')
 endfunction
 
 function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
 nnoremap <silent> <Leader>b :call fzf#run({
@@ -399,28 +301,8 @@ nnoremap <silent> <Leader>b :call fzf#run({
     \   'options': '+m',
     \   'down': '40%',
     \ })<CR>
-
-set updatetime=500
-let &showbreak = '↳ '
-set nostartofline
-
- function! CloseWindowOrKillBuffer() "{{{
-    let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
-
-    " never bdelete a nerd tree
-    " if matchstr(expand("%"), 'NERD') == 'NERD'
-    "   wincmd c
-    "   return
-    " endif
-
-    if number_of_windows_to_this_buffer > 1
-      wincmd c
-    else
-      bdelete
-    endif
-  endfunction "}}}
-map Q @q
-
+" }}}
+" LightLine: {{{
 let g:lightline = {
       \ 'colorscheme': 'solarized_dark',
       \ 'active': {
@@ -476,6 +358,87 @@ function! MyFilename()
        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
        \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
+" }}}
+" MRU: {{{
+let MRU_Max_Menu_Entries = 500
+" }}}
+" KeyBindings: {{{
+"hard mode :)
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+let g:mapleader = "\<Space>"
+
+map j gj
+map k gk
+
+nnoremap <leader>vv :e ~/dotfiles/vim/vimrc<CR>
+nnoremap <leader>vs :source $MYVIMRC<CR>
+nmap <leader>s :w !sudo tee %<CR>
+
+nmap <leader>ws <c-w>s
+nmap <leader>wv <c-w>v
+nmap <leader>wH <c-w>H
+nmap <leader>wJ <c-w>J
+nmap <leader>wK <c-w>K
+nmap <leader>wL <c-w>L
+
+nmap <c-d> <c-w>c
+
+nmap <c-p> :CtrlSpaceGoUp<CR>
+nmap <c-n> :CtrlSpaceGoDown<CR>
+
+nnoremap <Leader>l :set nonumber!<CR>
+
+" Instead of 1 line, move 5 at a time
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+
+" wrapping lines in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <leader>t :TagbarOpenAutoClose<CR>
+
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gvd :Gvdiff<CR>
+nnoremap <silent> <leader>gd :Git! diff<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :silent Glog -n 10 --no-merges<CR>:copen<CR>
+
+nnoremap <leader>y :YcmDiags<CR>
+nnoremap <leader>e :Errors<CR>
+
+nnoremap <Leader>f :FZFFind<CR>
+
+nnoremap <Esc>P P'[v']=
+nnoremap <Esc>p p'[v']=
+
+nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
+
+nnoremap <leader>m :FZFMru<CR>
+nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
+
+map Q @q
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+" }}}
+" AutoCMD-fileSpecific: {{{
+augroup filespecific
+    autocmd!
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+    autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
+    autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
+augroup END
+" }}}
+" Other: {{{
+command! -nargs=1 Silent
+    \ | execute ':silent !'.<q-args>
+    \ | execute ':redraw!'
 
 function! GetGitRootDir()
     let filePath = expand('%:p:h')
@@ -485,5 +448,5 @@ function! GetGitRootDir()
 
     return system(shellcmd)
 endfunction
-
-let MRU_Max_Menu_Entries = 500
+" }}}
+" vi: fdm=marker
