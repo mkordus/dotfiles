@@ -101,8 +101,8 @@ set showmode
 set noshowcmd
 
 let g:mapleader = "\<Space>"
-nmap <leader>ev :e ~/dotfiles/vim/vimrc<CR>
-nmap <leader>es :w !sudo tee %<CR>
+nmap <leader>v :e ~/dotfiles/vim/vimrc<CR>
+nmap <leader>s :w !sudo tee %<CR>
 
 nmap <leader>ws <c-w>s
 nmap <leader>wv <c-w>v
@@ -250,6 +250,8 @@ nnoremap <silent> <leader>gl :silent Glog -n 10 --no-merges<CR>:copen<CR>
 " Syntastic {{{
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
+let g:syntastic_enable_signs=0
+let g:syntastic_always_populate_loc_list=0
 " }}}
 " YouCompleteMe {{{
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -260,6 +262,7 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
 
 nnoremap <leader>y :YcmDiags<CR>
+nnoremap <leader>e :Errors<CR>
 " }}}
 " File Picker: {{{
 " if has("gui_running")
@@ -322,6 +325,7 @@ command! -nargs=1 Silent
     \ | execute ':redraw!'
 
 let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimFileTypeValidate = 0
 nnoremap <silent> <buffer> <cr> :PhpSearchContext<cr>
 
 " nnoremap <Leader>s :let old_pwd = getcwd()<CR>:FZF src<CR>:silent exec 'cd ' . old_pwd<CR>
@@ -358,6 +362,14 @@ nmap <leader>c :call fzf#run({
     \'down' : '60%',
     \})<CR>
 
+command! FZFGitCheckoutBranch call fzf#run({
+    \'source': 'git branch | sed "s/\#/\\\#/g" | sed "s/\s//g" | sed "/^\*/d"',
+    \'sink' : ':silent !git checkout ',
+    \'down' : '40%',
+    \'options': '-x',
+    \})
+
+nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
 
 command! FZFTag2 if !empty(tagfiles()) | call fzf#run({
 \   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
