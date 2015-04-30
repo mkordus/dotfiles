@@ -6,9 +6,7 @@
 #
 
 # i3 config file (v4)
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
+# # Please see http://i3wm.org/docs/userguide.html for a complete reference!  
 set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -38,6 +36,8 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+n focus output right
+bindsym Control+Return workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
 
 # bindsym Control+h focus left
 # bindsym Control+j focus down
@@ -87,6 +87,17 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+
+bindsym Control+1 workspace 1
+bindsym Control+2 workspace 2
+bindsym Control+3 workspace 3
+bindsym Control+4 workspace 4
+bindsym Control+5 workspace 5
+bindsym Control+6 workspace 6
+bindsym Control+7 workspace 7
+bindsym Control+8 workspace 8
+bindsym Control+9 workspace 9
+bindsym Control+0 workspace 0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1

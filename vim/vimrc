@@ -40,7 +40,7 @@ Plug 'jiangmiao/auto-pairs'
 " Plug 'mattn/webapi-vim'
 
 " Plug 'junegunn/vim-peekaboo'
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 
@@ -307,8 +307,8 @@ let g:lightline = {
       \ 'colorscheme': 'solarized_dark',
       \ 'active': {
       \   'left': [ [],
-      \             [ 'fugitive', 'filename' ] ],
-      \   'right': [ [ 'syntastic' ], ['percent'], ['filetype'] ]
+      \             ['filename'] ],
+      \   'right': [ ['syntastic'], ['percent'], ['fugitive'] ]
       \ },
       \ 'inactive': {
       \   'right': []
@@ -354,9 +354,19 @@ function! MyFugitive()
 endfunction
 
 function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != MyModified() ? ' ' . MyModified() : '')
+    let nLines = len(string(line("$")))
+    let i = 1
+    let prefix = ''
+
+    while i <= nLines
+        let prefix .= ' '
+        let i += 1
+    endwhile
+
+    return prefix .
+        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 " }}}
 " MRU: {{{
