@@ -36,7 +36,8 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+n focus output right
-bindsym Control+Return workspace back_and_forth
+bindsym Control+comma workspace prev
+bindsym Control+period workspace next
 bindsym $mod+Tab workspace back_and_forth
 
 # bindsym Control+h focus left
