@@ -2,8 +2,6 @@
  
 URxvt.background: #002b36
 URxvt.foreground: #839496
-! URxvt*foreground: #657b83
-! URxvt.cursorColor: #93a1a1
 URxvt.cursorColor: #657b83
 URxvt.pointerColorBackground: #586e75
 URxvt.pointerColorForeground: #93a1a1
