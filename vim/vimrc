@@ -97,7 +97,9 @@ augroup END
 set t_Co=256
 syntax enable
 set bg=dark
-colorscheme wombat256i
+" let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
 " }}}
 " VimSettings: {{{
 

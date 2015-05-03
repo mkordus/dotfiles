@@ -1,0 +1,19 @@
+! Mustang colors
+URxvt*background:#1a1a1a
+URxvt*foreground:#fff
+URxvt*color0:#000000
+URxvt*color1:#ff6565
+URxvt*color2:#93d44f
+URxvt*color3:#eab93d
+URxvt*color4:#204a87
+URxvt*color5:#ce5c00
+URxvt*color6:#89b6e2
+URxvt*color7:#cccccc
+URxvt*color8:#555753
+URxvt*color9:#ff8d8d
+URxvt*color10:#c8e7a8
+URxvt*color11:#ffc123
+URxvt*color12:#3465a4
+URxvt*color13:#f57900
+URxvt*color14:#46a4ff
+URxvt*color15:#ffffff

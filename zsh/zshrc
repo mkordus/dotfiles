@@ -34,6 +34,7 @@ unsetopt rm_star_silent
 setopt list_ambiguous
 
 export EDITOR='vim'
+export FZF_DEFAULT_OPTS='--color=16'
 
 #vi-mode
 bindkey -v

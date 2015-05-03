@@ -88,17 +88,6 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-bindsym Control+1 workspace 1
-bindsym Control+2 workspace 2
-bindsym Control+3 workspace 3
-bindsym Control+4 workspace 4
-bindsym Control+5 workspace 5
-bindsym Control+6 workspace 6
-bindsym Control+7 workspace 7
-bindsym Control+8 workspace 8
-bindsym Control+9 workspace 9
-bindsym Control+0 workspace 0
-
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -157,11 +146,12 @@ bar {
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --on-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
-exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
+exec --no-startup-id xrdb -load ~/dotfiles/Xresources
+exec --no-startup-id xrdb -merge ~/dotfiles/Xresources-solarized
 exec --no-startup-id xcape -e '#66=Escape'
 exec --no-startup-id xset r rate 180 40
 # exec --no-startup-id compton -b --backend glx --vsync opengl-swc
-exec --no-startup-id xsetroot -solid "#171717"
+exec --no-startup-id xsetroot -solid "#002b36"
 
 #  Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
@@ -183,4 +173,4 @@ assign [class="Skype"] 10
 for_window [title="Hello OpenGL"] floating enable
 for_window [title="fzf-picker"] floating enable
 
-client.focused #191919 #191919 #191919
+client.focused #002b36 #002b36 #002b36
