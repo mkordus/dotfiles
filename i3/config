@@ -159,7 +159,7 @@ exec --on-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
 exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
 exec --no-startup-id xcape -e '#66=Escape'
-exec --no-startup-id xset r rate 200 30
+exec --no-startup-id xset r rate 180 40
 exec --no-startup-id compton -b --backend glx --vsync opengl-swc
 
 #  Move the current workspace to the next output
@@ -181,3 +181,5 @@ assign [class="Eclipse"] 9
 assign [class="Skype"] 10
 for_window [title="Hello OpenGL"] floating enable
 for_window [title="fzf-picker"] floating enable
+
+client.focused #191919 #191919 #191919

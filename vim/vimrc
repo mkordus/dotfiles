@@ -4,15 +4,18 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'edkolev/tmuxline.vim'
-Plug 'itchyny/lightline.vim'
+" Plug 'vim-scripts/genutils'
+" Plug 'vim-scripts/SelectBuf'
+
+" Plug 'edkolev/tmuxline.vim'
+" Plug 'itchyny/lightline.vim'
 
 Plug 'yegappan/mru'
 Plug 'tpope/vim-abolish'
 Plug 'szw/vim-ctrlspace'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-vinegar'
+Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
@@ -20,7 +23,7 @@ Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'tpope/vim-unimpaired'
+Plug 'prestidigitator92/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-eunuch'
@@ -28,6 +31,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
+Plug 'junegunn/vim-fnr'
 
 Plug 'tpope/vim-fugitive'
 
@@ -40,18 +44,19 @@ Plug 'jiangmiao/auto-pairs'
 " Plug 'mattn/webapi-vim'
 
 " Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 
 Plug 'justinmk/vim-sneak'
 
-" Plug 'vim-scripts/listmaps.vim'
-" gutter: {{{
+Plug 'vim-scripts/listmaps.vim'
+" Gutter: {{{
 " Plug 'kshenoy/vim-signature'
 " Plug 'airblade/vim-gitgutter'
 " }}}
-" colorschemes {{{
+" Colorschemes: {{{
+Plug 'croaker/mustang-vim'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'prestidigitator92/vim-wombat256i'
 Plug 'vim-scripts/wombat256.vim'
@@ -62,7 +67,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/vim-tomorrow-theme'
 " }}}
-" syntax {{{
+" Syntax: {{{
 Plug 'tpope/vim-git'
 Plug 'othree/html5.vim', {'for': ['html']}
 Plug 'tpope/vim-markdown'
@@ -74,11 +79,12 @@ Plug 'groenewege/vim-less', { 'for': ['less'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
 " Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'fatih/vim-go'
 " }}}
 call plug#end()
 
 filetype plugin indent on
-" PlugLazyLoading {{{
+" PlugLazyLoading: {{{
 augroup load_us_ycm
     autocmd!
     autocmd InsertEnter *
@@ -87,12 +93,15 @@ augroup load_us_ycm
 augroup END
 " }}}
 " }}}
-" Colorscheme {{{
+" Colorscheme: {{{
+set t_Co=256
 syntax enable
 set bg=dark
 colorscheme wombat256i
 " }}}
 " VimSettings: {{{
+
+set noruler
 
 set encoding=utf-8
 set undolevels=1000
@@ -100,7 +109,7 @@ set showmode
 set noshowcmd
 
 " set cpoptions+=n
-set nu
+set nonu
 
 set splitbelow
 set splitright
@@ -148,13 +157,13 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=0
+set scrolloff=8
 set sidescrolloff=2
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-set laststatus=2
+set laststatus=0
 
 let g:php_sql_query=0
 
@@ -179,33 +188,35 @@ set updatetime=500
 let &showbreak = '↳ '
 set nostartofline
 
+set cursorline
+
 " }}}
-" LocalConfig {{{
+" LocalConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
 " }}}
-" JavascriptLibrariesSyntax {{{
+" JavascriptLibrariesSyntax: {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
-" Tagbar {{{
+" Tagbar: {{{
 let g:tagbar_width = 45
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
 " }}}
-" UltiSnips {{{
+" UltiSnips: {{{
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 let g:UltiSnipsEditSplit = "vertical"
 " }}}
-" Syntastic {{{
+" Syntastic: {{{
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=0
 let g:syntastic_always_populate_loc_list=0
 " }}}
-" YouCompleteMe {{{
+" YouCompleteMe: {{{
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
@@ -222,7 +233,6 @@ let g:winresizer_horiz_resize=3
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " }}}
 " Oblique: {{{
-" Clear autocommand
 autocmd! User Oblique
 autocmd! User ObliqueStar
 autocmd! User ObliqueRepeat
@@ -240,7 +250,8 @@ endfunction
 " }}}
 " Eclim: {{{
 let g:EclimCompletionMethod = 'omnifunc'
-let g:EclimFileTypeValidate = 0
+let g:EclimPhpValidate = 0
+let g:EclimHtmlValidate = 0
 " }}}
 " FZF: {{{
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
@@ -248,7 +259,7 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e ',
-    \'down' : '40%',
+    \'down' : '100%',
     \'options': '-x -m',
     \})
 
@@ -372,6 +383,13 @@ endfunction
 " MRU: {{{
 let MRU_Max_Menu_Entries = 500
 " }}}
+" CtrlSpace: {{{
+let g:ctrlspace_height = 333
+let g:ctrlspace_max_height = 333
+" }}}
+" FileBeagle: {{{
+let g:filebeagle_suppress_keymaps = 1
+" }}}
 " KeyBindings: {{{
 "hard mode :)
 noremap <Up> <NOP>
@@ -397,8 +415,9 @@ nmap <leader>wL <c-w>L
 
 nmap <c-d> <c-w>c
 
-nmap <c-p> :CtrlSpaceGoUp<CR>
-nmap <c-n> :CtrlSpaceGoDown<CR>
+":echo expand('%:t')<CR>
+nmap <silent> <c-p> :CtrlSpaceGoUp<CR>
+nmap <silent> <c-n> :CtrlSpaceGoDown<CR>
 
 nnoremap <Leader>l :set nonumber!<CR>
 
@@ -435,6 +454,12 @@ map Q @q
 
 " highlight last inserted text
 nnoremap gV `[v`]
+
+nnoremap > ]m
+nnoremap < [m
+
+map <silent> <Leader>d  <Plug>FileBeagleOpenCurrentWorkingDir
+map <silent> -          <Plug>FileBeagleOpenCurrentBufferDir
 
 " }}}
 " AutoCMD-fileSpecific: {{{
