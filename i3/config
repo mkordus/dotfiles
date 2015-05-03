@@ -160,7 +160,8 @@ exec --no-startup-id gnome-sound-applet
 exec --no-startup-id xrdb -merge ~/dotfiles/Xresources
 exec --no-startup-id xcape -e '#66=Escape'
 exec --no-startup-id xset r rate 180 40
-exec --no-startup-id compton -b --backend glx --vsync opengl-swc
+# exec --no-startup-id compton -b --backend glx --vsync opengl-swc
+exec --no-startup-id xsetroot -solid "#171717"
 
 #  Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)

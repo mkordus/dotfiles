@@ -258,12 +258,19 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
-    \'sink' : 'e ',
+    \'sink' : 'e',
     \'down' : '100%',
     \'options': '-x -m',
     \})
 
-function! ClassTagCommand()
+command! FZFMruCwd call fzf#run({
+    \'source': "cat ~/.vim_mru_files | tail -n +2 | grep '" . getcwd() ."' | sed 's/^" . escape(getcwd(), '/') . "\\///'",
+    \'sink' : 'e',
+    \'down' : '100%',
+    \'options': '-x -m',
+    \})
+
+function! ClassTagClass()
   return "cat "
       \ . join(tagfiles(), ' ')
       \ . " | egrep '/\\^\\s*(public|private|protected|abstract)?\\s*class' "
@@ -271,27 +278,28 @@ function! ClassTagCommand()
       \ . "| uniq"
 endfunction
 
-nmap <leader>c :call fzf#run({
-    \'source'     : ClassTagCommand(),
-    \'sink'       : 'tjump',
-    \'down' : '60%',
-    \})<CR>
+command! FZFTagClass call fzf#run({
+    \'source' : ClassTagClass(),
+    \'sink' : 'tjump',
+    \'down' : '100%',
+    \})
 
 command! FZFGitCheckoutBranch call fzf#run({
     \'source': 'git branch | sed "s/\#/\\\#/g" | sed "s/\s//g" | sed "/^\*/d"',
     \'sink' : ':silent !git checkout ',
-    \'down' : '40%',
+    \'down' : '100%',
     \'options': '-x',
     \})
 
-command! FZFTag2 if !empty(tagfiles()) | call fzf#run({
+command! FZFTag if !empty(tagfiles()) | call fzf#run({
     \'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
     \'sink':   'tag',
+    \'down': '100%',
     \}) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
-    \'down': '60%',
+    \'down': '100%',
     \'options': '-x -m',
     \})
 
@@ -306,12 +314,13 @@ function! s:bufopen(e)
     execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Leader>b :call fzf#run({
+command! FZFBuffer call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
-    \   'options': '+m',
-    \   'down': '40%',
-    \ })<CR>
+    \   'options': '+m -x',
+    \   'down': '100%',
+    \ })
+
 " }}}
 " LightLine: {{{
 let g:lightline = {
@@ -419,7 +428,7 @@ nmap <c-d> <c-w>c
 nmap <silent> <c-p> :CtrlSpaceGoUp<CR>
 nmap <silent> <c-n> :CtrlSpaceGoDown<CR>
 
-nnoremap <Leader>l :set nonumber!<CR>
+nnoremap <Leader>n :set nonumber!<CR>
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 5<C-e>
@@ -447,7 +456,8 @@ nnoremap <Esc>p p'[v']=
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
-nnoremap <leader>m :FZFMru<CR>
+nnoremap <leader>l :FZFMru<CR>
+nnoremap <leader>m :FZFMruCwd<CR>
 nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
 
 map Q @q
@@ -461,6 +471,8 @@ nnoremap < [m
 map <silent> <Leader>d  <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> -          <Plug>FileBeagleOpenCurrentBufferDir
 
+nmap <leader>c :FZFTagClass<CR>
+nnoremap <Leader>b :FZFBuffer<CR>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
