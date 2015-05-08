@@ -58,7 +58,7 @@ bindsym $mod+v split h
 bindsym $mod+c split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+m fullscreen
+bindsym Control+m fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -109,7 +109,7 @@ bindsym $mod+Shift+r restart
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+e exit
 
-bindsym $mod+Shift+s exec i3lock -c 006699
+bindsym $mod+Shift+s exec i3lock -c 002b36
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -147,8 +147,7 @@ bar {
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --on-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
-exec --no-startup-id xrdb -load ~/dotfiles/Xresources
-exec --no-startup-id xrdb -merge ~/dotfiles/Xresources-solarized
+exec --no-startup-id xrdb -load ~/dotfiles/Xresources && xrdb -merge ~/dotfiles/Xresources-solarized
 exec --no-startup-id xcape -e '#66=Escape'
 exec --no-startup-id xset r rate 180 40
 # exec --no-startup-id compton -b --backend glx --vsync opengl-swc
@@ -159,8 +158,8 @@ exec --no-startup-id xsetroot -solid "#002b36"
 bindsym $mod+x move workspace to output right
 # bindsym $mod+p exec "xdotool getactivewindow getwindowname | grep -iqE 'VIM' && xvkbd -xsendevent -text '\Cwh' || i3 'focus left'"
 for_window [class="[.]*"] border 1pixel
-bindsym $mod+equal exec amixer -q set Master 1dB+ unmute
-bindsym $mod+minus exec amixer -q set Master 1dB- unmute
+bindsym Control+equal exec amixer -q set Master 1dB+ unmute
+bindsym Control+minus exec amixer -q set Master 1dB- unmute
 
 focus_follows_mouse no
 # mouse_warping none
