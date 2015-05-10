@@ -66,6 +66,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'w0ng/vim-hybrid'
 " }}}
 " Syntax: {{{
 Plug 'tpope/vim-git'
@@ -98,9 +99,9 @@ set t_Co=256
 syntax enable
 set bg=dark
 " let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="high"
-colorscheme solarized
+" let g:solarized_termtrans=1
+" let g:solarized_contrast="high"
+colorscheme wombat256i
 " }}}
 " VimSettings: {{{
 
@@ -194,28 +195,30 @@ set nostartofline
 set nocursorline
 
 function! Relpath(filename)
-    let cwd = getcwd()
-    let s = substitute(a:filename, l:cwd . "/" , "", "")
-    return s
+    return substitute(a:filename, getcwd() . '\(/\)\?', "", "")
 endfunction
 
-function! GetCwdStatus1()
-    return substitute(getcwd(), '\([^/]\+\)$', '', '')
+function! Status1()
+    if &modifiable
+        let relp = Relpath(expand('%:p:h'))
+        if strlen(relp) != 0
+            let relp .= '/'
+        endif
+        return l:relp
+    else
+        return ''
+    endif
 endfunction
 
-function! GetCwdStatus2()
-    return substitute(getcwd(), '^.\{-}\([^/]\+\)$', '\1', '')
-endfunction
-
-set statusline=%1*%{Relpath(expand('%:p:h'))}/%2*%t%m
-set statusline+=%=    "left/right separator
-set statusline+=%3*%{GetCwdStatus1()}%4*%{GetCwdStatus2()}
-
+" set statusline=
+" set statusline+=%1*%{Status1()}%2*%t%m
+" set statusline+=\ %#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%1*
+" set statusline+=%=    "left/right separator
 
 hi User1 ctermbg=0 ctermfg=14 guibg=green guifg=red
 hi User2 ctermbg=0 ctermfg=white guibg=green guifg=red
-hi User3 ctermbg=0 ctermfg=14 guibg=green guifg=red
-hi User4 ctermbg=0 ctermfg=white guibg=green guifg=red
 
 " }}}
 " LocalConfig: {{{
@@ -227,7 +230,8 @@ endif
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
 " Tagbar: {{{
-let g:tagbar_width = 45
+" 45
+let g:tagbar_width = 85
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
 " }}}
@@ -426,11 +430,11 @@ endfunction
 let MRU_Max_Menu_Entries = 500
 " }}}
 " CtrlSpace: {{{
-let g:ctrlspace_height = 25
-let g:ctrlspace_max_height = 25
-hi! CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=none ctermbg=none cterm=reverse,bold
+" let g:ctrlspace_height = 25
+let g:ctrlspace_max_height = 333
+" hi! CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=none ctermbg=none cterm=reverse,bold
 " hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
-hi! CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
+" hi! CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
 " }}}
 " FileBeagle: {{{
 let g:filebeagle_suppress_keymaps = 1
