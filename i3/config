@@ -147,7 +147,7 @@ bar {
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 exec --on-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
-exec --no-startup-id xrdb -load ~/dotfiles/Xresources && xrdb -merge ~/dotfiles/Xresources-solarized
+exec --no-startup-id xrdb -load ~/dotfiles/Xresources && xrdb -merge ~/dotfiles/Xresources-wombat
 exec --no-startup-id xcape -e '#66=Escape'
 exec --no-startup-id xset r rate 180 40
 # exec --no-startup-id compton -b --backend glx --vsync opengl-swc
