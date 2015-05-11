@@ -151,7 +151,8 @@ exec --no-startup-id xrdb -load ~/dotfiles/Xresources && xrdb -merge ~/dotfiles/
 exec --no-startup-id xcape -e '#66=Escape'
 exec --no-startup-id xset r rate 180 40
 # exec --no-startup-id compton -b --backend glx --vsync opengl-swc
-exec --no-startup-id xsetroot -solid "#002b36"
+# exec --no-startup-id xsetroot -solid "#002b36"
+exec --no-startup-id nitrogen --restore
 
 #  Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)

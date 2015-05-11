@@ -19,6 +19,8 @@ Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
+Plug 'tpope/vim-dispatch'
+
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'christoomey/vim-tmux-navigator'
@@ -511,8 +513,8 @@ nnoremap gV `[v`]
 nnoremap > ]m
 nnoremap < [m
 
-map <silent> <Leader>d  <Plug>FileBeagleOpenCurrentWorkingDir
-map <silent> -          <Plug>FileBeagleOpenCurrentBufferDir
+map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
+map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 
 nmap <leader>c :FZFTagClass<CR>
 nnoremap <Leader>b :FZFBuffer<CR>
