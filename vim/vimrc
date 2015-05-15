@@ -4,13 +4,13 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-scripts/genutils'
-Plug 'vim-scripts/SelectBuf'
+" Plug 'vim-scripts/genutils'
+" Plug 'vim-scripts/SelectBuf'
 
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'itchyny/lightline.vim'
 
-Plug 'yegappan/mru'
+Plug 'prestidigitator92/mru'
 Plug 'tpope/vim-abolish'
 Plug 'prestidigitator92/vim-ctrlspace'
 Plug 'godlygeek/tabular'
@@ -79,7 +79,7 @@ Plug 'tpope/vim-markdown'
 Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 Plug 'groenewege/vim-less', { 'for': ['less'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
+" Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
 " Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'fatih/vim-go'
@@ -427,9 +427,6 @@ function! MyFilename()
         \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
-" }}}
-" MRU: {{{
-let MRU_Max_Menu_Entries = 500
 " }}}
 " CtrlSpace: {{{
 " let g:ctrlspace_height = 25
