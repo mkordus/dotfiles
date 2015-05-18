@@ -27,8 +27,22 @@ function git_prompt_info {
   fi
 
   if [[ -n $ref ]]; then
-    echo "%F{green} ${ref#refs/heads/}%{$reset_color%}$gitstatus$pairname"
+    echo "%F{green} $(echo ${ref#refs/heads/} | sed 's/_/ /g' | sed 's/^Story/S/' | sed 's/^Bug/B/' | sed 's/\(\w\)\/#\([0-9]\+\)\//\1 [#\2] %F{white}/')%{$reset_color%}$gitstatus$pairname"
   fi
+}
+
+function getPathPrompt {
+    local gitRootDir="$(git rev-parse --show-toplevel 2> /dev/null | sed s#^$HOME#~#)"
+    local cwd="$(pwd | sed s#^$HOME#~#)"
+    if [ "$gitRootDir" ]; then
+        local gitRootName="$(basename $gitRootDir)"
+        local beforeGitRoot="$(echo $gitRootDir | sed s#$gitRootName\$##)"
+        cwd="$(echo $cwd | sed s#^$gitRootDir##)"
+
+        echo "%F{blue}$beforeGitRoot%F{red}$gitRootName%F{blue}$cwd "
+    else
+        echo "%F{blue}$cwd"
+    fi
 }
 
 NEW_LINE=$'\n'
@@ -48,10 +62,11 @@ function zle-line-finish {
 }
 zle -N zle-line-finish
 
-function TRAPINT() {
+function TRAPUSR1() {
   vim_mode=$vim_ins_mode
-  return $(( 128 + $1 ))
+  zle && zle reset-prompt
 }
 
-PROMPT='${NEW_LINE}%F{blue}%~%{$reset_color%}%<<$(git_prompt_info)${NEW_LINE}${vim_mode}%{${reset_color}%} '
+PROMPT='${NEW_LINE}$(getPathPrompt)%{$reset_color%}$(git_prompt_info)${NEW_LINE}${vim_mode}%{${reset_color}%} '
+RPROMPT=''
 
