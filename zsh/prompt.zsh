@@ -71,3 +71,23 @@ function TRAPUSR1() {
 PROMPT='${NEW_LINE}$(getPathPrompt)%{$reset_color%}$(git_prompt_info)${NEW_LINE}${vim_mode}%{${reset_color}%} '
 RPROMPT=''
 
+REPORTTIME_TOTAL=10
+
+# Displays the execution time of the last command if set threshold was exceeded
+cmd_execution_time() {
+  local stop=$((`date "+%s + %N / 1_000_000_000.0"`))
+  let local "elapsed = ${stop} - ${cmd_start_time}"
+  (( $elapsed > $REPORTTIME_TOTAL )) && print -P "%F{yellow}${elapsed}s%f"
+}
+
+# Get the start time of the command
+preexec() {
+  cmd_start_time=$((`date "+%s + %N / 1.0e9"`))
+}
+
+# Output total execution
+precmd() {
+  if (($+cmd_start_time)); then
+    cmd_execution_time
+  fi
+}
