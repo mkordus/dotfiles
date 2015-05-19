@@ -32,12 +32,13 @@ function git_prompt_info {
 }
 
 function getPathPrompt {
-    local gitRootDir="$(git rev-parse --show-toplevel 2> /dev/null | sed s#^$HOME#~#)"
-    local cwd="$(pwd | sed s#^$HOME#~#)"
+    local gitRootDir=$(=git rev-parse --show-toplevel 2> /dev/null | sed "s;^$HOME;~;")
+    local cwd=$(=pwd | sed "s;^$HOME;~;")
     if [ "$gitRootDir" ]; then
-        local gitRootName="$(basename $gitRootDir)"
-        local beforeGitRoot="$(echo $gitRootDir | sed s#$gitRootName\$##)"
-        cwd="$(echo $cwd | sed s#^$gitRootDir##)"
+        local gitRootName=$(=basename $gitRootDir)
+        local beforeGitRoot=$(=echo $gitRootDir | sed "s;$gitRootName\$;;")
+
+        cwd=$(=echo $cwd | sed "s;^$gitRootDir;;")
 
         echo "%F{blue}$beforeGitRoot%F{red}$gitRootName%F{blue}$cwd "
     else
