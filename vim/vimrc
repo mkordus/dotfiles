@@ -4,12 +4,6 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'vim-scripts/genutils'
-" Plug 'vim-scripts/SelectBuf'
-
-" Plug 'edkolev/tmuxline.vim'
-" Plug 'itchyny/lightline.vim'
-
 Plug 'prestidigitator92/mru'
 Plug 'tpope/vim-abolish'
 Plug 'prestidigitator92/vim-ctrlspace'
@@ -43,7 +37,6 @@ Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'mattn/webapi-vim'
 
 " Plug 'junegunn/vim-peekaboo'
 " Plug 'junegunn/goyo.vim'
@@ -52,14 +45,9 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'justinmk/vim-sneak'
 
-Plug 'vim-scripts/listmaps.vim'
-" Gutter: {{{
-" Plug 'kshenoy/vim-signature'
-" Plug 'airblade/vim-gitgutter'
-" }}}
+" Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
 Plug 'croaker/mustang-vim'
-Plug 'vim-scripts/xoria256.vim'
 Plug 'prestidigitator92/vim-wombat256i'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'morhetz/gruvbox'
@@ -103,7 +91,8 @@ set bg=dark
 " let g:solarized_termcolors=256
 " let g:solarized_termtrans=1
 " let g:solarized_contrast="high"
-colorscheme wombat256i
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
 " }}}
 " VimSettings: {{{
 
@@ -114,8 +103,8 @@ set undolevels=1000
 set showmode
 set noshowcmd
 
-" set cpoptions+=n
-set nonu
+set cpoptions+=n
+set number
 
 set splitbelow
 set splitright
@@ -163,7 +152,7 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=8
+set scrolloff=5
 set sidescrolloff=2
 
 " use system clipboard instead of default vim
@@ -306,9 +295,9 @@ command! FZFMruCwd call fzf#run({
 function! ClassTagClass()
   return "cat "
       \ . join(tagfiles(), ' ')
-      \ . " | egrep '/\\^\\s*(public|private|protected|abstract)?\\s*class' "
-      \ . "| awk '{print $1}' "
-      \ . "| uniq"
+      \ . " | egrep '/\\^\\s*(public|private|protected|abstract)?\\s*class'"
+      \ . " | awk '{print $1}'"
+      \ . " | uniq"
 endfunction
 
 command! FZFTagClass call fzf#run({
@@ -453,8 +442,6 @@ let g:mapleader = "\<Space>"
 map j gj
 map k gk
 
-nnoremap <leader>vv :e ~/dotfiles/vim/vimrc<CR>
-nnoremap <leader>vs :source $MYVIMRC<CR>
 nmap <leader>s :w !sudo tee %<CR>
 
 nmap <leader>ws <c-w>s
@@ -512,6 +499,7 @@ nnoremap < [m
 
 map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
+nmap <silent> H <Plug>FileBeagleOpenCurrentBufferDir
 
 nmap <leader>c :FZFTagClass<CR>
 nnoremap <Leader>b :FZFBuffer<CR>

@@ -40,9 +40,9 @@ function getPathPrompt {
 
         cwd=$(=echo $cwd | sed "s;^$gitRootDir;;")
 
-        echo "%F{blue}$beforeGitRoot%F{red}$gitRootName%F{blue}$cwd "
+        echo "$fg_bold[blue]$beforeGitRoot$fg_bold[red]$gitRootName$fg_bold[blue]$cwd "
     else
-        echo "%F{blue}$cwd"
+        echo "$fg_bold[blue]$cwd"
     fi
 }
 
