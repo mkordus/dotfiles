@@ -55,6 +55,7 @@ alias gcb='git branch | egrep "^\*" | sed "s/^\* //"'
 alias gru="git rebase upstream/\$(gcb)"
 alias gc="git branch | fzf-tmux -d 15 | sed 's/^\s*//' | xargs -d '\n' -L 1 git checkout"
 alias gf="git fetch --all"
+alias gp="git push"
 alias tw="tmux list-windows | sed 's#(.*##' | fzf-tmux -d 15 | egrep -oh '[0-9]+' | xargs -d '\n' -L 1 tmux select-window -t"
 
 alias ra='ranger'
