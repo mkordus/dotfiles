@@ -281,14 +281,14 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e',
-    \'down' : '100%',
+    \'down' : '60%',
     \'options': '-x -m',
     \})
 
 command! FZFMruCwd call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | grep -v '/.git/' |grep '" . getcwd() ."' | sed 's/^" . escape(getcwd(), '/') . "\\///'",
     \'sink' : 'e',
-    \'down' : '100%',
+    \'down' : '60%',
     \'options': '-x -m',
     \})
 
@@ -302,26 +302,26 @@ endfunction
 
 command! FZFTagClass call fzf#run({
     \'source' : ClassTagClass(),
-    \'sink' : 'tjump',
-    \'down' : '100%',
+    \'sink' : 'tag',
+    \'down' : '60%',
     \})
 
 command! FZFGitCheckoutBranch call fzf#run({
     \'source': 'git branch | sed "s/\#/\\\#/g" | sed "s/\s//g" | sed "/^\*/d"',
     \'sink' : ':silent !git checkout ',
-    \'down' : '100%',
+    \'down' : '60%',
     \'options': '-x',
     \})
 
 command! FZFTag if !empty(tagfiles()) | call fzf#run({
     \'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
     \'sink':   'tag',
-    \'down': '100%',
+    \'down': '60%',
     \}) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
-    \'down': '100%',
+    \'down': '60%',
     \'options': '-x -m',
     \})
 
@@ -340,7 +340,7 @@ command! FZFBuffer call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
     \   'options': '+m -x',
-    \   'down': '100%',
+    \   'down': '60%',
     \ })
 
 " }}}
