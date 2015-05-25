@@ -4,6 +4,9 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'terryma/vim-expand-region'
+Plug 'triglav/vim-visual-increment'
+
 Plug 'prestidigitator92/mru'
 Plug 'tpope/vim-abolish'
 Plug 'prestidigitator92/vim-ctrlspace'
@@ -57,6 +60,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'w0ng/vim-hybrid'
+Plug 'sheerun/vim-wombat-scheme'
 " }}}
 " Syntax: {{{
 Plug 'tpope/vim-git'
@@ -185,32 +189,7 @@ set nostartofline
 
 set nocursorline
 
-function! Relpath(filename)
-    return substitute(a:filename, getcwd() . '\(/\)\?', "", "")
-endfunction
-
-function! Status1()
-    if &modifiable
-        let relp = Relpath(expand('%:p:h'))
-        if strlen(relp) != 0
-            let relp .= '/'
-        endif
-        return l:relp
-    else
-        return ''
-    endif
-endfunction
-
-" set statusline=
-" set statusline+=%1*%{Status1()}%2*%t%m
-" set statusline+=\ %#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%1*
-" set statusline+=%=    "left/right separator
-
-hi User1 ctermbg=0 ctermfg=14 guibg=green guifg=red
-hi User2 ctermbg=0 ctermfg=white guibg=green guifg=red
-
+set showtabline=0
 " }}}
 " LocalConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
@@ -442,7 +421,9 @@ let g:mapleader = "\<Space>"
 map j gj
 map k gk
 
-nmap <leader>s :w !sudo tee %<CR>
+command! WS :w !sudo tee %<CR>
+
+nnoremap <leader>s :sh<CR>
 
 nmap <leader>ws <c-w>s
 nmap <leader>wv <c-w>v
@@ -476,7 +457,7 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :silent Glog -n 10 --no-merges<CR>:copen<CR>
 
 nnoremap <leader>y :YcmDiags<CR>
-nnoremap <leader>e :Errors<CR>
+" nnoremap <leader>e :Errors<CR>
 
 nnoremap <Leader>f :FZFFind<CR>
 
