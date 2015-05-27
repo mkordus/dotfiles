@@ -75,6 +75,7 @@ Plug 'groenewege/vim-less', { 'for': ['less'] }
 " Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'fatih/vim-go'
+Plug 'keith/tmux.vim'
 " }}}
 call plug#end()
 
@@ -422,6 +423,8 @@ map j gj
 map k gk
 
 command! WS :w !sudo tee %<CR>
+
+command! Json :%!python -m json.tool
 
 nnoremap <leader>s :sh<CR>
 
