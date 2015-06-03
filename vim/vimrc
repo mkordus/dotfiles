@@ -4,12 +4,13 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'prestidigitator92/vim-buffergator'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
 
 Plug 'prestidigitator92/mru'
 Plug 'tpope/vim-abolish'
-Plug 'prestidigitator92/vim-ctrlspace'
+" Plug 'prestidigitator92/vim-ctrlspace'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'jeetsukumaran/vim-filebeagle'
@@ -118,7 +119,7 @@ set splitright
 set wildmenu
 set wildmode=longest,list
 set wildignorecase
-set wildignore+=*/.git/*,*/tmp/*,*/cache/*
+set wildignore+=*/tmp/*,*/cache/*
 
 "matchparen
 let loaded_matchparen = 1
@@ -410,6 +411,12 @@ let g:filebeagle_suppress_keymaps = 1
 " SelectBuf: {{{
 let g:selBufBrowserMode = "switch"
 " }}}
+" Buffergator: {{{
+let g:buffergator_show_full_directory_path = 0
+let g:buffergator_viewport_split_policy = "B"
+let g:buffergator_sort_regime = "mru"
+let g:buffergator_hsplit_size = 12
+" }}}
 " KeyBindings: {{{
 "hard mode :)
 noremap <Up> <NOP>
@@ -486,7 +493,12 @@ map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> H <Plug>FileBeagleOpenCurrentBufferDir
 
 nmap <leader>c :FZFTagClass<CR>
-nnoremap <Leader>b :FZFBuffer<CR>
+" nnoremap <Leader>b :FZFBuffer<CR>
+
+nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
+
+nnoremap <C-Space> :BuffergatorToggle<CR>
+nmap <C-@> :BuffergatorToggle<CR>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
@@ -509,6 +521,8 @@ function! GetGitRootDir()
 
     return system(shellcmd)
 endfunction
+
+nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
 function! CloseWindowOrKillBuffer() "{{{
     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
