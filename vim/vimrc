@@ -418,6 +418,13 @@ let g:buffergator_viewport_split_policy = "B"
 let g:buffergator_sort_regime = "mru"
 let g:buffergator_hsplit_size = 12
 " }}}
+" BufferExplorer: {{{
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerDisableDefaultKeyMapping=1
+let g:bufExplorerReverseSort=1
+let g:bufExplorerShowNoName=1
+let g:bufExplorerShowRelativePath=1
+" }}}
 " KeyBindings: {{{
 "hard mode :)
 noremap <Up> <NOP>
