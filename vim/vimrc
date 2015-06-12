@@ -4,7 +4,8 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'prestidigitator92/vim-buffergator'
+" Plug 'prestidigitator92/vim-buffergator'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
 
@@ -497,8 +498,8 @@ nmap <leader>c :FZFTagClass<CR>
 
 nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
-nnoremap <C-Space> :BuffergatorToggle<CR>
-nmap <C-@> :BuffergatorToggle<CR>
+nnoremap <C-Space> :BufExplorer<CR>
+nmap <C-@> :BufExplorer<CR>
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
