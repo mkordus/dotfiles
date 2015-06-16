@@ -421,7 +421,7 @@ let g:buffergator_hsplit_size = 12
 " BufferExplorer: {{{
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerDisableDefaultKeyMapping=1
-let g:bufExplorerReverseSort=1
+let g:bufExplorerReverseSort=0
 let g:bufExplorerShowNoName=1
 let g:bufExplorerShowRelativePath=1
 " }}}

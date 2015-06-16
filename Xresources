@@ -18,5 +18,5 @@ URxvt*iso14755    : false
 ! URxvt.keysym.M-p: perl:clipboard:paste
 ! URxvt.clipboard.autocopy: true
 
-URxvt.font:     xft:DejaVu Sans Mono for Powerline:pixelsize=12
-URxvt.boldfont: xft:DejaVu Sans Mono for Powerline:pixelbold:size=12
+URxvt.font:     xft:DejaVu Sans Mono:pixelsize=12
+URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=12
