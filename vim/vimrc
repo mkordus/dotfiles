@@ -43,8 +43,11 @@ Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'majutsushi/tagbar'
 Plug 'jiangmiao/auto-pairs'
 
+" Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
+
 " Plug 'junegunn/vim-peekaboo'
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 
@@ -159,8 +162,8 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=5
-set sidescrolloff=2
+set scrolloff=3
+set sidescrolloff=3
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
@@ -190,7 +193,8 @@ set updatetime=500
 let &showbreak = '↳ '
 set nostartofline
 
-set nocursorline
+set cursorline
+set cursorcolumn
 
 set showtabline=0
 " }}}
@@ -424,6 +428,10 @@ let g:bufExplorerDisableDefaultKeyMapping=1
 let g:bufExplorerReverseSort=0
 let g:bufExplorerShowNoName=1
 let g:bufExplorerShowRelativePath=1
+let g:bufExplorerFindActive=0
+" }}}
+" Goyo: {{{
+let g:goyo_width = 120
 " }}}
 " KeyBindings: {{{
 "hard mode :)
@@ -453,8 +461,8 @@ nmap <leader>wL <c-w>L
 nmap <c-d> :call CloseWindowOrKillBuffer()<CR>
 
 ":echo expand('%:t')<CR>
-nmap <silent> <c-p> :CtrlSpaceGoUp<CR>
-nmap <silent> <c-n> :CtrlSpaceGoDown<CR>
+nmap <silent> <c-p> :bp<CR>
+nmap <silent> <c-n> :bn<CR>
 
 nnoremap <Leader>n :set nonumber!<CR>
 
