@@ -4,14 +4,13 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'prestidigitator92/vim-buffergator'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
 
 Plug 'prestidigitator92/mru'
+Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-abolish'
-" Plug 'prestidigitator92/vim-ctrlspace'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'jeetsukumaran/vim-filebeagle'
@@ -64,7 +63,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/seoul256.vim'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'w0ng/vim-hybrid'
+Plug 'prestidigitator92/vim-hybrid'
 Plug 'sheerun/vim-wombat-scheme'
 " }}}
 " Syntax: {{{
@@ -197,7 +196,7 @@ set nostartofline
 set nocursorline
 set nocursorcolumn
 
-set showtabline=1
+set showtabline=2
 " }}}
 " LocalConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
@@ -331,100 +330,11 @@ command! FZFBuffer call fzf#run({
     \ })
 
 " }}}
-" LightLine: {{{
-
-" let g:lightline#colorscheme#solarized_new#palette = g:lightline#colorscheme#solarized_dark#palette
-"
-" let g:lightline#colorscheme#solarized_new#palette.normal.left =
-"     \ [['#fdf6e3', '#586e75', '15', '10']]
-
-let g:lightline = {
-      \ 'colorscheme': 'solarized_new',
-      \ 'active': {
-      \   'left': [ [],
-      \             ['filename']],
-      \   'right': [['syntastic']]
-      \ },
-      \ 'inactive': {
-      \   'right': []
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'MyFugitive',
-      \   'readonly': 'MyReadonly',
-      \   'modified': 'MyModified',
-      \   'filename': 'MyFilename'
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
-
-function! MyModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! MyReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! MyFugitive()
-  if exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? ' '._ : ''
-  endif
-  return ''
-endfunction
-
-function! MyFilename()
-    " let nLines = len(string(line("$")))
-    " let i = 1
-    let prefix = ''
-
-    " while i <= nLines
-    "     let prefix .= ' '
-    "     let i += 1
-    " endwhile
-
-    return prefix .
-        \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
-" }}}
-" CtrlSpace: {{{
-" let g:ctrlspace_height = 25
-let g:ctrlspace_max_height = 333
-" hi! CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=none ctermbg=none cterm=reverse,bold
-" hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
-" hi! CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-" }}}
 " FileBeagle: {{{
 let g:filebeagle_suppress_keymaps = 1
 " }}}
-" SelectBuf: {{{
-let g:selBufBrowserMode = "switch"
-" }}}
-" Buffergator: {{{
-let g:buffergator_show_full_directory_path = 0
-let g:buffergator_viewport_split_policy = "B"
-let g:buffergator_sort_regime = "mru"
-let g:buffergator_hsplit_size = 12
-" }}}
 " BufferExplorer: {{{
-let g:bufExplorerDefaultHelp=0
+let g:bufExplorerDefaultHelp=1
 let g:bufExplorerDisableDefaultKeyMapping=1
 let g:bufExplorerReverseSort=0
 let g:bufExplorerShowNoName=1
@@ -462,7 +372,7 @@ nmap <leader>wJ <c-w>J
 nmap <leader>wK <c-w>K
 nmap <leader>wL <c-w>L
 
-nmap <c-d> :call CloseWindowOrKillBuffer()<CR>
+nmap <silent> <c-d> :silent call CloseWindowOrKillBuffer()<CR>
 
 ":echo expand('%:t')<CR>
 nmap <silent> <c-p> :bp<CR>
@@ -561,10 +471,9 @@ nnoremap <leader>go :Goyo<CR>
       endif
 
       " file name
-      let stat .= active ? ' %1*»%*' : ' «'
-      let stat .= ' %<'
-      let stat .= '%f'
-      let stat .= active ? ' %1*«%*' : ' »'
+      let stat .= active ? '%1* »%*' : ' «'
+      let stat .= active ? ' %<%f ' : ' %<%f '
+      let stat .= active ? '%1*«%*' : '»'
 
       " file modified
       " lorj
