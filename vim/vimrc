@@ -162,7 +162,7 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=3
+set scrolloff=10
 set sidescrolloff=3
 
 " use system clipboard instead of default vim
@@ -245,9 +245,9 @@ autocmd! User Oblique
 autocmd! User ObliqueStar
 autocmd! User ObliqueRepeat
 
-autocmd User Oblique       normal! zz
-autocmd User ObliqueStar   normal! zz
-autocmd User ObliqueRepeat normal! zz
+" autocmd User Oblique       normal! zz
+" autocmd User ObliqueStar   normal! zz
+" autocmd User ObliqueRepeat normal! zz
 
 let g:oblique#incsearch_highlight_all=1
 " }}}
@@ -326,7 +326,7 @@ command! FZFBuffer call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
     \   'options': '+m -x',
-    \   'down': '60%',
+    \   'down': '100%',
     \ })
 
 " }}}
@@ -381,8 +381,8 @@ nmap <silent> <c-n> :bn<CR>
 nnoremap <Leader>n :set nonumber!<CR>
 
 " Instead of 1 line, move 5 at a time
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
+nnoremap <C-e> 10<C-e>
+nnoremap <C-y> 10<C-y>
 
 " wrapping lines in visual mode
 vnoremap < <gv
@@ -395,7 +395,7 @@ nnoremap <silent> <leader>gvd :Gvdiff<CR>
 nnoremap <silent> <leader>gd :Git! diff<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>glc :silent Glog -n 10 --no-merges<CR>:copen<CR>
-nnoremap <silent> <leader>glp :silent Glog -- %<CR>:copen<CR>
+nnoremap <silent> <leader>glp :silent Glog -n 10 --no-merges -- %<CR>
 
 nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
@@ -408,6 +408,7 @@ nnoremap <Esc>p p'[v']=
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
 nnoremap <leader>l :FZFMru<CR>
+nnoremap gb :FZFBuffer<CR>
 nnoremap <leader>m :FZFMruCwd<CR>
 nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
 
@@ -431,6 +432,8 @@ nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_da
 nnoremap <leader>j :BufExplorer<CR>
 
 nnoremap <leader>go :Goyo<CR>
+
+nnoremap <silent>L :silent b#<CR>
 " }}}
 " Status Line: {{{
     " Status Function: {{{2
