@@ -7,6 +7,7 @@ Xft.hintstyle : hintslight
 URxvt.letterSpace : -1
 URxvt.scrollBar   : false
 URxvt*iso14755    : false
+URxvt*internalBorder: 50
 
 ! URxvt.perl-ext-common: keyboard-select,clipboard,font-size
 

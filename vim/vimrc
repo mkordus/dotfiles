@@ -9,7 +9,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
 
 Plug 'prestidigitator92/mru'
-Plug 'tpope/vim-flagship'
+" Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-abolish'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
@@ -54,6 +54,8 @@ Plug 'justinmk/vim-sneak'
 
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
+Plug 'vim-scripts/candycode.vim'
+Plug 'jonathanfilip/vim-lucius'
 Plug 'croaker/mustang-vim'
 Plug 'prestidigitator92/vim-wombat256i'
 Plug 'vim-scripts/wombat256.vim'
@@ -96,12 +98,12 @@ augroup END
 " Colorscheme: {{{
 set t_Co=256
 syntax enable
-set bg=dark
+set bg=light
 " let g:solarized_termcolors=256
 " let g:solarized_termtrans=1
 " let g:solarized_contrast="high"
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
+" let g:hybrid_use_Xresources = 1
+colorscheme lucius
 " }}}
 " VimSettings: {{{
 
@@ -196,7 +198,7 @@ set nostartofline
 set nocursorline
 set nocursorcolumn
 
-set showtabline=2
+set showtabline=0
 " }}}
 " LocalConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
@@ -436,77 +438,77 @@ nnoremap <leader>go :Goyo<CR>
 nnoremap <silent>L :silent b#<CR>
 " }}}
 " Status Line: {{{
-    " Status Function: {{{2
-    function! Status(winnum)
-      let active = a:winnum == winnr()
-      let bufnum = winbufnr(a:winnum)
-
-      if &number
-        let prefix = '    '
-      else
-        let prefix = ''
-      endif
-      let stat = prefix
-
-      " this handles alternative statuslines
-      let usealt = 0
-      let altstat = prefix
-      let altstat .= ' »'
-
-      let type = getbufvar(bufnum, '&buftype')
-
-      let name = bufname(bufnum)
-
-      if type ==# 'help'
-        let altstat .= ' ' . fnamemodify(name, ':t:r')
-        let usealt = 1
-      elseif name ==# '__Gundo__'
-        let altstat .= ' Gundo'
-        let usealt = 1
-      elseif name ==# '__Gundo_Preview__'
-        let altstat .= ' Gundo Preview'
-        let usealt = 1
-      endif
-
-      if usealt
-        let altstat .= ' «'
-        return altstat
-      endif
-
-      " file name
-      let stat .= active ? '%1* »%*' : ' «'
-      let stat .= active ? ' %<%f ' : ' %<%f '
-      let stat .= active ? '%1*«%*' : '»'
-
-      " file modified
-      " lorj
-      let modified = getbufvar(bufnum, '&modified')
-      let stat .= modified ? ' %2*+%*' : ''
-
-      " read only
-      let readonly = getbufvar(bufnum, '&readonly')
-      let stat .= readonly ? ' %2*‼%*' : ''
-
-      return stat
-    endfunction
-    " }}}
-    " Status AutoCMD: {{{
-
-    function! s:RefreshStatus()
-      for nr in range(1, winnr('$'))
-        call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
-      endfor
-    endfunction
-
-    augroup status
-      autocmd!
-      autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
-    augroup END
-    " }}}
-    " Status Colors: {{{
-    hi! User1 ctermfg=10 ctermbg=0
-    hi! User2 ctermfg=9 ctermbg=0
-    " }}}
+    " " Status Function: {{{2
+    " function! Status(winnum)
+    "   let active = a:winnum == winnr()
+    "   let bufnum = winbufnr(a:winnum)
+    "
+    "   if &number
+    "     let prefix = '    '
+    "   else
+    "     let prefix = ''
+    "   endif
+    "   let stat = prefix
+    "
+    "   " this handles alternative statuslines
+    "   let usealt = 0
+    "   let altstat = prefix
+    "   let altstat .= ' »'
+    "
+    "   let type = getbufvar(bufnum, '&buftype')
+    "
+    "   let name = bufname(bufnum)
+    "
+    "   if type ==# 'help'
+    "     let altstat .= ' ' . fnamemodify(name, ':t:r')
+    "     let usealt = 1
+    "   elseif name ==# '__Gundo__'
+    "     let altstat .= ' Gundo'
+    "     let usealt = 1
+    "   elseif name ==# '__Gundo_Preview__'
+    "     let altstat .= ' Gundo Preview'
+    "     let usealt = 1
+    "   endif
+    "
+    "   if usealt
+    "     let altstat .= ' «'
+    "     return altstat
+    "   endif
+    "
+    "   " file name
+    "   let stat .= active ? '%1* »%*' : ' «'
+    "   let stat .= active ? ' %<%f ' : ' %<%f '
+    "   let stat .= active ? '%1*«%*' : '»'
+    "
+    "   " file modified
+    "   " lorj
+    "   let modified = getbufvar(bufnum, '&modified')
+    "   let stat .= modified ? ' %2*+%*' : ''
+    "
+    "   " read only
+    "   let readonly = getbufvar(bufnum, '&readonly')
+    "   let stat .= readonly ? ' %2*‼%*' : ''
+    "
+    "   return stat
+    " endfunction
+    " " }}}
+    " " Status AutoCMD: {{{
+    "
+    " function! s:RefreshStatus()
+    "   for nr in range(1, winnr('$'))
+    "     call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
+    "   endfor
+    " endfunction
+    "
+    " augroup status
+    "   autocmd!
+    "   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
+    " augroup END
+    " " }}}
+    " " Status Colors: {{{
+    " hi! User1 ctermfg=10 ctermbg=0
+    " hi! User2 ctermfg=9 ctermbg=0
+    " " }}}
 " }}}
 " AutoCMD-fileSpecific: {{{
 augroup filespecific
