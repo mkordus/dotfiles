@@ -115,7 +115,7 @@ set showmode
 set noshowcmd
 
 set cpoptions+=n
-set number
+set nonumber
 set numberwidth=5
 
 set splitbelow

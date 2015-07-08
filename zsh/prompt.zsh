@@ -28,7 +28,12 @@ function git_prompt_info {
   fi
 
   if [[ -n $ref ]]; then
-    echo "%F{white} $(echo ${ref#refs/heads/} | sed 's/_/ /g' | sed 's/^Story\//%F{green}/' | sed 's/^Bug\//%F{yellow}/' | sed 's/#\([0-9]\+\)\//[#\1] %F{white}/')%{$reset_color%}$gitstatus$pairname"
+    echo "%F{white} $(echo ${ref#refs/heads/} \
+        | sed 's/^/%F{gray}/' \
+        | sed 's/_/ /g' \
+        | sed 's/^%F{gray}Story\//%F{green}/' \
+        | sed 's/^%F{gray}Bug\//%F{yellow}/' \
+        | sed 's/#\([0-9]\+\)\//[#\1] %F{gray}/')%{$reset_color%}$gitstatus$pairname"
   fi
 }
 
