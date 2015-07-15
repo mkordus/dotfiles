@@ -395,6 +395,7 @@ nnoremap <leader>t :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gvd :Gvdiff<CR>
 nnoremap <silent> <leader>gd :Git! diff<CR>
+nnoremap <silent> <leader>gds :Git! diff --staged<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>glc :silent Glog -n 10 --no-merges<CR>:copen<CR>
 nnoremap <silent> <leader>glp :silent Glog -n 10 --no-merges -- %<CR>
@@ -436,6 +437,15 @@ nnoremap <leader>j :BufExplorer<CR>
 nnoremap <leader>go :Goyo<CR>
 
 nnoremap <silent>L :silent b#<CR>
+
+nmap f <Plug>Sneak_s
+nmap F <Plug>Sneak_S
+xmap f <Plug>Sneak_s
+xmap F <Plug>Sneak_S
+omap f <Plug>Sneak_s
+omap F <Plug>Sneak_S
+
+nnoremap s :BufExplorer<CR>
 " }}}
 " Status Line: {{{
     " " Status Function: {{{2
@@ -533,6 +543,28 @@ function! GetGitRootDir()
 endfunction
 
 nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
+
+function! RunPHPUnitTest(filter)
+    write
+    if a:filter
+        normal! T yw
+        let result = system("bin/phpunit --filter " . @" . " " . bufname("%"))
+    else
+        let result = system("bin/phpunit -c app/ " . expand("%"))
+        " let result = system("echo 'method() /home/gintoki/projects/client-documents/kaczka.php:90'")
+    endif
+    silent! exe "noautocmd botright pedit __PHPUnit_Result__"
+    silent! exe "noautocmd wincmd P"
+    normal! ggdG
+    setlocal wrap
+    setlocal buftype=nofile
+    call append(0, split(substitute(result, getcwd(), ".", "g"), '\v\n'))
+    normal! gg
+    silent! exe "noautocmd wincmd p"
+endfunction
+
+nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
+nnoremap <leader>u :call RunPHPUnitTest(1)<cr>
 
 function! CloseWindowOrKillBuffer() "{{{
     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
