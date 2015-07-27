@@ -18,6 +18,7 @@ Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-tbone'
 
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -51,6 +52,8 @@ Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
 
 Plug 'justinmk/vim-sneak'
+
+Plug 'sjbach/lusty'
 
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
@@ -269,14 +272,14 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e',
-    \'down' : '60%',
+    \'right' : '60%',
     \'options': '-x -m',
     \})
 
 command! FZFMruCwd call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | grep -v '/.git/' |grep '" . getcwd() ."' | sed 's/^" . escape(getcwd(), '/') . "\\///'",
     \'sink' : 'e',
-    \'down' : '60%',
+    \'right' : '60%',
     \'options': '-x -m',
     \})
 
@@ -291,7 +294,7 @@ endfunction
 command! FZFTagClass call fzf#run({
     \'source' : ClassTagClass(),
     \'sink' : 'tag',
-    \'down' : '60%',
+    \'right' : '60%',
     \})
 
 command! FZFGitCheckoutBranch call fzf#run({
@@ -309,7 +312,7 @@ command! FZFTag if !empty(tagfiles()) | call fzf#run({
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
-    \'down': '60%',
+    \'right': '60%',
     \'options': '-x -m',
     \})
 
@@ -328,7 +331,7 @@ command! FZFBuffer call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
     \   'options': '+m -x',
-    \   'down': '100%',
+    \   'right': '60%',
     \ })
 
 " }}}
@@ -396,6 +399,7 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gvd :Gvdiff<CR>
 nnoremap <silent> <leader>gd :Git! diff<CR>
 nnoremap <silent> <leader>gds :Git! diff --staged<CR>
+nnoremap <silent> <leader>gda :Git! diff HEAD<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>glc :silent Glog -n 10 --no-merges<CR>:copen<CR>
 nnoremap <silent> <leader>glp :silent Glog -n 10 --no-merges -- %<CR>
@@ -428,7 +432,7 @@ map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> H <Plug>FileBeagleOpenCurrentBufferDir
 
 nmap <leader>c :FZFTagClass<CR>
-" nnoremap <Leader>b :FZFBuffer<CR>
+nnoremap <Leader>b :FZFBuffer<CR>
 
 nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
@@ -436,7 +440,8 @@ nnoremap <leader>j :BufExplorer<CR>
 
 nnoremap <leader>go :Goyo<CR>
 
-nnoremap <silent>L :silent b#<CR>
+" nnoremap <silent>L :silent b#<CR>
+nnoremap <silent>L :silent LustyBufferExplorer<CR>
 
 nmap f <Plug>Sneak_s
 nmap F <Plug>Sneak_S
@@ -446,6 +451,9 @@ omap f <Plug>Sneak_s
 omap F <Plug>Sneak_S
 
 nnoremap s :BufExplorer<CR>
+nnoremap <silent><c-s> :silent w<CR>:call TmuxRepeat()<CR>
+
+nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
 " }}}
 " Status Line: {{{
     " " Status Function: {{{2
@@ -548,7 +556,7 @@ function! RunPHPUnitTest(filter)
     write
     if a:filter
         normal! T yw
-        let result = system("bin/phpunit --filter " . @" . " " . bufname("%"))
+        let result = system("bin/phpunit -c app/ src")
     else
         let result = system("bin/phpunit -c app/ " . expand("%"))
         " let result = system("echo 'method() /home/gintoki/projects/client-documents/kaczka.php:90'")
@@ -563,8 +571,26 @@ function! RunPHPUnitTest(filter)
     silent! exe "noautocmd wincmd p"
 endfunction
 
+function! ToggleTest()
+    let isTest = bufname('%') =~ 'Test.php$'
+
+    let filePath = expand('%:p')
+
+    if isTest
+        let filePath = substitute(filePath, "BriefcaseBundle/Tests", "BriefcaseBundle", "")
+        let filePath = substitute(filePath, "Test.php$", ".php", "")
+    else
+        let filePath = substitute(filePath, "BriefcaseBundle", "BriefcaseBundle/Tests", "")
+        let filePath = substitute(filePath, ".php$", "Test.php", "")
+    endif
+
+    execute 'edit' filePath
+endfunction
+
 nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
-nnoremap <leader>u :call RunPHPUnitTest(1)<cr>
+nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
+
+nnoremap K :call ToggleTest()<CR>
 
 function! CloseWindowOrKillBuffer() "{{{
     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
@@ -582,4 +608,11 @@ function! CloseWindowOrKillBuffer() "{{{
     endif
 endfunction "}}}
 " }}}
+"
+" function! TmuxRepeat()
+"     silent! exec "Tmux select-pane -l && tmux send q enter c enter up up up enter && tmux select-pane -l"
+" endfunction
+function! TmuxRepeat()
+    :Tmux send -t test.1 q up enter
+endfunction
 " vi: fdm=marker
