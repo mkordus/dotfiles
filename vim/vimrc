@@ -173,7 +173,7 @@ set sidescrolloff=3
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-set laststatus=2
+set laststatus=1
 
 let g:php_sql_query=0
 
@@ -272,7 +272,7 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e',
-    \'right' : '60%',
+    \'right' : '100%',
     \'options': '-x -m',
     \})
 
@@ -339,7 +339,7 @@ command! FZFBuffer call fzf#run({
 let g:filebeagle_suppress_keymaps = 1
 " }}}
 " BufferExplorer: {{{
-let g:bufExplorerDefaultHelp=1
+let g:bufExplorerDefaultHelp=0
 let g:bufExplorerDisableDefaultKeyMapping=1
 let g:bufExplorerReverseSort=0
 let g:bufExplorerShowNoName=1
@@ -368,7 +368,7 @@ command! WS :w !sudo tee %<CR>
 
 command! Json :%!python -m json.tool
 
-nnoremap <leader>s :sh<CR>
+nnoremap <leader>s :FZF src/DAC/BriefcaseBundle<CR>
 
 nmap <leader>ws <c-w>s
 nmap <leader>wv <c-w>v
@@ -409,8 +409,8 @@ nnoremap <leader>y :YcmDiags<CR>
 
 nnoremap <Leader>f :FZFFind<CR>
 
-nnoremap <Esc>P P'[v']=
-nnoremap <Esc>p p'[v']=
+" nnoremap <Esc>P P'[v']=
+" nnoremap <Esc>p p'[v']=
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
@@ -437,11 +437,11 @@ nnoremap <Leader>b :FZFBuffer<CR>
 nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
 nnoremap <leader>j :BufExplorer<CR>
-
+nnoremap <silent><ESC> :silent BufExplorer<CR>
 nnoremap <leader>go :Goyo<CR>
 
-" nnoremap <silent>L :silent b#<CR>
-nnoremap <silent>L :silent LustyBufferExplorer<CR>
+nnoremap <silent>L :silent b#<CR>
+" nnoremap <silent>L :silent LustyBufferExplorer<CR>
 
 nmap f <Plug>Sneak_s
 nmap F <Plug>Sneak_S
@@ -453,7 +453,7 @@ omap F <Plug>Sneak_S
 nnoremap s :BufExplorer<CR>
 nnoremap <silent><c-s> :silent w<CR>:call TmuxRepeat()<CR>
 
-nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
+" nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
 " }}}
 " Status Line: {{{
     " " Status Function: {{{2
