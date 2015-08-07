@@ -118,7 +118,7 @@ set showmode
 set noshowcmd
 
 set cpoptions+=n
-set nonumber
+set number
 set numberwidth=5
 
 set splitbelow
@@ -272,14 +272,14 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e',
-    \'right' : '100%',
+    \'down' : '50%',
     \'options': '-x -m',
     \})
 
 command! FZFMruCwd call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | grep -v '/.git/' |grep '" . getcwd() ."' | sed 's/^" . escape(getcwd(), '/') . "\\///'",
     \'sink' : 'e',
-    \'right' : '60%',
+    \'down' : '50%',
     \'options': '-x -m',
     \})
 
@@ -294,25 +294,25 @@ endfunction
 command! FZFTagClass call fzf#run({
     \'source' : ClassTagClass(),
     \'sink' : 'tag',
-    \'right' : '60%',
+    \'down' : '50%',
     \})
 
 command! FZFGitCheckoutBranch call fzf#run({
     \'source': 'git branch | sed "s/\#/\\\#/g" | sed "s/\s//g" | sed "/^\*/d"',
     \'sink' : ':silent !git checkout ',
-    \'down' : '60%',
+    \'down' : '50%',
     \'options': '-x',
     \})
 
 command! FZFTag if !empty(tagfiles()) | call fzf#run({
     \'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
     \'sink':   'tag',
-    \'down': '60%',
+    \'down' : '50%',
     \}) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
-    \'right': '60%',
+    \'down' : '50%',
     \'options': '-x -m',
     \})
 
@@ -331,7 +331,7 @@ command! FZFBuffer call fzf#run({
     \   'source':  reverse(<sid>buflist()),
     \   'sink':    function('<sid>bufopen'),
     \   'options': '+m -x',
-    \   'right': '60%',
+    \   'down' : '50%',
     \ })
 
 " }}}
@@ -443,15 +443,36 @@ nnoremap <leader>go :Goyo<CR>
 nnoremap <silent>L :silent b#<CR>
 " nnoremap <silent>L :silent LustyBufferExplorer<CR>
 
-nmap f <Plug>Sneak_s
-nmap F <Plug>Sneak_S
-xmap f <Plug>Sneak_s
-xmap F <Plug>Sneak_S
-omap f <Plug>Sneak_s
-omap F <Plug>Sneak_S
+" nmap f <Plug>Sneak_s
+" nmap F <Plug>Sneak_S
+" xmap f <Plug>Sneak_s
+" xmap F <Plug>Sneak_S
+" omap f <Plug>Sneak_s
+" omap F <Plug>Sneak_S
 
-nnoremap s :BufExplorer<CR>
+"replace 'f' with 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+
+" nnoremap s :BufExplorer<CR>
 nnoremap <silent><c-s> :silent w<CR>:call TmuxRepeat()<CR>
+
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+tnoremap <ESC> <C-\><C-n>
 
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
 " }}}
