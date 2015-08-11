@@ -4,6 +4,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
