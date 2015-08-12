@@ -169,7 +169,7 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=10
+set scrolloff=5
 set sidescrolloff=3
 
 " use system clipboard instead of default vim
@@ -576,6 +576,16 @@ endfunction
 
 nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
+function! OpenFileInLastWindow()
+    if getline('.') =~ '^# \./'
+        let line = split(getline('.'), ':')
+        let filePath = substitute(line[0], "^# ", "", "")
+        let lineNumber = line[1]
+
+        silent! exe "noautocmd wincmd p | e +" . lineNumber . " " . filePath
+    endif
+endfunction
+
 function! RunPHPUnitTest(filter)
     if a:filter
         normal! T yw
@@ -589,8 +599,37 @@ function! RunPHPUnitTest(filter)
     setlocal wrap
     setlocal nonumber
     setlocal buftype=nofile
-    call append(0, split(substitute(substitute(result, getcwd(), ".", "g"), ", called in ./[^\n]*", "", "g"), '\v\n')[6:])
+    nnoremap <silent><buffer> <CR> :silent call OpenFileInLastWindow()<CR>
+
+    syn match testName "\w\+::\w\+" contained
+    hi! def link testName Special
+
+    syn match test "\d\+) [^ ]\+" contains=testName
+    hi! def link test String
+
+    syn match testFail "There were \d\+ errors:"
+    syn match testFail "FAILURES!"
+    hi! def link testFail ErrorMsg
+
+    syn match testComment "^#"
+    hi! def link testComment Comment
+
+    syn match testFileName "\w\+\ze\." contained
+    hi! def link testFileName Title
+
+    syn match testFile "\.\(\/\w\+\)\+\.\w\+" contains=testFileName
+    hi! def link testFile None
+
+    let output = substitute(result, getcwd(), ".", "g")
+    let output = substitute(output, ", called in ./[^\n]*", "", "g")
+    let lines = split(output, '\v\n')[6:]
+    let commentedLines = map(copy(lines), '"# " . v:val')
+    call append(0, commentedLines)
+
     normal! gg
+    normal! 0
+    setlocal cursorline
+    setlocal scrolloff=0
     silent! exe "noautocmd wincmd p"
 endfunction
 
