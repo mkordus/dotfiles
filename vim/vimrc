@@ -5,6 +5,7 @@ filetype off "required by plugin manager
 call plug#begin('~/.vim/plugged')
 
 Plug 'radenling/vim-dispatch-neovim'
+Plug 'prestidigitator92/vim-phpunitqf'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
@@ -273,14 +274,12 @@ let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
     \'sink' : 'e',
-    \'down' : '50%',
     \'options': '-x -m',
     \})
 
 command! FZFMruCwd call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | grep -v '/.git/' |grep '" . getcwd() ."' | sed 's/^" . escape(getcwd(), '/') . "\\///'",
     \'sink' : 'e',
-    \'down' : '50%',
     \'options': '-x -m',
     \})
 
@@ -313,7 +312,6 @@ command! FZFTag if !empty(tagfiles()) | call fzf#run({
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
-    \'down' : '50%',
     \'options': '-x -m',
     \})
 
@@ -352,6 +350,10 @@ let g:goyo_width = 120
 " }}}
 " GitGutter: {{{
 let g:gitgutter_enabled = 0
+" }}}
+" PHPUnitQF: {{{
+let g:phpunit_cmd = "./bin/phpunit"
+let g:phpunit_args = "-c app"
 " }}}
 " KeyBindings: {{{
 "hard mode :)
@@ -575,20 +577,19 @@ endfunction
 nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
 function! RunPHPUnitTest(filter)
-    write
     if a:filter
         normal! T yw
         let result = system("bin/phpunit -c app/ src")
     else
         let result = system("bin/phpunit -c app/ " . expand("%"))
-        " let result = system("echo 'method() /home/gintoki/projects/client-documents/kaczka.php:90'")
     endif
     silent! exe "noautocmd botright pedit __PHPUnit_Result__"
     silent! exe "noautocmd wincmd P"
     normal! ggdG
     setlocal wrap
+    setlocal nonumber
     setlocal buftype=nofile
-    call append(0, split(substitute(result, getcwd(), ".", "g"), '\v\n'))
+    call append(0, split(substitute(substitute(result, getcwd(), ".", "g"), ", called in ./[^\n]*", "", "g"), '\v\n')[6:])
     normal! gg
     silent! exe "noautocmd wincmd p"
 endfunction
@@ -611,6 +612,8 @@ endfunction
 
 nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
 nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
+
+nnoremap gf gF
 
 nnoremap K :call ToggleTest()<CR>
 
