@@ -59,6 +59,7 @@ Plug 'justinmk/vim-sneak'
 
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
+Plug 'jpo/vim-railscasts-theme'
 Plug 'vim-scripts/candycode.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'croaker/mustang-vim'
@@ -104,10 +105,10 @@ augroup END
 set t_Co=256
 syntax enable
 set bg=light
-" let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 " let g:solarized_termtrans=1
 " let g:solarized_contrast="high"
-" let g:hybrid_use_Xresources = 1
+let g:hybrid_use_Xresources = 1
 colorscheme lucius
 " }}}
 " VimSettings: {{{
@@ -622,14 +623,19 @@ function! RunPHPUnitTest(filter)
 
     let output = substitute(result, getcwd(), ".", "g")
     let output = substitute(output, ", called in ./[^\n]*", "", "g")
-    let lines = split(output, '\v\n')[6:]
+
+    let lines = split(output, '\v\n')
+    if lines[2] !~ 'PHP Fatal error'
+        let lines = lines[6:]
+    endif
+
     let commentedLines = map(copy(lines), '"# " . v:val')
     call append(0, commentedLines)
 
     normal! gg
     normal! 0
-    setlocal cursorline
-    setlocal scrolloff=0
+    " setlocal cursorline
+    " setlocal scrolloff=0
     silent! exe "noautocmd wincmd p"
 endfunction
 
