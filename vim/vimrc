@@ -200,7 +200,7 @@ set updatetime=500
 let &showbreak = '↳ '
 set nostartofline
 
-set nocursorline
+set cursorline
 set nocursorcolumn
 
 set showtabline=0
@@ -576,17 +576,25 @@ endfunction
 
 nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
-function! OpenFileInLastWindow()
+function! OpenFileInLastWindow(shouldStayInPlugin)
     let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.[0-9A-Za-z_-]\+\(:\d\+\)\?\).*', '\1', '')
-
-    if !empty(line)
+    if line != getline('.')
         echo line
         let filePath = split(line, ':')
 
+        if a:shouldStayInPlugin
+            let sip = 'noautocmd wincmd p'
+        else
+            let sip = ''
+        endif
+
         if len(filePath) == 2
             silent! exe "noautocmd wincmd p | e +" . filePath[1] . " " . filePath[0]
+            normal! zz
+            exe sip
         else
             silent! exe "noautocmd wincmd p | e " . filePath[0]
+            exe sip
         endif
     endif
 endfunction
@@ -609,7 +617,8 @@ function! RunPHPUnitTest(filter)
     map <buffer> j j
     map <buffer> k k
 
-    nnoremap <silent><buffer> <CR> :silent call OpenFileInLastWindow()<CR>
+    nnoremap <silent><buffer> <CR> :silent call OpenFileInLastWindow(0)<CR>
+    nnoremap <silent><buffer> o :silent call OpenFileInLastWindow(1)<CR>
 
     syn match testNamespace "\([0-9A-Za-z_-]\+\\\)\+[0-9A-Za-z_-]\+\(::[0-9A-Za-z_-]\+\)\?"
     hi! def link testNamespace Function
@@ -635,16 +644,19 @@ function! RunPHPUnitTest(filter)
 
     if lines[6] =~ 'There were \d\+ errors:'
         let lines = lines[8:]
+        let startLine = 4
+    else
+        let startLine = 1
     endif
 
     let commentedLines = map(copy(lines), '"# " . v:val')
     call append(0, commentedLines)
 
-    normal! gg
+    echo startLine
+    silent! exe "normal! " . startLine . "gg"
     normal! 0
     setlocal cursorline
-    setlocal scrolloff=0
-    silent! exe "noautocmd wincmd p"
+    " silent! exe "noautocmd wincmd p"
 endfunction
 
 function! ToggleTest()
