@@ -59,7 +59,6 @@ Plug 'justinmk/vim-sneak'
 
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
-Plug 'jpo/vim-railscasts-theme'
 Plug 'vim-scripts/candycode.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'croaker/mustang-vim'
@@ -105,10 +104,10 @@ augroup END
 set t_Co=256
 syntax enable
 set bg=light
-let g:solarized_termcolors=256
+" let g:solarized_termcolors=256
 " let g:solarized_termtrans=1
 " let g:solarized_contrast="high"
-let g:hybrid_use_Xresources = 1
+" let g:hybrid_use_Xresources = 1
 colorscheme lucius
 " }}}
 " VimSettings: {{{
@@ -120,7 +119,7 @@ set undolevels=1000
 set showmode
 set noshowcmd
 
-set cpoptions+=n
+" set cpoptions+=n
 set number
 set numberwidth=5
 
@@ -365,8 +364,8 @@ noremap <Right> <NOP>
 
 let g:mapleader = "\<Space>"
 
-map j gj
-map k gk
+noremap j gj
+noremap k gk
 
 command! WS :w !sudo tee %<CR>
 
@@ -578,12 +577,17 @@ endfunction
 nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
 function! OpenFileInLastWindow()
-    if getline('.') =~ '^# \./'
-        let line = split(getline('.'), ':')
-        let filePath = substitute(line[0], "^# ", "", "")
-        let lineNumber = line[1]
+    let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.[0-9A-Za-z_-]\+\(:\d\+\)\?\).*', '\1', '')
 
-        silent! exe "noautocmd wincmd p | e +" . lineNumber . " " . filePath
+    if !empty(line)
+        echo line
+        let filePath = split(line, ':')
+
+        if len(filePath) == 2
+            silent! exe "noautocmd wincmd p | e +" . filePath[1] . " " . filePath[0]
+        else
+            silent! exe "noautocmd wincmd p | e " . filePath[0]
+        endif
     endif
 endfunction
 
@@ -598,35 +602,39 @@ function! RunPHPUnitTest(filter)
     silent! exe "noautocmd wincmd P"
     normal! ggdG
     setlocal wrap
-    setlocal nonumber
+    setlocal number
     setlocal buftype=nofile
+    setlocal nobuflisted
+
+    map <buffer> j j
+    map <buffer> k k
+
     nnoremap <silent><buffer> <CR> :silent call OpenFileInLastWindow()<CR>
 
-    syn match testName "\w\+::\w\+" contained
-    hi! def link testName Special
-
-    syn match test "\d\+) [^ ]\+" contains=testName
-    hi! def link test String
-
-    syn match testFail "There were \d\+ errors:"
-    syn match testFail "FAILURES!"
-    hi! def link testFail ErrorMsg
+    syn match testNamespace "\([0-9A-Za-z_-]\+\\\)\+[0-9A-Za-z_-]\+\(::[0-9A-Za-z_-]\+\)\?"
+    hi! def link testNamespace Function
 
     syn match testComment "^#"
     hi! def link testComment Comment
 
-    syn match testFileName "\w\+\ze\." contained
+    syn match testFail "FAILURES!"
+    hi! def link testFail ErrorMsg
+
+    syn match testFailF "# \d\+) [^ ]\+"
+    hi! def link testFailF ErrorMsg
+
+    syn match testFileName "[0-9A-Za-z_-]\+\ze\." contained
     hi! def link testFileName Title
 
-    syn match testFile "\.\(\/\w\+\)\+\.\w\+" contains=testFileName
-    hi! def link testFile None
+    syn match testFile "\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.[0-9A-Za-z_-]\+\(:\d\+\)\?" contains=testFileName
+    hi! def link testFile MoreMsg
 
-    let output = substitute(result, getcwd(), ".", "g")
-    let output = substitute(output, ", called in ./[^\n]*", "", "g")
-
+    let output = substitute(result, getcwd() . '/', '', "g")
+    let maxLineLength = winwidth(winnr()) - &numberwidth -3
     let lines = split(output, '\v\n')
-    if lines[2] !~ 'PHP Fatal error'
-        let lines = lines[6:]
+
+    if lines[6] =~ 'There were \d\+ errors:'
+        let lines = lines[8:]
     endif
 
     let commentedLines = map(copy(lines), '"# " . v:val')
@@ -634,8 +642,8 @@ function! RunPHPUnitTest(filter)
 
     normal! gg
     normal! 0
-    " setlocal cursorline
-    " setlocal scrolloff=0
+    setlocal cursorline
+    setlocal scrolloff=0
     silent! exe "noautocmd wincmd p"
 endfunction
 
