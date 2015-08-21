@@ -18,6 +18,7 @@ Plug 'mileszs/ack.vim'
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-tbone'
@@ -349,7 +350,8 @@ let g:bufExplorerFindActive=0
 let g:goyo_width = 120
 " }}}
 " GitGutter: {{{
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
+let g:gitgutter_sign_column_always = 1
 " }}}
 " PHPUnitQF: {{{
 let g:phpunit_cmd = "./bin/phpunit"
@@ -434,8 +436,8 @@ map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> H <Plug>FileBeagleOpenCurrentBufferDir
 
-nmap <leader>c :FZFTagClass<CR>
-nnoremap <Leader>b :FZFBuffer<CR>
+nnoremap <leader>c :Tags!<CR>
+nnoremap <Leader>b :Buffers!<CR>
 
 nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
@@ -475,7 +477,13 @@ tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
-tnoremap <ESC> <C-\><C-n>
+tnoremap <ESC><ESC> <C-\><C-n>
+
+augroup Terminal
+    au!
+    au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
+    au WinEnter term://* startinsert
+augroup END
 
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
 " }}}
