@@ -366,6 +366,10 @@ let g:bufExplorerFindActive=0
 let g:goyo_width = 120
 " }}}
 
+" Sneak: {{{
+let g:sneak#s_next = 1
+" }}}
+
 " GitGutter: {{{
 let g:gitgutter_enabled = 1
 " let g:gitgutter_sign_column_always = 1
@@ -401,6 +405,8 @@ nmap <leader>wH <c-w>H
 nmap <leader>wJ <c-w>J
 nmap <leader>wK <c-w>K
 nmap <leader>wL <c-w>L
+
+nmap <c-w>m <c-w>_
 
 nmap <silent> <c-d> :silent call CloseWindowOrKillBuffer()<CR>
 
@@ -513,6 +519,7 @@ augroup filespecific
     autocmd BufRead,BufNewFile *.md set filetype=markdown
     autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 augroup END
 " }}}
 
@@ -558,10 +565,13 @@ endfunction
 function! RunPHPUnitTest(filter)
     if a:filter
         normal! T yw
-        let result = system("bin/phpunit -c app/ src")
+        let args = 'src'
     else
-        let result = system("bin/phpunit -c app/ " . expand("%"))
+        let args = expand("%")
     endif
+
+    let result = system('bin/phpunit ' . args . ' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"')
+
     silent! exe "noautocmd botright pedit __PHPUnit_Result__"
     silent! exe "noautocmd wincmd P"
     normal! ggdG
@@ -607,8 +617,8 @@ function! RunPHPUnitTest(filter)
 
     let commentedLines = map(copy(lines), '"# " . v:val')
     call append(0, commentedLines)
+    normal! Gdd
 
-    echo startLine
     silent! exe "normal! " . startLine . "gg"
     normal! 0
     setlocal cursorline
