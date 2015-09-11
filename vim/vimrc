@@ -24,6 +24,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-projectionist'
 
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -646,7 +647,8 @@ nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
 
 nnoremap gf gF
 
-nnoremap K :call ToggleTest()<CR>
+" nnoremap K :call ToggleTest()<CR>
+nnoremap K :A<CR>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
