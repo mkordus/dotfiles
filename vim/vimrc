@@ -172,8 +172,8 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=5
-set sidescrolloff=3
+set scrolloff=10
+set sidescrolloff=10
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
@@ -456,8 +456,8 @@ map Q @q
 " highlight last inserted text
 nnoremap gV `[v`]
 
-nnoremap > ]m
-nnoremap < [m
+nnoremap > ]mzt
+nnoremap < [mzt
 
 map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
@@ -649,7 +649,6 @@ nnoremap gf gF
 
 " nnoremap K :call ToggleTest()<CR>
 nnoremap K :A<CR>
-
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -673,5 +672,18 @@ function! CloseWindowOrKillBuffer() "{{{
       bdelete
     endif
 endfunction "}}}
+
+fun! LuciousLightColors()
+    set background=light
+    LuciusLightHighContrast
+    " hi CursorLineNr ctermbg=cyan
+    " hi StatusLine ctermbg=cyan ctermfg=black
+    hi! Search ctermfg=238 ctermbg=146
+endfun
+
+fun! LuciousDarkColors()
+    set background=dark
+    LuciusDark
+endfun
 " }}}
 
