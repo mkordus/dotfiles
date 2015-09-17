@@ -678,7 +678,7 @@ fun! LuciousLightColors()
     LuciusLightHighContrast
     " hi CursorLineNr ctermbg=cyan
     " hi StatusLine ctermbg=cyan ctermfg=black
-    hi! Search ctermfg=238 ctermbg=146
+    hi! Search ctermfg=238 ctermbg=153
 endfun
 
 fun! LuciousDarkColors()
