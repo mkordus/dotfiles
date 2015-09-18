@@ -541,7 +541,8 @@ endfunction
 nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
 function! OpenFileInLastWindow(shouldStayInPlugin)
-    let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.[0-9A-Za-z_-]\+\(:\d\+\)\?\).*', '\1', '')
+    let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.\?[0-9A-Za-z_-]\+\(:\d\+\)\?\( on line \d\+\)\?\).*', '\1', '')
+    let line = substitute(line, ' on line \(\d\+\)', ':\1', '')
     if line != getline('.')
         echo line
         let filePath = split(line, ':')
@@ -602,7 +603,7 @@ function! RunPHPUnitTest(filter)
     syn match testFileName "[0-9A-Za-z_-]\+\ze\." contained
     hi! def link testFileName Title
 
-    syn match testFile "\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.[0-9A-Za-z_-]\+\(:\d\+\)\?" contains=testFileName
+    syn match testFile "\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.\?[0-9A-Za-z_-]\+" contains=testFileName
     hi! def link testFile MoreMsg
 
     let output = substitute(result, getcwd() . '/', '', "g")
