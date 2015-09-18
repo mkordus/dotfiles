@@ -39,6 +39,9 @@ export FZF_DEFAULT_OPTS='
 --color light,bg+:-1,hl:27,hl+:27
 '
 
+#temporary fix on archlinux
+export LANG=""
+
 #vi-mode
 bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
