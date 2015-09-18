@@ -609,7 +609,7 @@ function! RunPHPUnitTest(filter)
     let maxLineLength = winwidth(winnr()) - &numberwidth -3
     let lines = split(output, '\v\n')
 
-    if lines[6] =~ 'There were \d\+ errors:'
+    if len(lines) > 6 && lines[6] =~ 'There were \d\+ errors:'
         let lines = lines[8:]
         let startLine = 4
     else
