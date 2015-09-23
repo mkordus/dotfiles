@@ -40,7 +40,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 #temporary fix on archlinux
-export LANG=""
+# export LANG=""
 
 #vi-mode
 bindkey -v

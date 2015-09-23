@@ -1,6 +1,9 @@
 " vi: fdm=marker
 " Plug: {{{
-set nocompatible
+if !has('nvim')
+    set nocompatible
+endif
+
 filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
@@ -9,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 " }}}
-Plug 'prestidigitator92/vim-phpunitqf'
+" Plug 'prestidigitator92/vim-phpunitqf'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
@@ -18,7 +21,7 @@ Plug 'prestidigitator92/mru'
 Plug 'tpope/vim-abolish'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
-Plug 'jeetsukumaran/vim-filebeagle'
+Plug 'prestidigitator92/vim-filebeagle'
 Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
@@ -42,7 +45,7 @@ Plug 'junegunn/vim-fnr'
 
 Plug 'tpope/vim-fugitive'
 
-Plug 'vim-scripts/dbext.vim', { 'for': ['php', 'sql']}
+Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
 Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
@@ -58,13 +61,9 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'justinmk/vim-sneak'
 
-" Plug 'sjbach/lusty'
-
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
-" Plug 'vim-scripts/candycode.vim'
 Plug 'jonathanfilip/vim-lucius'
-" Plug 'croaker/mustang-vim'
 Plug 'prestidigitator92/vim-wombat256i'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'morhetz/gruvbox'
@@ -86,7 +85,7 @@ Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 Plug 'groenewege/vim-less', { 'for': ['less'] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
 " Plug 'dart-lang/dart-vim-plugin'
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp', 'hpp']}
 " Plug 'fatih/vim-go'
 Plug 'keith/tmux.vim'
 " }}}
@@ -104,7 +103,9 @@ augroup END
 " }}}
 
 " Colorscheme: {{{
-set t_Co=256
+if !has('nvim')
+    set t_Co=256
+endif
 syntax enable
 set bg=light
 colorscheme lucius
@@ -114,7 +115,9 @@ colorscheme lucius
 
 set noruler
 
-set encoding=utf-8
+if !has('nvim')
+    set encoding=utf-8
+endif
 set undolevels=1000
 set showmode
 set noshowcmd
@@ -156,7 +159,9 @@ set magic
 
 "Don't redraw while executing macros(performace)
 set lazyredraw
-set ttyfast
+if !has('nvim')
+    set ttyfast
+endif
 
 "no anoying sound on errors
 set noerrorbells
@@ -597,6 +602,9 @@ function! RunPHPUnitTest(filter)
     syn match testFail "FAILURES!"
     hi! def link testFail ErrorMsg
 
+    syn match testOk "OK (.*"
+    hi! def link testOk Directory
+
     syn match testFailF "# \d\+) [^ ]\+"
     hi! def link testFailF ErrorMsg
 
@@ -676,11 +684,14 @@ endfunction "}}}
 
 fun! LuciousLightColors()
     set background=light
-    LuciusLightHighContrast
+    " LuciusLightHighContrast
+    LuciusLight
     " hi CursorLineNr ctermbg=cyan
     " hi StatusLine ctermbg=cyan ctermfg=black
     hi! Search ctermfg=238 ctermbg=153
 endfun
+
+call LuciousLightColors()
 
 fun! LuciousDarkColors()
     set background=dark
