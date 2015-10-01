@@ -24,3 +24,4 @@ URxvt.keysym.F11: perl:fullscreen:switch
 
 URxvt.font:     xft:DejaVu Sans Mono:pixelsize=13
 URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=13
+
