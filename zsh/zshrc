@@ -50,7 +50,7 @@ bindkey "^N" down-line-or-search
 
 source ~/dotfiles/zsh/prompt.zsh
 
-alias tmux="TERM=screen-256color-bce tmux"
+alias tmux="TERM=rxvt-unicode-256color tmux"
 alias ls='ls --color=auto'
 alias c='clear'
 
