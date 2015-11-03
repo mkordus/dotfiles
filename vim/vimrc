@@ -75,6 +75,7 @@ Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'prestidigitator92/vim-hybrid'
 " }}}
 " Syntax: {{{
+Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-git'
 " Plug 'othree/html5.vim', {'for': ['html']}
 Plug 'tpope/vim-markdown'
@@ -232,9 +233,9 @@ let g:tagbar_sort = 0
 " }}}
 
 " UltiSnips: {{{
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:UltiSnipsJumpForwardTrigger="<cr>"
+let g:UltiSnipsJumpBackwardTrigger = "<nop>"
 let g:UltiSnipsEditSplit = "vertical"
 " }}}
 
@@ -252,6 +253,17 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
+
+let g:ulti_expand_or_jump_res = 0
+function! ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>"
 " }}}
 
 " WinResizer: {{{
@@ -380,6 +392,10 @@ let g:sneak#s_next = 1
 let g:gitgutter_enabled = 1
 " let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1500
+let g:gitgutter_map_keys = 0
+nnoremap ]c :GitGutterNextHunk<CR>zz
+nnoremap [c :GitGutterPrevHunk<CR>zz
+nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 " }}}
 
 " PHPUnitQF: {{{
@@ -405,12 +421,19 @@ command! Json :%!python -m json.tool
 
 nnoremap <leader>s :FZF src/DAC/BriefcaseBundle<CR>
 
-nmap <leader>ws <c-w>s
-nmap <leader>wv <c-w>v
-nmap <leader>wH <c-w>H
-nmap <leader>wJ <c-w>J
-nmap <leader>wK <c-w>K
-nmap <leader>wL <c-w>L
+nnoremap <leader>ws <c-w>s
+nnoremap <leader>wv <c-w>v
+nnoremap <leader>wh <c-w>H
+nnoremap <leader>wj <c-w>J
+nnoremap <leader>wk <c-w>K
+nnoremap <leader>wl <c-w>L
+
+nnoremap <leader>h <c-w>h
+nnoremap <leader>j <c-w>j
+nnoremap <leader>k <c-w>k
+nnoremap <leader>l <c-w>l
+
+nnoremap <leader>a :A<CR>
 
 nmap <c-w>m <c-w>_
 
@@ -444,16 +467,16 @@ nnoremap <silent> <leader>glp :silent Glog -n 10 --no-merges -- %<CR>
 nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
-nnoremap <Leader>f :FZFFind<CR>
+nnoremap <Leader>ff :FZFFind<CR>
+nnoremap <leader>fl :FZFMru<CR>
+nnoremap <leader>fm :FZFMruCwd<CR>
 
 " nnoremap <Esc>P P'[v']=
 " nnoremap <Esc>p p'[v']=
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
-nnoremap <leader>l :FZFMru<CR>
 nnoremap gb :FZFBuffer<CR>
-nnoremap <leader>m :FZFMruCwd<CR>
 nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
 
 map Q @q
@@ -473,7 +496,6 @@ nnoremap <Leader>b :Buffers!<CR>
 
 nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
-nnoremap <leader>j :BufExplorer<CR>
 nnoremap <silent><CR> :silent BufExplorer<CR>
 nnoremap <leader>go :Goyo<CR>
 
@@ -505,11 +527,13 @@ omap T <Plug>Sneak_T
 " nnoremap s :BufExplorer<CR>
 nnoremap <silent><c-s> :silent w<CR>:call TmuxRepeat()<CR>
 
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
-tnoremap <ESC><ESC> <C-\><C-n>
+if has('nvim')
+    tnoremap <C-h> <C-\><C-n><C-w>h
+    tnoremap <C-j> <C-\><C-n><C-w>j
+    tnoremap <C-k> <C-\><C-n><C-w>k
+    tnoremap <C-l> <C-\><C-n><C-w>l
+    tnoremap <ESC><ESC> <C-\><C-n>
+endif
 
 augroup Terminal
     au!
@@ -517,6 +541,9 @@ augroup Terminal
 augroup END
 
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
+
+nnoremap ; :
+nnoremap : ;
 " }}}
 
 " AutoCMD-fileSpecific: {{{
@@ -543,7 +570,7 @@ function! GetGitRootDir()
     return system(shellcmd)
 endfunction
 
-nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
+" nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
 
 function! OpenFileInLastWindow(shouldStayInPlugin)
     let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.\?[0-9A-Za-z_-]\+\(:\d\+\)\?\( on line \d\+\)\?\).*', '\1', '')
@@ -699,3 +726,5 @@ fun! LuciousDarkColors()
 endfun
 " }}}
 
+" reverse words order
+" '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
