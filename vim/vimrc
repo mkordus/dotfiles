@@ -453,7 +453,8 @@ nnoremap <C-y> 10<C-y>
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap <leader>t :TagbarOpenAutoClose<CR>
+nnoremap <leader>t :BTags!<CR>
+nnoremap <leader>T :TagbarOpenAutoClose<CR>
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gvd :Gvdiff<CR>
@@ -543,7 +544,6 @@ augroup END
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
 
 nnoremap ; :
-nnoremap : ;
 " }}}
 
 " AutoCMD-fileSpecific: {{{
