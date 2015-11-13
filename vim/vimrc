@@ -85,6 +85,7 @@ Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 Plug 'groenewege/vim-less', { 'for': ['less'] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
+Plug 'othree/yajs.vim'
 " Plug 'dart-lang/dart-vim-plugin'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp', 'hpp']}
 " Plug 'fatih/vim-go'
@@ -209,7 +210,7 @@ set updatetime=500
 let &showbreak = '↳ '
 set nostartofline
 
-set cursorline
+set nocursorline
 set nocursorcolumn
 
 set showtabline=0
@@ -503,20 +504,20 @@ nnoremap <leader>go :Goyo<CR>
 nnoremap <silent>L :silent b#<CR>
 " nnoremap <silent>L :silent LustyBufferExplorer<CR>
 
-" nmap f <Plug>Sneak_s
-" nmap F <Plug>Sneak_S
-" xmap f <Plug>Sneak_s
-" xmap F <Plug>Sneak_S
-" omap f <Plug>Sneak_s
-" omap F <Plug>Sneak_S
+nmap f <Plug>Sneak_s
+nmap F <Plug>Sneak_S
+xmap f <Plug>Sneak_s
+xmap F <Plug>Sneak_S
+omap f <Plug>Sneak_s
+omap F <Plug>Sneak_S
 
-"replace 'f' with 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
+" "replace 'f' with 1-char Sneak
+" nmap f <Plug>Sneak_f
+" nmap F <Plug>Sneak_F
+" xmap f <Plug>Sneak_f
+" xmap F <Plug>Sneak_F
+" omap f <Plug>Sneak_f
+" omap F <Plug>Sneak_F
 "replace 't' with 1-char Sneak
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
