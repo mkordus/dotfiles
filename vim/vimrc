@@ -44,7 +44,7 @@ Plug 'junegunn/vim-oblique'
 Plug 'junegunn/vim-fnr'
 
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-flagship'
+" Plug 'tpope/vim-flagship'
 
 Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
 Plug 'scrooloose/syntastic'
@@ -727,6 +727,8 @@ fun! LuciousDarkColors()
     LuciusDark
 endfun
 " }}}
+"
+set statusline=%<%{expand(\"%:p:.\")}
 
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
