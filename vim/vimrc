@@ -216,7 +216,6 @@ set nocursorcolumn
 
 set showtabline=0
 " }}}
-
 " LocalConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
@@ -391,13 +390,16 @@ let g:sneak#s_next = 1
 " }}}
 
 " GitGutter: {{{
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
+let g:gitgutter_signs = 1
+let g:gitgutter_highlight_lines = 1
 " let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1500
 let g:gitgutter_map_keys = 0
 nnoremap ]c :GitGutterNextHunk<CR>zz
 nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
+nnoremap cog :GitGutterToggle<CR>
 " }}}
 
 " PHPUnitQF: {{{
@@ -667,9 +669,7 @@ endfunction
 function! ToggleTest()
     let isTest = bufname('%') =~ 'Test.php$'
 
-    let filePath = expand('%:p')
-
-    if isTest
+    let filePath = expand('%:p') if isTest
         let filePath = substitute(filePath, "BriefcaseBundle/Tests", "BriefcaseBundle", "")
         let filePath = substitute(filePath, "Test.php$", ".php", "")
     else
@@ -718,6 +718,12 @@ fun! LuciousLightColors()
     " hi CursorLineNr ctermbg=cyan
     " hi StatusLine ctermbg=cyan ctermfg=black
     hi! Search ctermfg=238 ctermbg=153
+    hi! LineNr ctermfg=247 ctermbg=254
+    hi! SignColumn ctermbg=254
+    hi! Folded ctermfg=242 ctermbg=252
+    hi! StatusLine   ctermfg=231
+    hi! StatusLineNC ctermfg=253 cterm=bold
+    hi! VertSplit ctermfg=244
 endfun
 
 call LuciousLightColors()
@@ -728,7 +734,21 @@ fun! LuciousDarkColors()
 endfun
 " }}}
 "
-set statusline=%<%{expand(\"%:p:.\")}
+set statusline =%<%{Padding().Name().Modified()}
+
+function! Name()
+    return '» ' . expand('%:p:.') . ' «'
+endfunction
+
+function! Modified()
+    return &modified ? ' [+]' : ''
+endfunction
+
+function! Padding()
+    return '       '
+endfunction
+
+set numberwidth=5
 
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
