@@ -402,11 +402,6 @@ nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
 " }}}
 
-" PHPUnitQF: {{{
-let g:phpunit_cmd = "./bin/phpunit"
-let g:phpunit_args = "-c app"
-" }}}
-
 " KeyBindings: {{{
 "hard mode :)
 noremap <Up> <NOP>
@@ -608,9 +603,15 @@ function! RunPHPUnitTest(filter)
         let args = expand("%")
     endif
 
-    let result = system('bin/phpunit -c app ' . args . ' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"')
+    if filereadable("app/phpunit.xml.dist")
+        let configPath = '-c app '
+    else
+        let configPath = ''
+    endif
 
-    silent! exe "noautocmd botright pedit __PHPUnit_Result__"
+    let result = system('bin/phpunit ' . configPath . args . ' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"')
+
+    silent! exe "noautocmd botright pedit PHPUnit_Result"
     silent! exe "noautocmd wincmd P"
     normal! ggdG
     setlocal wrap
