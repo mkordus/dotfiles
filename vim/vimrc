@@ -288,7 +288,6 @@ autocmd! User ObliqueRepeat
 
 let g:oblique#incsearch_highlight_all=1
 " }}}
-
 " DBext: {{{
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
@@ -721,10 +720,12 @@ fun! LuciousLightColors()
     hi! Search ctermfg=238 ctermbg=153
     hi! LineNr ctermfg=247 ctermbg=254
     hi! SignColumn ctermbg=254
-    hi! Folded ctermfg=242 ctermbg=252
-    hi! StatusLine   ctermfg=231
-    hi! StatusLineNC ctermfg=253 cterm=bold
-    hi! VertSplit ctermfg=244
+    hi! Folded ctermfg=240 ctermbg=254 cterm=none
+    hi! StatusLine   ctermfg=255 ctermbg=246 cterm=none
+    hi! StatusLineNC ctermfg=254 ctermbg=246 cterm=none
+    hi! VertSplit ctermfg=244 ctermbg=254
+    hi! User1 ctermfg=119 ctermbg=246 cterm=none
+    hi! User2 ctermfg=1 ctermbg=246 cterm=bold
 endfun
 
 call LuciousLightColors()
@@ -734,11 +735,39 @@ fun! LuciousDarkColors()
     LuciusDark
 endfun
 " }}}
-"
-set statusline =%<%{Padding().Name().Modified()}
 
-function! Name()
-    return '» ' . expand('%:p:.') . ' «'
+set statusline =%{Padding()}»\ %{GetBasePath()}%1*%{GetName()}%*%{GetExtension()}\ «%2*%{Modified()}%*
+
+function! GetBasePath()
+    let basePath = expand('%:p:.:h')
+    if basePath == '.'
+        return ''
+    else
+        return basePath . '/'
+    endif
+endfunction
+
+function! GetName()
+    let tmpName = expand('%:p:t')
+    if strlen(tmpName)
+        return substitute(tmpName, '\.\w\+$', '', '')
+    else
+        return '[No name]'
+    endif
+endfunction
+
+function! GetExtension()
+    let tmpName = expand('%:p:t')
+    if strlen(tmpName)
+        let extension = substitute(tmpName, '.\{-}\(\.\w\+\)$', '\1', '')
+        if strlen(extension) && tmpName != extension
+            return extension
+        else
+            return ''
+        endif
+    else
+        return ''
+    endif
 endfunction
 
 function! Modified()
@@ -746,7 +775,7 @@ function! Modified()
 endfunction
 
 function! Padding()
-    return '       '
+    return '      '
 endfunction
 
 set numberwidth=5
@@ -755,6 +784,9 @@ set numberwidth=5
 vnoremap <leader>g :s/\s*\$\(\w\+\)\W\?/\tpublic function get\u\1()\r\t{\r\t\treturn $this->\1;\r\t}\r/<CR>ddk
 
 nnoremap gp `[v`]
+
+autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window '" . fnamemodify(getcwd(), ':t')  . "'")
+autocmd VimLeave * call system("tmux rename-window 'tmux'")
 
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
