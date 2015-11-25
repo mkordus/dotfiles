@@ -68,6 +68,8 @@ alias tw="tmux list-windows | sed 's#(.*##' | fzf-tmux -d 15 | egrep -oh '[0-9]+
 alias ra='ranger'
 alias mod='ls -td $(find . -type f) | sed "s#^\.\/##"'
 
+alias tfull='wmctrl -r urxvt -b toggle,fullscreen'
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
