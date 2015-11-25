@@ -724,7 +724,7 @@ fun! LuciousLightColors()
     hi! StatusLine   ctermfg=255 ctermbg=246 cterm=none
     hi! StatusLineNC ctermfg=254 ctermbg=246 cterm=none
     hi! VertSplit ctermfg=244 ctermbg=254
-    hi! User1 ctermfg=119 ctermbg=246 cterm=bold
+    hi! User1 ctermfg=51 ctermbg=246 cterm=none
     hi! User2 ctermfg=1 ctermbg=246 cterm=bold
 endfun
 
