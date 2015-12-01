@@ -3,6 +3,7 @@ Xft.antialias : true
 Xft.rgba      : rgb
 Xft.hinting   : true
 Xft.hintstyle : hintslight
+Xft.lcdfilter:  lcddefault
 
 URxvt.letterSpace : -1
 URxvt.scrollBar   : false
@@ -25,3 +26,4 @@ URxvt.keysym.F11: perl:fullscreen:switch
 URxvt.font:     xft:DejaVu Sans Mono:pixelsize=13
 URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=13
 
+URxvt.internalBorder:   1

@@ -549,6 +549,7 @@ augroup filespecific
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
     autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
+    " autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\t/    /g
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 augroup END
@@ -721,14 +722,11 @@ fun! LuciousLightColors()
     hi! LineNr ctermfg=247 ctermbg=254
     hi! SignColumn ctermbg=254
     hi! Folded ctermfg=67 ctermbg=254 cterm=none
-    hi! StatusLine   ctermfg=240 ctermbg=252 cterm=none
-    hi! StatusLineNC ctermfg=241 ctermbg=252 cterm=none
+    hi! StatusLine   ctermfg=255 ctermbg=246 cterm=none
+    hi! StatusLineNC ctermfg=254 ctermbg=246 cterm=none
     hi! VertSplit ctermfg=244 ctermbg=254
-    hi! User1 ctermfg=25 ctermbg=254 cterm=none
-    hi! User2 ctermfg=1 ctermbg=254 cterm=bold
-    hi! User3 ctermfg=34 ctermbg=254 cterm=bold
-    hi! User4 ctermbg=252
-    hi! User5 ctermfg=240 ctermbg=254
+    hi! User1 ctermfg=119 ctermbg=246 cterm=none
+    hi! User2 ctermfg=1 ctermbg=246 cterm=bold
 endfun
 
 call LuciousLightColors()
@@ -739,7 +737,7 @@ fun! LuciousDarkColors()
 endfun
 " }}}
 
-set statusline =%4*%{Padding()}%3*\ »%5*\ %{GetBasePath()}%1*%{GetName()}%5*%{GetExtension()}%5*\ %3*«\ %2*%{Modified()}%*
+set statusline =%{Padding()}»\ %{GetBasePath()}%1*%{GetName()}%*%{GetExtension()}\ «%2*%{Modified()}%*
 
 function! GetBasePath()
     let basePath = expand('%:p:.:h')
