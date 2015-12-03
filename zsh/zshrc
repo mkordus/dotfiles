@@ -65,10 +65,12 @@ alias gfru="git fetch --all && gru"
 alias gp="git push"
 alias tw="tmux list-windows | sed 's#(.*##' | fzf-tmux -d 15 | egrep -oh '[0-9]+' | xargs -d '\n' -L 1 tmux select-window -t"
 
+alias tailswap="clear && tail -f swap.tmp 2>&1 | perl -ne 'if (/file truncated|plik obcięty/) {system 'clear'} else {print}'"
+
 alias ra='ranger'
 alias mod='ls -td $(find . -type f) | sed "s#^\.\/##"'
 
-alias tfull='wmctrl -r urxvt -b toggle,fullscreen'
+alias tfull='wmctrl -r :ACTIVE: -b toggle,fullscreen'
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
