@@ -426,6 +426,9 @@ nnoremap <leader>wj <c-w>J
 nnoremap <leader>wk <c-w>K
 nnoremap <leader>wl <c-w>L
 
+inoremap kj <esc>
+inoremap jk <esc>
+
 nnoremap <leader>h <c-w>h
 nnoremap <leader>j <c-w>j
 nnoremap <leader>k <c-w>k
@@ -597,7 +600,6 @@ endfunction
 
 function! RunPHPUnitTest(filter)
     if a:filter
-        normal! T yw
         let args = 'src'
     else
         let args = expand("%")
@@ -609,63 +611,7 @@ function! RunPHPUnitTest(filter)
         let configPath = ''
     endif
 
-    let result = system('bin/phpunit ' . configPath . args . ' > swap.tmp')
-    " let result = system('bin/phpunit ' . configPath . args . ' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"')
-
-    " silent! exe "noautocmd botright pedit PHPUnit_Result"
-    " silent! exe "noautocmd wincmd P"
-    " normal! ggdG
-    " setlocal wrap
-    " setlocal number
-    " setlocal buftype=nofile
-    " setlocal nobuflisted
-    "
-    " map <buffer> j j
-    " map <buffer> k k
-    "
-    " nnoremap <silent><buffer> <CR> :silent call OpenFileInLastWindow(0)<CR>
-    " nnoremap <silent><buffer> o :silent call OpenFileInLastWindow(1)<CR>
-    "
-    " syn match testNamespace "\([0-9A-Za-z_-]\+\\\)\+[0-9A-Za-z_-]\+\(::[0-9A-Za-z_-]\+\)\?"
-    " hi! def link testNamespace Function
-    "
-    " syn match testComment "^#"
-    " hi! def link testComment Comment
-    "
-    " syn match testFail "FAILURES!"
-    " hi! def link testFail ErrorMsg
-    "
-    " syn match testOk "OK (.*"
-    " hi! def link testOk Directory
-    "
-    " syn match testFailF "# \d\+) [^ ]\+"
-    " hi! def link testFailF ErrorMsg
-    "
-    " syn match testFileName "[0-9A-Za-z_-]\+\ze\." contained
-    " hi! def link testFileName Title
-    "
-    " syn match testFile "\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.\?[0-9A-Za-z_-]\+" contains=testFileName
-    " hi! def link testFile MoreMsg
-    "
-    " let output = substitute(result, getcwd() . '/', '', "g")
-    " let maxLineLength = winwidth(winnr()) - &numberwidth -3
-    " let lines = split(output, '\v\n')
-    "
-    " if len(lines) > 6 && lines[6] =~ 'There were \d\+ errors:'
-    "     let lines = lines[8:]
-    "     let startLine = 4
-    " else
-    "     let startLine = 1
-    " endif
-    "
-    " let commentedLines = map(copy(lines), '"# " . v:val')
-    " call append(0, commentedLines)
-    " normal! Gdd
-    "
-    " silent! exe "normal! " . startLine . "gg"
-    " normal! 0
-    " setlocal cursorline
-    " " silent! exe "noautocmd wincmd p"
+    let result = system('bin/phpunit ' . configPath . args . ' | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
 endfunction
 
 function! ToggleTest()
