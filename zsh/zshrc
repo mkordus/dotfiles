@@ -36,11 +36,8 @@ setopt list_ambiguous
 export EDITOR='vim'
 export FZF_DEFAULT_OPTS='
 --bind ctrl-f:page-down,ctrl-b:page-up
---color light,bg+:-1,hl:27,hl+:27
+--color light,fg+:238,bg+:-1,hl:21,hl+:21
 '
-
-#temporary fix on archlinux
-# export LANG=""
 
 #vi-mode
 bindkey -v

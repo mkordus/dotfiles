@@ -325,8 +325,7 @@ endfunction
 
 command! FZFTagClass call fzf#run({
     \'source' : ClassTagClass(),
-    \'sink' : 'tag',
-    \'down' : '50%',
+    \'sink' : 'tag'
     \})
 
 command! FZFGitCheckoutBranch call fzf#run({
@@ -472,6 +471,7 @@ nnoremap <leader>y :YcmDiags<CR>
 nnoremap <Leader>ff :FZFFind<CR>
 nnoremap <leader>fl :FZFMru<CR>
 nnoremap <leader>fm :FZFMruCwd<CR>
+nnoremap <leader>fc :FZFTagClass<CR>
 
 " nnoremap <Esc>P P'[v']=
 " nnoremap <Esc>p p'[v']=
