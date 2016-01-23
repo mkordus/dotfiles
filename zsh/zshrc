@@ -36,7 +36,7 @@ setopt list_ambiguous
 export EDITOR='vim'
 export FZF_DEFAULT_OPTS='
 --bind ctrl-f:page-down,ctrl-b:page-up
---color=dark,hl:33,hl+:37,fg+:14,bg+:0,pointer:33,marker:1
+--color=dark,hl:160,hl+:160,fg+:-1,bg+:-1,pointer:33,marker:1
 '
 
 #vi-mode

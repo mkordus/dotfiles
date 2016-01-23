@@ -27,6 +27,8 @@ Plug 'jimsei/winresizer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 
+" Plug 'artur-shaik/vim-javacomplete2'
+
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-projectionist'
 
@@ -111,7 +113,7 @@ if !has('nvim')
     set t_Co=256
 endif
 syntax enable
-set bg=dark
+set bg=light
 " colorscheme lucius
 colorscheme solarized
 " }}}
@@ -242,9 +244,21 @@ let g:tagbar_sort = 0
 " UltiSnips: {{{
 " cannot use '<nop>' in ultisnips mappings
 let g:UltiSnipsExpandTrigger = "<c-z>"
+inoremap <expr> <CR> "\<C-R>=UltiSnips#ExpandSnippetOrJump()\<CR>"
 let g:UltiSnipsJumpForwardTrigger="<cr>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 let g:UltiSnipsEditSplit = "vertical"
+
+let g:ulti_expand_or_jump_res = 0
+function! ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>"
 " }}}
 
 " Syntastic: {{{
@@ -262,16 +276,6 @@ let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_use_ultisnips_completer = 1
 
-let g:ulti_expand_or_jump_res = 0
-function! ExpandSnippetOrCarriageReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<CR>"
-    endif
-endfunction
-inoremap <expr> <CR> pumvisible() ? "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>" : "\<CR>"
 " }}}
 
 " WinResizer: {{{
@@ -306,13 +310,14 @@ endfunction
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimPhpValidate = 0
 let g:EclimHtmlValidate = 0
+
 " }}}
 
 " FZF: {{{
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 110x40+300+100 -e sh -c %s'
 
-command! FZFMru call fzf#run({
-    \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
+command! FZFMruWithoutCwd call fzf#run({
+    \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|\\.vim_mru_files$)' | grep -v '/.git/' | egrep -v '^" . getcwd() . "'",
     \'sink' : 'e',
     \'options': '-x -m',
     \})
@@ -347,12 +352,24 @@ command! FZFTag if !empty(tagfiles()) | call fzf#run({
     \'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
     \'sink':   'tag',
     \'down' : '50%',
-    \}) | else | echo 'No tags' | endif
+\}) | else | echo 'No tags' | endif
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
     \'options': '-x -m',
-    \})
+\})
+
+command! FZFClassFile call fzf#run({
+    \'sink': 'e',
+    \'options': '-x -m',
+    \'dir': 'src/main/java'
+\})
+
+command! FZFTestFile call fzf#run({
+    \'sink': 'e',
+    \'options': '-x -m',
+    \'dir': 'src/test/java'
+\})
 
 function! s:buflist()
     redir => ls
@@ -432,16 +449,17 @@ nnoremap <leader>wh <c-w>H
 nnoremap <leader>wj <c-w>J
 nnoremap <leader>wk <c-w>K
 nnoremap <leader>wl <c-w>L
+nnoremap <leader>wo <c-w>o
 
-inoremap kj <esc>
-inoremap jk <esc>
+" inoremap kj <esc>
+" inoremap jk <esc>
 
 nnoremap <leader>h <c-w>h
 nnoremap <leader>j <c-w>j
 nnoremap <leader>k <c-w>k
 nnoremap <leader>l <c-w>l
 
-nnoremap <leader>a :A<CR>
+nnoremap <leader>n :A<CR>
 
 nmap <c-w>m <c-w>_
 
@@ -450,8 +468,6 @@ nmap <silent> <c-d> :silent call CloseWindowOrKillBuffer()<CR>
 ":echo expand('%:t')<CR>
 nmap <silent> <c-p> :silent bp<CR>
 nmap <silent> <c-n> :silent bn<CR>
-
-nnoremap <Leader>n :set nonumber!<CR>
 
 " Instead of 1 line, move 5 at a time
 nnoremap <C-e> 10<C-e>
@@ -477,9 +493,9 @@ nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
 nnoremap <Leader>ff :FZFFind<CR>
-nnoremap <leader>fl :FZFMru<CR>
+nnoremap <leader>fl :FZFMruWithoutCwd<CR>
 nnoremap <leader>fm :FZFMruCwd<CR>
-nnoremap <leader>fc :FZFTagClass<CR>
+nnoremap <leader>fc :FZFClassFile<CR>
 
 " nnoremap <Esc>P P'[v']=
 " nnoremap <Esc>p p'[v']=
@@ -506,7 +522,7 @@ nnoremap <Leader>b :Buffers!<CR>
 
 nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
-nnoremap <silent><CR> :silent BufExplorer<CR>
+nnoremap <silent><leader>o :silent BufExplorer<CR>
 nnoremap <leader>go :Goyo<CR>
 
 nnoremap <silent>L :silent b#<CR>
@@ -565,6 +581,7 @@ augroup filespecific
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     autocmd! FileType gitcommit set cursorline
+    autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 augroup END
 " }}}
 
@@ -638,8 +655,9 @@ function! ToggleTest()
     execute 'edit' filePath
 endfunction
 
-nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
-nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
+" nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
+" nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
+nnoremap <leader>i :execute(':silent JUnit %') \| redraw!<CR>
 
 nnoremap gf gF
 
@@ -670,7 +688,7 @@ function! CloseWindowOrKillBuffer() "{{{
 endfunction "}}}
 
 fun! LuciousLightColors()
-    set background=dark
+    set background=light
     " LuciusLightHighContrast
     LuciusLight
     " hi CursorLineNr ctermbg=cyan
