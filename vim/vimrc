@@ -244,21 +244,21 @@ let g:tagbar_sort = 0
 " UltiSnips: {{{
 " cannot use '<nop>' in ultisnips mappings
 let g:UltiSnipsExpandTrigger = "<c-z>"
-inoremap <expr> <CR> "\<C-R>=UltiSnips#ExpandSnippetOrJump()\<CR>"
-let g:UltiSnipsJumpForwardTrigger="<cr>"
+let g:UltiSnipsJumpForwardTrigger="<c-z>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 let g:UltiSnipsEditSplit = "vertical"
 
 let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
     let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
+    if g:ulti_expand_or_jump_res == 0
+        " return AutoPairsReturn()
         return "\<CR>"
+    else
+        return snippet
     endif
 endfunction
-inoremap <expr> <CR> "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>"
+imap <silent> <expr> <CR> "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>"
 " }}}
 
 " Syntastic: {{{
