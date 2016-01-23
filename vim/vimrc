@@ -13,6 +13,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 " }}}
 " Plug 'prestidigitator92/vim-phpunitqf'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
@@ -110,8 +111,9 @@ if !has('nvim')
     set t_Co=256
 endif
 syntax enable
-set bg=light
-colorscheme lucius
+set bg=dark
+" colorscheme lucius
+colorscheme solarized
 " }}}
 
 " VimSettings: {{{
@@ -180,8 +182,8 @@ set tw=500
 set nowrap
 
 "speed up scrolling
-set scrolloff=5
-set sidescrolloff=5
+set scrolloff=2
+set sidescrolloff=10
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
@@ -215,7 +217,11 @@ set nocursorline
 set nocursorcolumn
 
 set showtabline=0
+
+set previewheight=25
+
 " }}}
+
 " LocalConfig: {{{
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
@@ -289,6 +295,7 @@ autocmd! User ObliqueRepeat
 
 let g:oblique#incsearch_highlight_all=1
 " }}}
+
 " DBext: {{{
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
@@ -302,7 +309,7 @@ let g:EclimHtmlValidate = 0
 " }}}
 
 " FZF: {{{
-let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 120x30 -e sh -c %s'
+let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 110x40+300+100 -e sh -c %s'
 
 command! FZFMru call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|.vim_mru_files$)'",
@@ -381,7 +388,7 @@ let g:bufExplorerFindActive=0
 " }}}
 
 " Goyo: {{{
-let g:goyo_width = 120
+let g:goyo_width = 80
 " }}}
 
 " Sneak: {{{
@@ -505,20 +512,21 @@ nnoremap <leader>go :Goyo<CR>
 nnoremap <silent>L :silent b#<CR>
 " nnoremap <silent>L :silent LustyBufferExplorer<CR>
 
-nmap f <Plug>Sneak_s
-nmap F <Plug>Sneak_S
-xmap f <Plug>Sneak_s
-xmap F <Plug>Sneak_S
-omap f <Plug>Sneak_s
-omap F <Plug>Sneak_S
+" nmap s <Plug>Sneak_s
+" nmap S <Plug>Sneak_S
+" xmap s <Plug>Sneak_s
+" xmap S <Plug>Sneak_S
+" omap s <Plug>Sneak_s
+" omap S <Plug>Sneak_S
 
 " "replace 'f' with 1-char Sneak
-" nmap f <Plug>Sneak_f
-" nmap F <Plug>Sneak_F
-" xmap f <Plug>Sneak_f
-" xmap F <Plug>Sneak_F
-" omap f <Plug>Sneak_f
-" omap F <Plug>Sneak_F
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+
 "replace 't' with 1-char Sneak
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
@@ -556,6 +564,7 @@ augroup filespecific
     " autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\t/    /g
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+    autocmd! FileType gitcommit set cursorline
 augroup END
 " }}}
 
@@ -661,7 +670,7 @@ function! CloseWindowOrKillBuffer() "{{{
 endfunction "}}}
 
 fun! LuciousLightColors()
-    set background=light
+    set background=dark
     " LuciusLightHighContrast
     LuciusLight
     " hi CursorLineNr ctermbg=cyan
@@ -677,7 +686,7 @@ fun! LuciousLightColors()
     hi! User2 ctermfg=1 ctermbg=246 cterm=bold
 endfun
 
-call LuciousLightColors()
+" call LuciousLightColors()
 
 fun! LuciousDarkColors()
     set background=dark
@@ -685,7 +694,7 @@ fun! LuciousDarkColors()
 endfun
 " }}}
 
-set statusline =%{Padding()}»\ %{GetBasePath()}%1*%{GetName()}%*%{GetExtension()}\ «%2*%{Modified()}%*
+" set statusline =%{Padding()}»\ %{GetBasePath()}%1*%{GetName()}%*%{GetExtension()}\ «%2*%{Modified()}%*
 
 function! GetBasePath()
     let basePath = expand('%:p:.:h')

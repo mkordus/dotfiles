@@ -28,7 +28,7 @@ function git_prompt_info {
   fi
 
   if [[ -n $ref ]]; then
-    echo "%F{white} $(echo ${ref#refs/heads/} \
+    echo "%F{white}$(echo ${ref#refs/heads/} \
         | sed 's/^/%F{gray}/' \
         | sed 's/_/ /g' \
         | sed 's/^%F{gray}Story\//%F{green}/' \

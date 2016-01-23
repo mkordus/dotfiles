@@ -36,7 +36,7 @@ setopt list_ambiguous
 export EDITOR='vim'
 export FZF_DEFAULT_OPTS='
 --bind ctrl-f:page-down,ctrl-b:page-up
---color light,fg+:238,bg+:-1,hl:21,hl+:21
+--color=dark,hl:33,hl+:37,fg+:14,bg+:0,pointer:33,marker:1
 '
 
 #vi-mode
@@ -68,6 +68,11 @@ alias ra='ranger'
 alias mod='ls -td $(find . -type f) | sed "s#^\.\/##"'
 
 alias tfull='wmctrl -r :ACTIVE: -b toggle,fullscreen'
+
+alias nvim='nvim -u ~/.vimrc'
+
+alias solDark='xrdb -load ~/dotfiles/xresources/Xresources && xrdb -merge ~/dotfiles/xresources/solarizedDark'
+alias solLight='xrdb -load ~/dotfiles/xresources/Xresources && xrdb -merge ~/dotfiles/xresources/solarizedLight'
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

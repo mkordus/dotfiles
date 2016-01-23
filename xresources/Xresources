@@ -20,9 +20,6 @@ URxvt*iso14755    : false
 ! URxvt.keysym.M-p: perl:clipboard:paste
 ! URxvt.clipboard.autocopy: true
  
-URxvt.perl-ext-common: fullscreen
-URxvt.keysym.F11: perl:fullscreen:switch
-
 URxvt.font:     xft:DejaVu Sans Mono:pixelsize=13
 URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=13
 
