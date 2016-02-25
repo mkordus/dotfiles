@@ -13,8 +13,11 @@ Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 " }}}
 " Plug 'prestidigitator92/vim-phpunitqf'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jlanzarotta/bufexplorer'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'jlanzarotta/bufexplorer' - replaced with unite
 Plug 'terryma/vim-expand-region'
 Plug 'triglav/vim-visual-increment'
 
@@ -41,6 +44,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
