@@ -66,6 +66,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'shawncplus/phpcomplete.vim'
 
 Plug 'justinmk/vim-sneak'
 
