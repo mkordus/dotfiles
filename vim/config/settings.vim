@@ -32,6 +32,7 @@ let loaded_matchparen = 1
 set noshowmatch
 
 "indent
+set breakindent
 set autoindent
 set copyindent
 set smartindent
@@ -63,7 +64,7 @@ set nowb
 
 set lbr
 set tw=500
-set nowrap
+set wrap
 
 "speed up scrolling
 set scrolloff=2
