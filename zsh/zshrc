@@ -54,6 +54,7 @@ alias c='clear'
 alias gs='git status --short'
 alias gd='git diff'
 alias cdg='cd $(git rev-parse --show-cdup)'
+alias cgp='cd ~/projects'
 alias gcb='git branch | egrep "^\*" | sed "s/^\* //"'
 alias gru="git rebase upstream/\$(gcb)"
 alias gc="git branch | fzf-tmux -d 15 | sed 's/^\s*//' | xargs -d '\n' -L 1 git checkout"
