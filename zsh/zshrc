@@ -47,7 +47,7 @@ bindkey "^N" down-line-or-search
 
 source ~/dotfiles/zsh/prompt.zsh
 
-alias tmux="TERM=rxvt-unicode-256color tmux"
+# alias tmux="TERM=rxvt-unicode-256color tmux"
 alias ls='ls --color=auto'
 alias c='clear'
 
@@ -69,7 +69,7 @@ alias mod='ls -td $(find . -type f) | sed "s#^\.\/##"'
 
 alias tfull='wmctrl -r :ACTIVE: -b toggle,fullscreen'
 
-alias nvim='nvim -u ~/.vimrc'
+# alias nvim='nvim -u ~/.vimrc'
 
 alias solDark='xrdb -load ~/dotfiles/xresources/Xresources && xrdb -merge ~/dotfiles/xresources/solarizedDark'
 alias solLight='xrdb -load ~/dotfiles/xresources/Xresources && xrdb -merge ~/dotfiles/xresources/solarizedLight'

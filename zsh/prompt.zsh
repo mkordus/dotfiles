@@ -54,8 +54,8 @@ function getPathPrompt {
 
 NEW_LINE=$'\n'
 
-vim_ins_mode="%F{red}❯%F{yellow}❯%F{green}❯%f"
-vim_cmd_mode="%F{green}❮%F{yellow}❮%F{red}❮%f"
+vim_ins_mode="%F{red}>%F{yellow}>%F{green}>%f"
+vim_cmd_mode="%F{green}»%F{yellow}»%F{red}»%f"
 vim_mode=$vim_ins_mode
 
 function zle-keymap-select {
