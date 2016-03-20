@@ -17,12 +17,10 @@ tee \
     | sed 's#^final class#f #I' \
     | sed 's#^class#c #I' \
     | sed 's#^interface#i #I' \
-    | sed 's# implements # im #gI' \
-    | sed 's# extends # ex #gI' \
+    | sed "s# implements # ${CYAN}#gI" \
+    | sed "s# extends # ${YELLOW}#gI" \
     | sed 's#\\\\#\\#g' \
-    | sed 's#\t#          #g' \
-    | sed "s# ex # ${YELLOW}ex${NORMAL} #g" \
-    | sed "s# im # ${GREEN}im${NORMAL} #g" \
+    | sed "s#\t#${NORMAL}        #g" \
     | sed "s#^\(\w\s\+\)\(\w\+\)#\1${BLUE}\2${NORMAL}#"
 
     # | column -t -s $'\t' \
