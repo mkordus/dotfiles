@@ -104,19 +104,6 @@ command! FZFMruCwd call fzf#run({
     \'options': '-x -m',
     \})
 
-function! ClassTagClass()
-  return "cat "
-      \ . join(tagfiles(), ' ')
-      \ . " | egrep '/\\^\\s*(public|private|protected|abstract)?\\s*class'"
-      \ . " | awk '{print $1}'"
-      \ . " | uniq"
-endfunction
-
-command! FZFTagClass call fzf#run({
-    \'source' : ClassTagClass(),
-    \'sink' : 'tag'
-    \})
-
 command! FZFGitCheckoutBranch call fzf#run({
     \'source': 'git branch | sed "s/\#/\\\#/g" | sed "s/\s//g" | sed "/^\*/d"',
     \'sink' : ':silent !git checkout ',
@@ -124,11 +111,20 @@ command! FZFGitCheckoutBranch call fzf#run({
     \'options': '-x',
     \})
 
-command! FZFTag if !empty(tagfiles()) | call fzf#run({
-    \'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
-    \'sink':   'tag',
-    \'down' : '50%',
-\}) | else | echo 'No tags' | endif
+function! FZFTagClass(initialQuery)
+    if !empty(tagfiles()) | call fzf#run({
+        \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
+        \'sink': function('EditTag'),
+        \'window': 'enew',
+        \'options': '--ansi -e --tiebreak=begin --query=' . a:initialQuery
+    \}) | else | echo 'No tags' | endif
+endfunction
+
+command! FZFTagClassC call FZFTagClass('')
+
+function! EditTag(line)
+    execute 'edit ' . matchstr(a:line, '[^ ]\+$')
+endfunction
 
 command! FZFFind call fzf#run({
     \'sink': 'e',
@@ -184,7 +180,7 @@ let g:bufExplorerShowRelativePath=1
 let g:bufExplorerFindActive=0
 " }}}
 " Goyo: {{{
-let g:goyo_width = 80
+let g:goyo_width = 120
 " }}}
 " Sneak: {{{
 let g:sneak#s_next = 1
@@ -293,7 +289,7 @@ map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> H <Plug>FileBeagleOpenCurrentBufferDir
 
-nnoremap <leader>c :Tags!<CR>
+nnoremap <leader>c :FZFTagClassC<CR>
 nnoremap <Leader>b :Buffers!<CR>
 
 " nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
