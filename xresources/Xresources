@@ -24,3 +24,4 @@ URxvt.font:     xft:DejaVu Sans Mono:pixelsize=13
 URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=13
 
 URxvt.internalBorder:   1
+URxvt.intensityStyles: false
