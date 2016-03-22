@@ -259,6 +259,8 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>glc :silent Glog -n 10 --no-merges<CR>:copen<CR>
 nnoremap <silent> <leader>glp :silent Glog -n 10 --no-merges -- %<CR>
 
+nnoremap <leader>a :Ag! <right>
+
 nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
@@ -267,7 +269,7 @@ nnoremap <Leader>ff :FZFFind<CR>
 nnoremap <leader>fl :FZFMruWithoutCwd<CR>
 nnoremap <leader>fm :FZFMruCwd<CR>
 " nnoremap <leader>fc :FZFClassFile<CR>
-nnoremap <leader>s :Lines!<CR>
+nnoremap <leader>s :BLines!<CR>
 
 " nnoremap <Esc>P P'[v']=
 " nnoremap <Esc>p p'[v']=
