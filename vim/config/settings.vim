@@ -1,7 +1,5 @@
 " vi: fdm=marker
 
-" VimSettings: {{{
-
 set noruler
 
 if !has('nvim')
@@ -106,4 +104,8 @@ set showtabline=0
 
 set previewheight=25
 
-" }}}
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+noremap gV `[v`]

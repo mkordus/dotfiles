@@ -8,6 +8,9 @@ Xft.lcdfilter:  lcddefault
 URxvt.letterSpace : -1
 URxvt.scrollBar   : false
 URxvt*iso14755    : false
+URxvt*iso14755_52 : false
+
+URxvt.keysym.Control-Tab: \033[27;5;9~
 ! URxvt*internalBorder: 50
 
 ! URxvt.perl-ext-common: keyboard-select,clipboard,font-size
