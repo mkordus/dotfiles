@@ -89,7 +89,7 @@ let g:EclimHtmlValidate = 0
 
 " }}}
 " FZF: {{{
-" let g:fzf_layout = {'window': 'enew'}
+let g:fzf_layout = {'window': 'enew'}
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 110x40+300+100 -e sh -c %s'
 
 command! FZFMruWithoutCwd call fzf#run({
@@ -116,7 +116,7 @@ function! FZFTagClass(initialQuery)
         \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
         \'sink': function('EditTag'),
         \'window': 'enew',
-        \'options': '--ansi -e --tiebreak=begin --query=' . a:initialQuery
+        \'options': '--ansi --tiebreak=begin --query=' . a:initialQuery
     \}) | else | echo 'No tags' | endif
 endfunction
 
@@ -233,15 +233,18 @@ nnoremap <leader>n :A<CR>
 
 nmap <c-w>m <c-w>_
 
-nmap <silent> <c-d> :silent call CloseWindowOrKillBuffer()<CR>
+" nmap <silent> <c-d> :silent call CloseWindowOrKillBuffer()<CR>
 
 ":echo expand('%:t')<CR>
 nmap <silent> <c-p> :silent bp<CR>
 nmap <silent> <c-n> :silent bn<CR>
 
 " Instead of 1 line, move 5 at a time
-nnoremap <C-e> 10<C-e>
-nnoremap <C-y> 10<C-y>
+" nnoremap <C-e> 10<C-e>
+" nnoremap <C-y> 10<C-y>
+
+nnoremap <c-f> <c-f>2<c-e>
+nnoremap <c-b> <c-b>2<c-y>
 
 " wrapping lines in visual mode
 vnoremap < <gv
@@ -265,11 +268,13 @@ nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
 nnoremap <Leader>ff :FZFFind<CR>
-" nnoremap <Leader>ff :Unite -no-split -start-insert file_rec/async<CR>
 nnoremap <leader>fl :FZFMruWithoutCwd<CR>
 nnoremap <leader>fm :FZFMruCwd<CR>
-" nnoremap <leader>fc :FZFClassFile<CR>
+nnoremap <leader>fe :FZF /etc<CR>
+nnoremap <leader>fv :FZF ~/dotfiles/vim<CR>
+nnoremap <leader>fc :FZFTagClassC<CR>
 nnoremap <leader>s :BLines!<CR>
+nnoremap <Leader>b :Buffers!<CR>
 
 " nnoremap <Esc>P P'[v']=
 " nnoremap <Esc>p p'[v']=
@@ -289,17 +294,15 @@ nnoremap < [mzt
 
 map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
-nmap <silent> H <Plug>FileBeagleOpenCurrentBufferDir
+nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
 
-nnoremap <leader>c :FZFTagClassC<CR>
-nnoremap <Leader>b :Buffers!<CR>
 
 " nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
 nnoremap <silent><leader>o :silent Unite -no-split buffer<CR>
 nnoremap <leader>go :Goyo<CR>
 
-nnoremap <silent>L :silent b#<CR>
+" nnoremap <silent>L :silent b#<CR>
 " nnoremap <silent>L :silent LustyBufferExplorer<CR>
 
 " nmap s <Plug>Sneak_s

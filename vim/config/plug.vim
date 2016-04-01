@@ -13,9 +13,9 @@ Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 " }}}
 " Plug 'prestidigitator92/vim-phpunitqf'
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
+" Plug 'Shougo/vimproc.vim'
+" Plug 'Shougo/unite.vim'
+" Plug 'Shougo/neomru.vim'
 " Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'jlanzarotta/bufexplorer' - replaced with unite
 Plug 'terryma/vim-expand-region'
