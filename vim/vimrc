@@ -8,6 +8,8 @@ if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
 
+let loaded_netrwPlugin = 1
+
 " Colorscheme: {{{
 
     if !has('nvim')
@@ -71,9 +73,6 @@ let g:winresizer_start_key = '<Leader>wr'
 let g:winresizer_vert_resize=3
 let g:winresizer_horiz_resize=3
 " }}}
-" ACK: {{{
-let g:ackprg = 'ag --nogroup --nocolor --column'
-" }}}
 " Oblique: {{{
 let g:oblique#incsearch_highlight_all=1
 " }}}
@@ -86,11 +85,11 @@ endfunction
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimPhpValidate = 0
 let g:EclimHtmlValidate = 0
-
 " }}}
 " FZF: {{{
 let g:fzf_layout = {'window': 'enew'}
 let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 110x40+300+100 -e sh -c %s'
+let g:fzf_buffers_jump = 0
 
 command! FZFMruWithoutCwd call fzf#run({
     \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|\\.vim_mru_files$)' | grep -v '/.git/' | egrep -v '^" . getcwd() . "'",
@@ -149,35 +148,9 @@ command! FZFTestFile call fzf#run({
     \'dir': 'src/test/java'
 \})
 
-function! s:buflist()
-    redir => ls
-    silent ls
-    redir END
-    return split(substitute(substitute(ls, '\s*wiersz \d\+\s*', '', 'g'), '"', '', 'g'), '\n')
-endfunction
-
-function! s:bufopen(e)
-    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-command! FZFBuffer call fzf#run({
-    \   'source':  reverse(<sid>buflist()),
-    \   'sink':    function('<sid>bufopen'),
-    \   'options': '+m -x',
-    \   'down' : '50%',
-    \ })
-
 " }}}
 " FileBeagle: {{{
 let g:filebeagle_suppress_keymaps = 1
-" }}}
-" BufferExplorer: {{{
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerDisableDefaultKeyMapping=1
-let g:bufExplorerReverseSort=0
-let g:bufExplorerShowNoName=1
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerFindActive=0
 " }}}
 " Goyo: {{{
 let g:goyo_width = 120
@@ -196,6 +169,16 @@ nnoremap ]c :GitGutterNextHunk<CR>zz
 nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
+" }}}
+" CamelCaseMotion: {{{
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
 " }}}
 " KeyBindings: {{{
 "hard mode :)
@@ -273,8 +256,8 @@ nnoremap <leader>fm :FZFMruCwd<CR>
 nnoremap <leader>fe :FZF /etc<CR>
 nnoremap <leader>fv :FZF ~/dotfiles/vim<CR>
 nnoremap <leader>fc :FZFTagClassC<CR>
-nnoremap <leader>s :BLines!<CR>
-nnoremap <Leader>b :Buffers!<CR>
+nnoremap <leader>s :BLines<CR>
+nnoremap <Leader>b :Buffers<CR>
 
 " nnoremap <Esc>P P'[v']=
 " nnoremap <Esc>p p'[v']=
@@ -362,8 +345,6 @@ function! GetGitRootDir()
     return system(shellcmd)
 endfunction
 
-" nnoremap gp gg/\(extends\\|implements\) /e<CR>l<C-]>
-
 function! OpenFileInLastWindow(shouldStayInPlugin)
     let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.\?[0-9A-Za-z_-]\+\(:\d\+\)\?\( on line \d\+\)\?\).*', '\1', '')
     let line = substitute(line, ' on line \(\d\+\)', ':\1', '')
@@ -425,57 +406,8 @@ nnoremap <leader>i :JUnit %<CR>
 
 nnoremap gf gF
 
-" nnoremap K :call ToggleTest()<CR>
 nnoremap K :A<CR>
-" Return to last edit position when opening files (You want this!)
-" autocmd BufReadPost *
-"      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"      \   exe "normal! g`\"" |
-"      \ endif
-" Remember info about open buffers on close
-" set viminfo^=%
-
-function! CloseWindowOrKillBuffer() "{{{
-    let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
-
-    " never bdelete a nerd tree
-    " if matchstr(expand("%"), 'NERD') == 'NERD'
-    "   wincmd c
-    "   return
-    " endif
-
-    if number_of_windows_to_this_buffer > 1
-      wincmd c
-    else
-      bdelete
-    endif
-endfunction "}}}
-
-fun! LuciousLightColors()
-    set background=light
-    " LuciusLightHighContrast
-    LuciusLight
-    " hi CursorLineNr ctermbg=cyan
-    " hi StatusLine ctermbg=cyan ctermfg=black
-    hi! Search ctermfg=238 ctermbg=153
-    hi! LineNr ctermfg=247 ctermbg=254
-    hi! SignColumn ctermbg=254
-    hi! Folded ctermfg=67 ctermbg=254 cterm=none
-    hi! StatusLine   ctermfg=255 ctermbg=246 cterm=none
-    hi! StatusLineNC ctermfg=254 ctermbg=246 cterm=none
-    hi! VertSplit ctermfg=244 ctermbg=254
-    hi! User1 ctermfg=119 ctermbg=246 cterm=none
-    hi! User2 ctermfg=1 ctermbg=246 cterm=bold
-endfun
-
-" call LuciousLightColors()
-
-fun! LuciousDarkColors()
-    set background=dark
-    LuciusDark
-endfun
 " }}}
-
 function! NeatFoldText() "{{{2
 "http://dhruvasagar.com/2013/03/28/vim-better-foldtext
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '

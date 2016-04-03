@@ -9,7 +9,7 @@ set undolevels=1000
 set showmode
 set noshowcmd
 
-" set cpoptions+=n
+set cpoptions+=n
 set number
 set numberwidth=4
 
@@ -94,7 +94,7 @@ set foldcolumn=0
 
 set updatetime=500
 " let &showbreak = '↳ '
-let &showbreak = '↓'
+let &showbreak = '↓ '
 set nostartofline
 
 set nocursorline

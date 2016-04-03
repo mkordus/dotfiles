@@ -7,98 +7,77 @@ endif
 filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
-
-" dispatch: {{{
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
-" }}}
-" Plug 'prestidigitator92/vim-phpunitqf'
-" Plug 'Shougo/vimproc.vim'
-" Plug 'Shougo/unite.vim'
-" Plug 'Shougo/neomru.vim'
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'jlanzarotta/bufexplorer' - replaced with unite
-Plug 'terryma/vim-expand-region'
-Plug 'triglav/vim-visual-increment'
-
-Plug 'prestidigitator92/mru'
-Plug 'tpope/vim-abolish'
-Plug 'godlygeek/tabular'
-Plug 'mileszs/ack.vim'
-Plug 'prestidigitator92/vim-filebeagle'
-Plug 'jimsei/winresizer'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
-
-" Plug 'artur-shaik/vim-javacomplete2'
-
-Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-projectionist'
-
+" Movements: {{{
+Plug 'bkad/CamelCaseMotion'
+Plug 'justinmk/vim-sneak'
 Plug 'michaeljsmith/vim-indent-object'
-
-" Plug 'christoomey/vim-tmux-navigator'
-
-Plug 'prestidigitator92/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-ragtag'
-
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
-Plug 'junegunn/vim-fnr'
-
+Plug 'triglav/vim-visual-increment'
+Plug 'vim-scripts/argtextobj.vim'
+" Plug 'terryma/vim-expand-region'
+" }}}
+" TPope: {{{
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'prestidigitator92/vim-unimpaired'
+Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-dispatch'
+" Plug 'radenling/vim-dispatch-neovim'
+" Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-tbone'
+" Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-ragtag'
 " Plug 'tpope/vim-flagship'
-
-Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
-Plug 'scrooloose/syntastic'
+" }}}
+" EditMode: {{{
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'jiangmiao/auto-pairs', { 'on': [] }
-Plug 'majutsushi/tagbar'
+" }}}
+" FZF: {{{
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+" }}}
 
+Plug 'godlygeek/tabular'
+Plug 'prestidigitator92/vim-filebeagle'
+
+Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
+Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
 
-" Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/goyo.vim'
-" Plug 'junegunn/limelight.vim'
-" Plug 'junegunn/rainbow_parentheses.vim'
-" Plug 'shawncplus/phpcomplete.vim'
-
-Plug 'justinmk/vim-sneak'
-
+" Plug 'junegunn/goyo.vim'
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
-Plug 'jonathanfilip/vim-lucius'
-Plug 'prestidigitator92/vim-wombat256i'
-Plug 'vim-scripts/wombat256.vim'
-Plug 'morhetz/gruvbox'
-Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
-Plug 'junegunn/seoul256.vim'
-Plug 'tomasr/molokai'
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'prestidigitator92/vim-hybrid'
+" Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'jnurmine/Zenburn'
+" Plug 'jonathanfilip/vim-lucius'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'morhetz/gruvbox'
+" Plug 'prestidigitator92/vim-hybrid'
+" Plug 'prestidigitator92/vim-wombat256i'
+" Plug 'tomasr/molokai'
+" Plug 'vim-scripts/wombat256.vim'
 " }}}
-" Syntax: {{{
-Plug 'leafgarland/typescript-vim'
-Plug 'tpope/vim-git'
+" Languages: {{{
+" Plug 'artur-shaik/vim-javacomplete2'
+" Plug 'shawncplus/phpcomplete.vim'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'tpope/vim-git'
 " Plug 'othree/html5.vim', {'for': ['html']}
-Plug 'tpope/vim-markdown'
+" Plug 'tpope/vim-markdown'
 " Plug 'StanAngeloff/php.vim', { 'for': ['php']}
 " Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
-Plug 'beyondwords/vim-twig'
+" Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
-Plug 'groenewege/vim-less', { 'for': ['less'] }
+" Plug 'groenewege/vim-less', { 'for': ['less'] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
-Plug 'othree/yajs.vim'
+" Plug 'othree/yajs.vim'
 " Plug 'dart-lang/dart-vim-plugin'
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp', 'hpp']}
+" Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp', 'hpp']}
 " Plug 'fatih/vim-go'
-Plug 'keith/tmux.vim'
+" Plug 'keith/tmux.vim'
 " }}}
 call plug#end()
 
