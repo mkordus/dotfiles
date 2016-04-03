@@ -328,8 +328,6 @@ augroup Terminal
 augroup END
 
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
-
-nnoremap ; :
 " }}}
 " Other: {{{
 command! -nargs=1 Silent
