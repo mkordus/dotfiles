@@ -251,11 +251,7 @@ if (${1:/* condition */}) {
 $0
 endsnippet
 
-snippet class "Class declaration template" b
-/**
- * Class ${2:`!p snip.rv=snip.fn.split('.')[0]`}
- * @author ${3:`!v g:snips_author`}
- */
+snippet cl "Class declaration template" b
 $1class $2
 {
 	public function ${4:__construct}(${5:$options})

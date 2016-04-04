@@ -8,7 +8,7 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 " Movements: {{{
-Plug 'bkad/CamelCaseMotion'
+" Plug 'bkad/CamelCaseMotion'
 Plug 'justinmk/vim-sneak'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'triglav/vim-visual-increment'
@@ -16,16 +16,16 @@ Plug 'vim-scripts/argtextobj.vim'
 " Plug 'terryma/vim-expand-region'
 " }}}
 " TPope: {{{
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
 Plug 'prestidigitator92/vim-unimpaired'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-surround'
 " Plug 'tpope/vim-dispatch'
 " Plug 'radenling/vim-dispatch-neovim'
 " Plug 'tpope/vim-abolish'
 " Plug 'tpope/vim-tbone'
 " Plug 'tpope/vim-eunuch'
-" Plug 'tpope/vim-surround'
 " Plug 'tpope/vim-ragtag'
 " Plug 'tpope/vim-flagship'
 " }}}
@@ -62,14 +62,14 @@ Plug 'altercation/vim-colors-solarized'
 " }}}
 " Languages: {{{
 " Plug 'artur-shaik/vim-javacomplete2'
-" Plug 'shawncplus/phpcomplete.vim'
+" Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
 " Plug 'leafgarland/typescript-vim'
 " Plug 'tpope/vim-git'
 " Plug 'othree/html5.vim', {'for': ['html']}
 " Plug 'tpope/vim-markdown'
 " Plug 'StanAngeloff/php.vim', { 'for': ['php']}
 " Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
-" Plug 'beyondwords/vim-twig'
+Plug 'beyondwords/vim-twig'
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 " Plug 'groenewege/vim-less', { 'for': ['less'] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }

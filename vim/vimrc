@@ -63,9 +63,13 @@ let g:ycm_use_ultisnips_completer = 1
 let g:ycm_key_list_previous_completion = ['<c-k>']
 let g:ycm_key_list_select_completion = ['<c-j>']
 
+let g:ycm_filetype_blacklist = {
+    \ 'php' : 1
+    \}
+
 let g:ycm_semantic_triggers = {}
 " let g:ycm_semantic_triggers.php = ['->', '::', '(', 'namespace ', '\', 'use ', 'extends ']
-let g:ycm_semantic_triggers.php = ['->', '::', 'extends ']
+let g:ycm_semantic_triggers.php = ['::', 'extends ']
 
 " }}}
 " WinResizer: {{{
@@ -170,16 +174,6 @@ nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
 " }}}
-" CamelCaseMotion: {{{
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
-" }}}
 " KeyBindings: {{{
 "hard mode :)
 noremap <Up> <NOP>
@@ -212,7 +206,7 @@ nnoremap <leader>j <c-w>j
 nnoremap <leader>k <c-w>k
 nnoremap <leader>l <c-w>l
 
-nnoremap <leader>n :A<CR>
+nnoremap <leader>n :noh<CR>
 
 nmap <c-w>m <c-w>_
 
