@@ -31,5 +31,6 @@ augroup filespecific
     " eclim
     " autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
     " autocmd FileType php nnoremap <silent> <buffer> <cr> :PhpSearchContext<cr>
+    autocmd FileType html.twig setlocal commentstring={#%s#}
 augroup END
 " }}}

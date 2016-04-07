@@ -17,15 +17,15 @@ Plug 'vim-scripts/argtextobj.vim'
 " }}}
 " TPope: {{{
 Plug 'prestidigitator92/vim-unimpaired'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-dispatch'
-" Plug 'radenling/vim-dispatch-neovim'
-" Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 " Plug 'tpope/vim-tbone'
-" Plug 'tpope/vim-eunuch'
 " Plug 'tpope/vim-ragtag'
 " Plug 'tpope/vim-flagship'
 " }}}
@@ -61,6 +61,7 @@ Plug 'altercation/vim-colors-solarized'
 " Plug 'vim-scripts/wombat256.vim'
 " }}}
 " Languages: {{{
+" Plug 'tobyS/pdv'
 " Plug 'artur-shaik/vim-javacomplete2'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
 " Plug 'leafgarland/typescript-vim'

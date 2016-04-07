@@ -94,7 +94,7 @@ set foldcolumn=0
 
 set updatetime=500
 " let &showbreak = '↳ '
-let &showbreak = '↓ '
+let &showbreak = '↓↓  '
 set nostartofline
 
 set nocursorline

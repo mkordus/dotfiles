@@ -174,6 +174,12 @@ nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
 " }}}
+" PDV: {{{
+
+" }}}
+" Dispatch: {{{
+nnoremap <leader>d :Dispatch!<CR>
+" }}}
 " KeyBindings: {{{
 "hard mode :)
 noremap <Up> <NOP>
