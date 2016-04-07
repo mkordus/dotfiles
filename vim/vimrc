@@ -91,66 +91,18 @@ let g:EclimPhpValidate = 0
 let g:EclimHtmlValidate = 0
 " }}}
 " FZF: {{{
-let g:fzf_layout = {'window': 'enew'}
-let g:fzf_launcher = 'urxvt -title fzf-picker -geometry 110x40+300+100 -e sh -c %s'
+" let g:fzf_layout = {'window': 'enew'}
+let g:fzf_layout = {'down': '80%'}
 let g:fzf_buffers_jump = 0
 
-command! FZFMruWithoutCwd call fzf#run({
-    \'source': "cat ~/.vim_mru_files | tail -n +2 | egrep -v '(^/tmp/|\\.vim_mru_files$)' | grep -v '/.git/' | egrep -v '^" . getcwd() . "'",
-    \'sink' : 'e',
-    \'options': '-x -m',
-    \})
-
-command! FZFMruCwd call fzf#run({
-    \'source': "cat ~/.vim_mru_files | tail -n +2 | grep -v '/.git/' |grep '" . getcwd() ."' | sed 's/^" . escape(getcwd(), '/') . "\\///'",
-    \'sink' : 'e',
-    \'options': '-x -m',
-    \})
-
-command! FZFGitCheckoutBranch call fzf#run({
-    \'source': 'git branch | sed "s/\#/\\\#/g" | sed "s/\s//g" | sed "/^\*/d"',
-    \'sink' : ':silent !git checkout ',
-    \'down' : '50%',
-    \'options': '-x',
-    \})
-
-function! FZFTagClass(initialQuery)
-    if !empty(tagfiles()) | call fzf#run({
-        \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
-        \'sink': function('EditTag'),
-        \'window': 'enew',
-        \'options': '--ansi --tiebreak=begin --query=' . a:initialQuery
-    \}) | else | echo 'No tags' | endif
-endfunction
-
-command! FZFTagClassC call FZFTagClass('')
-
-function! EditTag(line)
-    execute 'edit ' . matchstr(a:line, '[^ ]\+$')
-endfunction
-
-command! FZFFind call fzf#run({
-    \'sink': 'e',
-    \'options': '-x -m',
-    \'window': 'enew'
-\})
-
-command! FZFCurrentWindow call fzf#run({
-    \'sink' : 'e',
-    \'window': 'enew'
-\})
-
-command! FZFClassFile call fzf#run({
-    \'sink': 'e',
-    \'options': '-x -m',
-    \'dir': 'src/main/java'
-\})
-
-command! FZFTestFile call fzf#run({
-    \'sink': 'e',
-    \'options': '-x -m',
-    \'dir': 'src/test/java'
-\})
+" function! FZFTagClass(initialQuery)
+"     if !empty(tagfiles()) | call fzf#run({
+"         \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
+"         \'sink': function('EditTag'),
+"         \'window': 'enew',
+"         \'options': '--ansi --tiebreak=begin --query=' . a:initialQuery
+"     \}) | else | echo 'No tags' | endif
+" endfunction
 
 " }}}
 " FileBeagle: {{{
@@ -181,16 +133,14 @@ nnoremap cog :GitGutterToggle<CR>
 nnoremap <leader>d :Dispatch!<CR>
 " }}}
 " KeyBindings: {{{
-"hard mode :)
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-
 let g:mapleader = "\<Space>"
+
+nnoremap <leader><leader> :Dispatch<CR>
 
 noremap j gj
 noremap k gk
+
+nnoremap gG ggVG
 
 command! WS :w !sudo tee %<CR>
 
@@ -204,7 +154,6 @@ nnoremap <leader>wk <c-w>K
 nnoremap <leader>wl <c-w>L
 nnoremap <leader>wo <c-w>o
 
-" inoremap kj <esc>
 inoremap jk <esc>
 
 nnoremap <leader>h <c-w>h
@@ -215,16 +164,6 @@ nnoremap <leader>l <c-w>l
 nnoremap <leader>n :noh<CR>
 
 nmap <c-w>m <c-w>_
-
-" nmap <silent> <c-d> :silent call CloseWindowOrKillBuffer()<CR>
-
-":echo expand('%:t')<CR>
-nmap <silent> <c-p> :silent bp<CR>
-nmap <silent> <c-n> :silent bn<CR>
-
-" Instead of 1 line, move 5 at a time
-" nnoremap <C-e> 10<C-e>
-" nnoremap <C-y> 10<C-y>
 
 nnoremap <c-f> <c-f>2<c-e>
 nnoremap <c-b> <c-b>2<c-y>
@@ -250,21 +189,15 @@ nnoremap <leader>a :Ag! <right>
 nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
-nnoremap <Leader>ff :FZFFind<CR>
-nnoremap <leader>fl :FZFMruWithoutCwd<CR>
-nnoremap <leader>fm :FZFMruCwd<CR>
-nnoremap <leader>fe :FZF /etc<CR>
-nnoremap <leader>fv :FZF ~/dotfiles/vim<CR>
-nnoremap <leader>fc :FZFTagClassC<CR>
-nnoremap <leader>s :BLines<CR>
-nnoremap <Leader>b :Buffers<CR>
-
-" nnoremap <Esc>P P'[v']=
-" nnoremap <Esc>p p'[v']=
+nnoremap <Leader>ff :Files<CR>
+nnoremap <leader>fe :Files /etc<CR>
+nnoremap <leader>fv :Files ~/dotfiles/vim<CR>
+nnoremap <leader>fl :Files /var/log<CR>
+nnoremap <leader>fs :Lines<CR>
+nnoremap <Leader>fb :Buffers<CR>
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
-nnoremap gb :FZFBuffer<CR>
 nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
 
 map Q @q
@@ -285,17 +218,6 @@ nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
 nnoremap <silent><leader>o :silent Unite -no-split buffer<CR>
 nnoremap <leader>go :Goyo<CR>
 
-" nnoremap <silent>L :silent b#<CR>
-" nnoremap <silent>L :silent LustyBufferExplorer<CR>
-
-" nmap s <Plug>Sneak_s
-" nmap S <Plug>Sneak_S
-" xmap s <Plug>Sneak_s
-" xmap S <Plug>Sneak_S
-" omap s <Plug>Sneak_s
-" omap S <Plug>Sneak_S
-
-" "replace 'f' with 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
 xmap f <Plug>Sneak_f
@@ -303,7 +225,6 @@ xmap F <Plug>Sneak_F
 omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 
-"replace 't' with 1-char Sneak
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
 xmap t <Plug>Sneak_t
@@ -311,7 +232,6 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-" nnoremap s :BufExplorer<CR>
 nnoremap <silent><c-s> :silent w<CR>:call TmuxRepeat()<CR>
 
 if has('nvim')
