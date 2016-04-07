@@ -380,7 +380,8 @@ endfunction
 set numberwidth=5
 
 "generate getters
-vnoremap <leader>g :s/\s*\$\(\w\+\)\W\?/\tpublic function get\u\1()\r\t{\r\t\treturn $this->\1;\r\t}\r/<CR>ddk
+vnoremap <leader>gg :s/\s*\$\(\w\+\)\W\?/    public function get\u\1()\r    {\r        return $this->\1;\r    }\r/<CR>dd
+vnoremap <leader>gs :s/\s*\$\(\w\+\)\W\?/    public function set\u\1($\1)\r    {\r        $this->\1 = $\1;\r\r        return $this;\r    }\r/<CR>dd
 
 nnoremap gp `[v`]
 
