@@ -111,13 +111,10 @@ let g:filebeagle_suppress_keymaps = 1
 " Goyo: {{{
 let g:goyo_width = 120
 " }}}
-" Sneak: {{{
-let g:sneak#s_next = 1
-" }}}
 " GitGutter: {{{
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
-let g:gitgutter_highlight_lines = 1
+let g:gitgutter_highlight_lines = 0
 " let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1500
 let g:gitgutter_map_keys = 0
