@@ -95,14 +95,20 @@ let g:EclimHtmlValidate = 0
 let g:fzf_layout = {'down': '80%'}
 let g:fzf_buffers_jump = 0
 
-" function! FZFTagClass(initialQuery)
-"     if !empty(tagfiles()) | call fzf#run({
-"         \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
-"         \'sink': function('EditTag'),
-"         \'window': 'enew',
-"         \'options': '--ansi --tiebreak=begin --query=' . a:initialQuery
-"     \}) | else | echo 'No tags' | endif
-" endfunction
+function! FZFTagClass(initialQuery)
+    if !empty(tagfiles()) | call fzf#run({
+        \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
+        \'sink': function('EditTag'),
+        \'down': '80%',
+        \'options': '--ansi --tiebreak=begin --query=' . a:initialQuery
+    \}) | else | echo 'No tags' | endif
+endfunction
+
+command! FZFTagClassC call FZFTagClass('')
+
+function! EditTag(line)
+    execute 'edit ' . matchstr(a:line, '[^ ]\+$')
+endfunction
 
 " }}}
 " FileBeagle: {{{
@@ -192,6 +198,7 @@ nnoremap <leader>fv :Files ~/dotfiles/vim<CR>
 nnoremap <leader>fl :Files /var/log<CR>
 nnoremap <leader>fs :Lines<CR>
 nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fc :FZFTagClassC<CR>
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
@@ -212,7 +219,6 @@ nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
 
 " nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
 
-nnoremap <silent><leader>o :silent Unite -no-split buffer<CR>
 nnoremap <leader>go :Goyo<CR>
 
 nmap f <Plug>Sneak_f
@@ -229,14 +235,8 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-nnoremap <silent><c-s> :silent w<CR>:call TmuxRepeat()<CR>
-
 if has('nvim')
-    " tnoremap <C-h> <C-\><C-n><C-w>h
-    " tnoremap <C-j> <C-\><C-n><C-w>j
-    " tnoremap <C-k> <C-\><C-n><C-w>k
-    " tnoremap <C-l> <C-\><C-n><C-w>l
-    tnoremap <ESC><ESC> <C-\><C-n>
+    tnoremap jk <C-\><C-n>
 endif
 
 augroup Terminal
@@ -291,13 +291,14 @@ function! RunPHPUnitTest(filter)
         let args = expand("%")
     endif
 
-    if filereadable("app/phpunit.xml.dist")
-        let configPath = '-c app '
-    else
-        let configPath = ''
-    endif
+    " if filereadable("app/phpunit.xml.dist")
+    "     let configPath = '-c app '
+    " else
+    "     let configPath = ''
+    " endif
+    let configPath = '-c app/phpunit.portal.xml '
 
-    let result = system('bin/phpunit ' . configPath . args . ' | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
+    let result = system('php bin/phpunit ' . configPath . args . ' 2>&1 | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
 endfunction
 
 function! ToggleTest()
@@ -314,10 +315,8 @@ function! ToggleTest()
     execute 'edit' filePath
 endfunction
 
-" nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
-" nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
-" nnoremap <leader>i :execute(':silent JUnit %') \| redraw!<CR>
-nnoremap <leader>i :JUnit %<CR>
+nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
+nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
 
 nnoremap gf gF
 

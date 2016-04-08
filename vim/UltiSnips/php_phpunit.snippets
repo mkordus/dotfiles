@@ -10,17 +10,19 @@ if m:
 	snip.rv = m.group().replace('/', '\\')
 `;
 
-/**
- * @author `whoami`
- */
 class `!p
 snip.rv = re.match(r'.*(?=\.)', fn).group()
 ` extends \PHPUnit_Framework_TestCase
-{
-	public function test${1}()
-	{
-		${2}
-	}
+{${1:
+    protected function tearDown()
+    {
+        \Mockery::close();
+    }
+}
+    public function test${2:HappyPath}()
+    {
+        ${3}
+    }
 }
 endsnippet
 
