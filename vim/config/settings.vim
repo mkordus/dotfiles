@@ -9,7 +9,7 @@ set undolevels=1000
 set showmode
 set noshowcmd
 
-set cpoptions+=n
+" set cpoptions+=n
 set number
 set numberwidth=4
 

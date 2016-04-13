@@ -164,10 +164,10 @@ endsnippet
 
 snippet construct "__construct()" b
 /**
- * @param $2mixed ${1/, /\n * \@param mixed /g}
+ * @param ${2:mixed} ${1/, /\n * \@param mixed /g}
  */
 public function __construct(${1:$dependencies})
-{${1/\s?\$?(\w*)(,)*/\n    $this->$1 = $$1;/g}
+{${1/\s?\$?(\w*)(,)*/\n        $this->$1 = $$1;/g}
 }
 $0
 endsnippet

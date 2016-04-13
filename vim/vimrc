@@ -52,6 +52,10 @@ let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=0
 let g:syntastic_always_populate_loc_list=0
+
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 " }}}
 " YouCompleteMe: {{{
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -63,13 +67,13 @@ let g:ycm_use_ultisnips_completer = 1
 let g:ycm_key_list_previous_completion = ['<c-k>']
 let g:ycm_key_list_select_completion = ['<c-j>']
 
-let g:ycm_filetype_blacklist = {
-    \ 'php' : 1
-    \}
+" let g:ycm_filetype_blacklist = {
+"     \ 'php' : 1
+"     \}
 
 let g:ycm_semantic_triggers = {}
 " let g:ycm_semantic_triggers.php = ['->', '::', '(', 'namespace ', '\', 'use ', 'extends ']
-let g:ycm_semantic_triggers.php = ['::', 'extends ']
+let g:ycm_semantic_triggers.php = ['->', '::', 'extends ']
 
 " }}}
 " WinResizer: {{{
@@ -124,8 +128,8 @@ let g:gitgutter_highlight_lines = 0
 " let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1500
 let g:gitgutter_map_keys = 0
-nnoremap ]c :GitGutterNextHunk<CR>zz
-nnoremap [c :GitGutterPrevHunk<CR>zz
+nnoremap ]h :GitGutterNextHunk<CR>zz
+nnoremap [h :GitGutterPrevHunk<CR>zz
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
 " }}}
@@ -168,8 +172,8 @@ nnoremap <leader>n :noh<CR>
 
 nmap <c-w>m <c-w>_
 
-nnoremap <c-f> <c-f>2<c-e>
-nnoremap <c-b> <c-b>2<c-y>
+nnoremap <c-f> <c-d><c-d>
+nnoremap <c-b> <c-u><c-u>
 
 " wrapping lines in visual mode
 vnoremap < <gv
@@ -192,13 +196,13 @@ nnoremap <leader>a :Ag! <right>
 nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
-nnoremap <Leader>ff :Files<CR>
-nnoremap <leader>fe :Files /etc<CR>
-nnoremap <leader>fv :Files ~/dotfiles/vim<CR>
-nnoremap <leader>fl :Files /var/log<CR>
-nnoremap <leader>fs :Lines<CR>
-nnoremap <Leader>fb :Buffers<CR>
-nnoremap <Leader>fc :FZFTagClassC<CR>
+nnoremap <Leader>ff :Files!<CR>
+nnoremap <leader>fe :Files! /etc<CR>
+nnoremap <leader>fv :Files! ~/dotfiles/vim<CR>
+nnoremap <leader>fl :Files! /var/log<CR>
+nnoremap <leader>fs :BLines!<CR>
+nnoremap <Leader>fb :Buffers!<CR>
+" nnoremap <Leader>fc :FZFTagClassC<CR>
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
 
@@ -215,6 +219,7 @@ nnoremap < [mzt
 map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
+nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
 
 
 " nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
