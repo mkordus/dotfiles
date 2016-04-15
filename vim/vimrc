@@ -16,7 +16,7 @@ let loaded_netrwPlugin = 1
         set t_Co=256
     endif
     syntax enable
-    set bg=light
+    set bg=dark
     colorscheme solarized
 
 " }}}
@@ -128,8 +128,8 @@ let g:gitgutter_highlight_lines = 0
 " let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1500
 let g:gitgutter_map_keys = 0
-nnoremap ]h :GitGutterNextHunk<CR>zz
-nnoremap [h :GitGutterPrevHunk<CR>zz
+nnoremap ]c :GitGutterNextHunk<CR>zz
+nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
 " }}}
@@ -172,8 +172,8 @@ nnoremap <leader>n :noh<CR>
 
 nmap <c-w>m <c-w>_
 
-nnoremap <c-f> <c-d><c-d>
-nnoremap <c-b> <c-u><c-u>
+nnoremap <c-f> <c-f>2<c-e>
+nnoremap <c-b> <c-b>2<c-y>
 
 " wrapping lines in visual mode
 vnoremap < <gv
@@ -198,7 +198,7 @@ nnoremap <leader>y :YcmDiags<CR>
 
 nnoremap <Leader>ff :Files!<CR>
 nnoremap <leader>fe :Files! /etc<CR>
-nnoremap <leader>fv :Files! ~/dotfiles/vim<CR>
+nnoremap <leader>fd :Files! ~/dotfiles<CR>
 nnoremap <leader>fl :Files! /var/log<CR>
 nnoremap <leader>fs :BLines!<CR>
 nnoremap <Leader>fb :Buffers!<CR>

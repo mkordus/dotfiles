@@ -73,7 +73,9 @@ set clipboard=unnamedplus
 
 set laststatus=2
 
-let g:php_sql_query=0
+if has('php_sql_query')
+    unlet php_sql_query
+endif
 
 set mouse=a
 
