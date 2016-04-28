@@ -2,21 +2,10 @@ priority -50
 
 ##main
 global !p
-def junit(snip):
-	if snip.opt("g:ultisnips_java_junit", "") == "3":
-		snip += ""
-	else:
-		snip.rv += "@Test\n\t"
-
-def nl(snip):
-	if snip.opt("g:ultisnips_java_brace_style", "") == "nl":
-		snip += ""
-	else:
-		snip.rv += " "
 def getArgs(group):
 	import re
-	word = re.compile('[a-zA-Z><.]+ \w+')
-	return [i.split(" ") for i in word.findall(group) ]
+	word = re.compile('\$\w+')
+	return [i[1:] for i in word.findall(group) ]
 
 def camel(word):
 	if not word: return ''
@@ -41,14 +30,14 @@ class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `$2
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
-	snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
+	snip.rv += "\n\tprivate $" + i + ";"
 if len(args) > 0:
 	snip.rv += "\n"`
 	public function __construct($1) 
 	{ `!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\t\t$this->" + i[1] + " = $" + i[1] + ";"
+	snip.rv += "\n\t\t$this->" + i + " = $" + i + ";"
 if len(args) == 0:
 	snip.rv += "\n"`
 	}$0`!p
@@ -56,9 +45,9 @@ args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
 	snip.rv += "\n\
-	\n    public function get" + camel(i[1]) + "()\
+	\n    public function get" + camel(i) + "()\
 	\n    {\
-	\n        return $this->" + i[1] + ";\
+	\n        return $this->" + i + ";\
 	\n    }"`
 }
 endsnippet
