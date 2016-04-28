@@ -26,29 +26,39 @@ if m:
 `;
 
 class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `$2
-{`!p
+{
+`!p
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
-	snip.rv += "\n\tprivate $" + i + ";"
+	snip.rv += "\
+	/** @var mixed $" + i + " */\n\
+	private $" + i + ";\n\n"
 if len(args) > 0:
-	snip.rv += "\n"`
-	public function __construct($1) 
+	snip.rv += "    /**"
+for i in args:
+	snip.rv += "\n     * @param mixed " + i
+if len(args) > 0:
+	snip.rv += "\n\
+	 */\n"
+`    public function __construct($1) 
 	{ `!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\t\t$this->" + i + " = $" + i + ";"
+	snip.rv += "\n\
+	    $this->" + i + " = $" + i + ";"
 if len(args) == 0:
 	snip.rv += "\n"`
 	}$0`!p
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
-	snip.rv += "\n\
-	\n    public function get" + camel(i) + "()\
-	\n    {\
-	\n        return $this->" + i + ";\
-	\n    }"`
+	snip.rv += "\n\n\
+	/** @return mixed */\n\
+	public function get" + camel(i) + "()\n\
+	{\n\
+	    return $this->" + i + ";\n\
+	}"`
 }
 endsnippet
 
