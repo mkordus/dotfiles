@@ -40,6 +40,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 " }}}
 
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
+
 Plug 'godlygeek/tabular'
 Plug 'prestidigitator92/vim-filebeagle'
 

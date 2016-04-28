@@ -39,6 +39,15 @@ public function get${2/\w+\s*/\u$0/}()
 $0
 endsnippet
 
+snippet gt "PHP Class Getter" b
+/** @return $1 */
+public function get${VISUAL/\w+\s*/\u$0/}()
+{
+	return $this->${VISUAL};
+}
+$0
+endsnippet
+
 ##endmain
 
 ## Snippets from SnipMate, taken from

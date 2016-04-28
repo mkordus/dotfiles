@@ -23,7 +23,7 @@ autocmd! User ObliqueRepeat
 augroup filespecific
     autocmd!
     " autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
+    " autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
     " autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\t/    /g
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>

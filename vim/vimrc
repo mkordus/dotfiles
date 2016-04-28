@@ -301,9 +301,12 @@ function! RunPHPUnitTest(filter)
     " else
     "     let configPath = ''
     " endif
-    let configPath = '-c app/phpunit.portal.xml '
+    " let configPath = '-c app/phpunit.portal.xml '
+    let configPath = '-c app/phpunit.fakty.xml '
+    " let phpunitPath = 'bin/phpunit'
+    let phpunitPath = '~/.config/composer/vendor/bin/phpunit'
 
-    let result = system('php bin/phpunit ' . configPath . args . ' 2>&1 | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
+    let result = system('php ' .phpunitPath . ' ' . configPath . args . ' 2>&1 | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
 endfunction
 
 function! ToggleTest()
@@ -386,6 +389,7 @@ set numberwidth=5
 "generate getters
 vnoremap <leader>gg :s/\s*\$\(\w\+\)\W\?/    public function get\u\1()\r    {\r        return $this->\1;\r    }\r/<CR>dd
 vnoremap <leader>gs :s/\s*\$\(\w\+\)\W\?/    public function set\u\1($\1)\r    {\r        $this->\1 = $\1;\r\r        return $this;\r    }\r/<CR>dd
+vnoremap <leader>gt :s/\s*\$\(\w\+\);\?,\?/        $this->\1 = $\1;/<CR>
 
 nnoremap gp `[v`]
 
