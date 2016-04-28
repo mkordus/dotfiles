@@ -25,7 +25,7 @@ if m:
 	snip.rv = m.group().replace('/', '\\')
 `;
 
-class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `$2
+class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `
 {
 `!p
 args = getArgs(t[1])
@@ -37,19 +37,22 @@ for i in args:
 if len(args) > 0:
 	snip.rv += "    /**"
 for i in args:
-	snip.rv += "\n     * @param mixed " + i
+	snip.rv += "\n     * @param mixed $" + i
 if len(args) > 0:
 	snip.rv += "\n\
 	 */\n"
-`    public function __construct($1) 
-	{ `!p
+`    public function __construct($1`!p
+if "\n" in t[1]:
+	snip.rv += ") {"
+else:
+	snip.rv += ")\n    {"
 args = getArgs(t[1])
 for i in args:
 	snip.rv += "\n\
 	    $this->" + i + " = $" + i + ";"
 if len(args) == 0:
 	snip.rv += "\n"`
-	}$0`!p
+	}`!p
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
@@ -60,6 +63,7 @@ for i in args:
 	    return $this->" + i + ";\n\
 	}"`
 }
+
 endsnippet
 
 snippet gs "PHP Class Getter Setter" b
