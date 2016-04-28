@@ -1,6 +1,67 @@
 priority -50
 
 ##main
+global !p
+def junit(snip):
+	if snip.opt("g:ultisnips_java_junit", "") == "3":
+		snip += ""
+	else:
+		snip.rv += "@Test\n\t"
+
+def nl(snip):
+	if snip.opt("g:ultisnips_java_brace_style", "") == "nl":
+		snip += ""
+	else:
+		snip.rv += " "
+def getArgs(group):
+	import re
+	word = re.compile('[a-zA-Z><.]+ \w+')
+	return [i.split(" ") for i in word.findall(group) ]
+
+def camel(word):
+	if not word: return ''
+	return word[0].upper() + word[1:]
+
+def mixedCase(word):
+	if not word: return ''
+	return word[0].lower() + word[1:]
+
+endglobal
+
+snippet vo "Basic class with namespace snippet" b
+namespace `!p
+abspath = os.path.abspath(path)
+m = re.search(r'[A-Z].+(?=/)', abspath)
+if m:
+	snip.rv = m.group().replace('/', '\\')
+`;
+
+class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `$2
+{`!p
+args = getArgs(t[1])
+if len(args) == 0: snip.rv = ""
+for i in args:
+	snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
+if len(args) > 0:
+	snip.rv += "\n"`
+	public function __construct($1) 
+	{ `!p
+args = getArgs(t[1])
+for i in args:
+	snip.rv += "\n\t\t$this->" + i[1] + " = $" + i[1] + ";"
+if len(args) == 0:
+	snip.rv += "\n"`
+	}$0`!p
+args = getArgs(t[1])
+if len(args) == 0: snip.rv = ""
+for i in args:
+	snip.rv += "\n\
+	\n    public function get" + camel(i[1]) + "()\
+	\n    {\
+	\n        return $this->" + i[1] + ";\
+	\n    }"`
+}
+endsnippet
 
 snippet gs "PHP Class Getter Setter" b
 /** @param $1 $2 */
@@ -185,23 +246,8 @@ snippet ve "Dumb debug helper in HTML"
     echo '<pre>' . var_export($1, 1) . '</pre>';$0
 endsnippet
 
-# Symfony 2 based snippets
-snippet sfa "Symfony 2 Controller action"
-/**
-* @Route("/${1:route_name}", name="$1")
-* @Template()
-*/
-public function $1Action($2)
-{
-	$3
-	return ${4:array();}$0
-}
-endsnippet
-
-snippet inheritdoc "@inheritdoc docblock"
-/**
- * {@inheritdoc}
- */
+snippet inh "@inheritdoc docblock"
+/** {@inheritdoc} */
 endsnippet
 
 # :vim:ft=snippets:
