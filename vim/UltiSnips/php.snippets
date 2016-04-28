@@ -1,6 +1,5 @@
-priority -50
+priority 0
 
-##main
 global !p
 def getArgs(group):
 	import re
@@ -17,7 +16,7 @@ def mixedCase(word):
 
 endglobal
 
-snippet vo "Basic class with namespace snippet" b
+snippet vo "Value Object with namespace snippet" b
 namespace `!p
 abspath = os.path.abspath(path)
 m = re.search(r'[A-Z].+(?=/)', abspath)
@@ -41,7 +40,8 @@ for i in args:
 if len(args) > 0:
 	snip.rv += "\n\
 	 */\n"
-`    public function __construct($1`!p
+snip.rv += "    public function __construct("
+`${1:${VISUAL}}`!p
 if "\n" in t[1]:
 	snip.rv += ") {"
 else:
@@ -83,74 +83,10 @@ public function get${2/\w+\s*/\u$0/}()
 $0
 endsnippet
 
-snippet set "PHP Class Setter" b
-/** @param $1 $2 */
-public function set${2/\w+\s*/\u$0/}($$2)
-{
-	$this->$2 = $$2;
-
-	return $this;
-}
-$0
-endsnippet
-
-snippet get "PHP Class Getter" b
-/** @return $1 */
-public function get${2/\w+\s*/\u$0/}()
-{
-	return $this->$2;
-}
-$0
-endsnippet
-
-snippet gt "PHP Class Getter" b
-/** @return $1 */
-public function get${VISUAL/\w+\s*/\u$0/}()
-{
-	return $this->${VISUAL};
-}
-$0
-endsnippet
-
-##endmain
-
-## Snippets from SnipMate, taken from
-## https://github.com/scrooloose/snipmate-snippets.git
-
-snippet array "array"
-$${1:arrayName} = array('${2}' => ${3});${4}
-endsnippet
-
-snippet def "def"
-define('${1}'${2});${3}
-endsnippet
-
 snippet do "do"
 do {
 	${2:// code... }
 } while (${1:/* condition */});
-endsnippet
-
-snippet doc_f "doc_f"
-/**
- * $2
- * @return ${4:void}
- * @author ${5:`!v g:snips_author`}
- **/
-${1:public }function ${2:someFunc}(${3})
-{${6}
-}
-endsnippet
-
-snippet doc_i "doc_i"
-/**
- * $1
- * @package ${2:default}
- * @author ${3:`!v g:snips_author`}
- **/
-interface ${1:someClass}
-{${4}
-} // END interface $1"
 endsnippet
 
 snippet foreachk "foreachk"
@@ -164,63 +100,6 @@ error_log(var_export($${1}, true));
 ${0}
 endsnippet
 
-snippet pub "Public function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-public function ${1:name}(${2:$param})
-{
-	${VISUAL}${5:return null;}
-}
-$0
-endsnippet
-
-snippet pro "Protected function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-protected function ${1:name}(${2:$param})
-{
-	${VISUAL}${5:return null;}
-}
-$0
-endsnippet
-
-snippet pri "Private function" b
-/**
- * ${3:undocumented function}
- *
- * @return ${4:void}
- */
-private function ${1:name}(${2:$param})
-{
-	${VISUAL}${5:return null;}
-}
-$0
-endsnippet
-
-snippet fore "Foreach loop"
-foreach ($${1:variable} as $${3:value}){
-	${VISUAL}${4}
-}
-$0
-endsnippet
-
-snippet cl "Class declaration template" b
-$1class $2
-{
-	public function ${4:__construct}(${5:$options})
-	{
-		${6:// code}
-	}
-}
-$0
-endsnippet
-
 snippet interface "interface declaration template" b
 /**
  * Interface ${1:`!p snip.rv=snip.fn.split('.')[0]`}
@@ -231,16 +110,6 @@ interface $1
 	{
 		${5:// code}
 	}
-}
-$0
-endsnippet
-
-snippet construct "__construct()" b
-/**
- * @param ${2:mixed} ${1/, /\n * \@param mixed /g}
- */
-public function __construct(${1:$dependencies})
-{${1/\s?\$?(\w*)(,)*/\n        $this->$1 = $$1;/g}
 }
 $0
 endsnippet
