@@ -27,6 +27,8 @@ if m:
 class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `
 {
 `!p
+if len(t[1]) > 30:
+	t[1] = re.sub(',\s+', ",\n        ", t[1])
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
@@ -41,9 +43,11 @@ if len(args) > 0:
 	snip.rv += "\n\
 	 */\n"
 snip.rv += "    public function __construct("
+if "\n" in t[1]:
+	snip.rv += "\n        "
 `${1:${VISUAL}}`!p
 if "\n" in t[1]:
-	snip.rv += ") {"
+	snip.rv += "\n    ) {"
 else:
 	snip.rv += ")\n    {"
 args = getArgs(t[1])

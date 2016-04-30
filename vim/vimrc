@@ -312,11 +312,12 @@ endfunction
 function! ToggleTest()
     let isTest = bufname('%') =~ 'Test.php$'
 
-    let filePath = expand('%:p') if isTest
-        let filePath = substitute(filePath, "BriefcaseBundle/Tests", "BriefcaseBundle", "")
+    let filePath = expand('%:p') 
+    if isTest
+        let filePath = substitute(filePath, "Bundle/Tests", "Bundle", "")
         let filePath = substitute(filePath, "Test.php$", ".php", "")
     else
-        let filePath = substitute(filePath, "BriefcaseBundle", "BriefcaseBundle/Tests", "")
+        let filePath = substitute(filePath, "Bundle", "Bundle/Tests", "")
         let filePath = substitute(filePath, ".php$", "Test.php", "")
     endif
 
