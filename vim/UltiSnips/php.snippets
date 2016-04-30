@@ -78,6 +78,11 @@ for i in args:
 
 endsnippet
 
+snippet var "PHP @var docblock" b
+	/** @var $1 ${VISUAL:/^.*?(\$\w+).*$/$1/} */
+	${VISUAL:/^\s+//}
+endsnippet
+
 snippet gs "PHP Class Getter Setter" b
 /** @param $1 $2 */
 public function set${2/\w+\s*/\u$0/}($$2)
@@ -105,29 +110,6 @@ snippet foreachk "foreachk"
 foreach ($${1:variable} as $${2:key} => $${3:value}){
 	${4:// code...}
 }
-endsnippet
-
-snippet log "log"
-error_log(var_export($${1}, true));
-${0}
-endsnippet
-
-snippet interface "interface declaration template" b
-/**
- * Interface ${1:`!p snip.rv=snip.fn.split('.')[0]`}
- */
-interface $1
-{
-	public function ${3:__construct}(${4:$options})
-	{
-		${5:// code}
-	}
-}
-$0
-endsnippet
-
-snippet ve "Dumb debug helper in HTML"
-    echo '<pre>' . var_export($1, 1) . '</pre>';$0
 endsnippet
 
 snippet inh "@inheritdoc docblock"
