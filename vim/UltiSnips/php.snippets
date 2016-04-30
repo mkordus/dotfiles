@@ -3,8 +3,16 @@ priority 0
 global !p
 def getArgs(group):
 	import re
-	word = re.compile('\$\w+')
-	return [i[1:] for i in word.findall(group) ]
+	word = re.compile('\w*\s?\$\w+')
+	matches = []
+	for i in word.findall(group):
+		parts = i.split(' ')
+		if len(parts) == 1:
+			matches += [['mixed', parts[0][1:]]]
+		else:
+			matches += [[parts[0], parts[1][1:]]]
+
+	return matches
 
 def camel(word):
 	if not word: return ''
@@ -33,12 +41,12 @@ args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
 	snip.rv += "\
-	/** @var mixed $" + i + " */\n\
-	private $" + i + ";\n\n"
+	/** @var " + i[0] + " $" + i[1] + " */\n\
+	private $" + i[1] + ";\n\n"
 if len(args) > 0:
 	snip.rv += "    /**"
 for i in args:
-	snip.rv += "\n     * @param mixed $" + i
+	snip.rv += "\n     * @param " + i[0] + " $" + i[1]
 if len(args) > 0:
 	snip.rv += "\n\
 	 */\n"
@@ -53,7 +61,7 @@ else:
 args = getArgs(t[1])
 for i in args:
 	snip.rv += "\n\
-	    $this->" + i + " = $" + i + ";"
+	    $this->" + i[1] + " = $" + i[1] + ";"
 if len(args) == 0:
 	snip.rv += "\n"`
 	}`!p
@@ -61,10 +69,10 @@ args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
 	snip.rv += "\n\n\
-	/** @return mixed */\n\
-	public function get" + camel(i) + "()\n\
+	/** @return " + i[0] + " */\n\
+	public function get" + camel(i[1]) + "()\n\
 	{\n\
-	    return $this->" + i + ";\n\
+	    return $this->" + i[1] + ";\n\
 	}"`
 }
 
