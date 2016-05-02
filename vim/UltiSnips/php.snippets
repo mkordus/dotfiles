@@ -10,6 +10,8 @@ def getArgs(group):
 		if len(parts) == 1:
 			matches += [['mixed', parts[0][1:]]]
 		else:
+			if not parts[0]:
+				parts[0] = 'mixed'
 			matches += [[parts[0], parts[1][1:]]]
 
 	return matches
@@ -22,15 +24,19 @@ def mixedCase(word):
 	if not word: return ''
 	return word[0].lower() + word[1:]
 
+def getNamespace(path):
+	cwd = vim.eval("getcwd()")
+	relPath = os.path.relpath(path, cwd)
+
+	m = re.search(r'[A-Z].+(?=/)', relPath)
+	if m:
+		return m.group().replace('/', '\\')
+	return ''
+
 endglobal
 
 snippet vo "Value Object with namespace snippet" b
-namespace `!p
-abspath = os.path.abspath(path)
-m = re.search(r'[A-Z].+(?=/)', abspath)
-if m:
-	snip.rv = m.group().replace('/', '\\')
-`;
+namespace `!p snip.rv = getNamespace(path) `;
 
 class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `
 {
