@@ -93,11 +93,9 @@ if "\n" in t[1]:
 else:
 	snip.rv = ")\n    {"
 
-args = getArgs(t[1])
 for i in args:
 	snip.rv += "\n        $this->" + i[1] + " = $" + i[1] + ";"
-if len(args) == 0:
-	snip.rv += "\n"
+
 snip.rv += "\n    }"
 for i in args:
 	snip.rv += "\n\n" + genGetter(i[0], i[1])
