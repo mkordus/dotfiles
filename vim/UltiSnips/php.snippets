@@ -2,7 +2,6 @@ priority 0
 
 global !p
 def getArgs(group):
-	import re
 	word = re.compile('\w*\s?\$\w+')
 	matches = []
 	for i in word.findall(group):
@@ -33,53 +32,76 @@ def getNamespace(path):
 		return m.group().replace('/', '\\')
 	return ''
 
+def genClassWithNamespace(path, fileName):
+	output = "<?php\n\n"
+	output += "namespace " + getNamespace(path) + ";\n\n"
+	output += "class " + re.match(r'.*(?=\.)', fn).group() + "\n"
+	output += "{\n"
+
+	return output
+
+def genClassParams(args):
+	output = ""
+	for i in args:
+		output += "    /** @var " + i[0] + " $" + i[1] + " */\n"
+		output += "    private $" + i[1] + ";\n\n"
+
+	return output
+
+def changeParamsToLines(params):
+	return "\n        " + re.sub(',\s+', ",\n        ", params)
+
+def genConstructorDoc(args):
+	output = ""
+	if len(args) > 0:
+		output += "    /**"
+	for i in args:
+		output += "\n     * @param " + i[0] + " $" + i[1]
+	if len(args) > 0:
+		output += "\n     */\n"
+
+	return output
+
+def genGetter(paramType, paramName):
+	output = ""
+	output += "    /** @return " + paramType + " */\n"
+	output += "    public function get" + camel(paramName) + "()\n"
+	output += "        return $this->" + paramName + ";\n"
+	output += "    }"
+
+	return output
+
 endglobal
 
 snippet vo "Value Object with namespace snippet" b
-namespace `!p snip.rv = getNamespace(path) `;
+`!p 
+snip.rv = genClassWithNamespace(path, fn)
 
-class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() `
-{
-`!p
-if len(t[1]) > 30:
-	t[1] = re.sub(',\s+', ",\n        ", t[1])
+if len(t[1]) == 40:
+	t[1] = changeParamsToLines(t[1])
+
 args = getArgs(t[1])
-if len(args) == 0: snip.rv = ""
-for i in args:
-	snip.rv += "\
-	/** @var " + i[0] + " $" + i[1] + " */\n\
-	private $" + i[1] + ";\n\n"
-if len(args) > 0:
-	snip.rv += "    /**"
-for i in args:
-	snip.rv += "\n     * @param " + i[0] + " $" + i[1]
-if len(args) > 0:
-	snip.rv += "\n\
-	 */\n"
+
+snip.rv += genClassParams(args)
+snip.rv += genConstructorDoc(args)
 snip.rv += "    public function __construct("
-if "\n" in t[1]:
-	snip.rv += "\n        "
+
 `${1:${VISUAL}}`!p
+
 if "\n" in t[1]:
-	snip.rv += "\n    ) {"
+	snip.rv = "\n    ) {"
 else:
-	snip.rv += ")\n    {"
+	snip.rv = ")\n    {"
+
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\
-	    $this->" + i[1] + " = $" + i[1] + ";"
+	snip.rv += "\n        $this->" + i[1] + " = $" + i[1] + ";"
 if len(args) == 0:
-	snip.rv += "\n"`
-	}`!p
-args = getArgs(t[1])
-if len(args) == 0: snip.rv = ""
+	snip.rv += "\n"
+snip.rv += "\n    }"
 for i in args:
-	snip.rv += "\n\n\
-	/** @return " + i[0] + " */\n\
-	public function get" + camel(i[1]) + "()\n\
-	{\n\
-	    return $this->" + i[1] + ";\n\
-	}"`
+	snip.rv += "\n\n" + genGetter(i[0], i[1])
+`
 }
 
 endsnippet
@@ -112,8 +134,8 @@ do {
 } while (${1:/* condition */});
 endsnippet
 
-snippet foreachk "foreachk"
-foreach ($${1:variable} as $${2:key} => $${3:value}){
+snippet for "foreachk"
+foreach ($${1:variable} as $${2:key} => $${3:value}) {
 	${4:// code...}
 }
 endsnippet
