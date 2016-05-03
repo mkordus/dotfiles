@@ -108,20 +108,26 @@ for i in args:
 endsnippet
 
 snippet cl "class with namespace" b
+<?php
+
+namespace `!p snip.rv = getNamespace(path)`;
+
+class `!p 
+snip.rv = re.match(r'.*(?=\.)', fn).group() 
+`${1: extends ${2:\Exception}}${3: implements ${4:\Serializable}}
+{
 `!p 
-snip.rv = genStructureWithNamespace("class", path, fn)
+if len(t[6]) == 40:
+	t[6] = changeParamsToLines(t[6])
 
-if len(t[1]) == 40:
-	t[1] = changeParamsToLines(t[1])
-
-args = getArgs(t[1])
+args = getArgs(t[6])
 
 snip.rv += genClassParams(args)
 snip.rv += genConstructorDoc(args)
 
-`    public function __construct(${1:${VISUAL}}`!p
+`    ${5:public function __construct(${6:${VISUAL}}}`!p
 
-if "\n" in t[1]:
+if "\n" in t[6]:
 	snip.rv = "\n    ) {"
 else:
 	snip.rv = ")\n    {"
