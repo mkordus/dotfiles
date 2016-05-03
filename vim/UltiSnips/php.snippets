@@ -156,6 +156,17 @@ ${1:public} function ${2:name}(${3})
 }$0
 endsnippet
 
+snippet ifun "interface function with docblock" b
+/** `!p  
+for i in getArgs(t[2]):
+	snip.rv += genDocParam(i[0], i[1])
+`
+ * @return ${3:null}${4:
+ * @throws ${5:\Exception}}
+ */
+public function ${1:name}(${2});
+endsnippet
+
 snippet var "PHP @var docblock" b
 	/** @var $1 ${VISUAL:/^.*?(\$\w+).*$/$1/} */
 	${VISUAL:/^\s+//}
