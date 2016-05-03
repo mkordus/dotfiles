@@ -65,7 +65,7 @@ set tw=500
 set wrap
 
 "speed up scrolling
-set scrolloff=0
+set scrolloff=5
 set sidescrolloff=10
 
 " use system clipboard instead of default vim

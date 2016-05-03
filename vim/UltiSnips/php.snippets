@@ -112,9 +112,7 @@ snippet cl "class with namespace" b
 
 namespace `!p snip.rv = getNamespace(path)`;
 
-class `!p 
-snip.rv = re.match(r'.*(?=\.)', fn).group() 
-`${1: extends ${2:\Exception}}${3: implements ${4:\Serializable}}
+class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() ` ${1}
 {
 `!p 
 if len(t[6]) == 40:
@@ -125,7 +123,7 @@ args = getArgs(t[6])
 snip.rv += genClassParams(args)
 snip.rv += genConstructorDoc(args)
 
-`    ${5:public function __construct(${6:${VISUAL}}}`!p
+`    public function __construct(${6:${VISUAL}}`!p
 
 if "\n" in t[6]:
 	snip.rv = "\n    ) {"
@@ -137,6 +135,26 @@ for i in args:
 
 snip.rv += "\n    }"
 `$0
+}
+
+endsnippet
+
+snippet test "phpunit test class" b
+<?php
+
+namespace `!p snip.rv = getNamespace(path)`;
+
+class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() ` extends \PHPUnit_Framework_TestCase
+{${1:
+    protected function tearDown()
+    {
+        \Mockery::close();
+    }
+}
+    public function test${2:HappyPath}()
+    {
+        ${3}
+    }
 }
 
 endsnippet
@@ -163,6 +181,14 @@ ${1:public} function ${2:name}(${3})
 }$0
 endsnippet
 
+snippet funi "class function with inheritdoc " b
+/** @inheritdoc */
+${1:public} function ${2:name}(${3})
+{
+	${7}
+}$0
+endsnippet
+
 snippet ifun "interface function with docblock" b
 /** `!p  
 for i in getArgs(t[2]):
@@ -174,9 +200,12 @@ for i in getArgs(t[2]):
 public function ${1:name}(${2});
 endsnippet
 
-snippet var "PHP @var docblock" b
-	/** @var $1 ${VISUAL:/^.*?(\$\w+).*$/$1/} */
-	${VISUAL:/^\s+//}
+snippet va "@var docblock" b
+/** @var ${1:mixed} `!p
+cursorLine = vim.current.window.cursor[0]
+nextLine = vim.current.buffer[cursorLine] #next line
+snip.rv += re.search(r'\$\w+', nextLine).group()
+` */
 endsnippet
 
 snippet gs "PHP Class Getter Setter" b
