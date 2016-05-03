@@ -148,11 +148,12 @@ snippet fun "class function with docblock" b
 for i in getArgs(t[3]):
 	snip.rv += genDocParam(i[0], i[1])
 `
- * @return ${4}
+ * @return ${4:null}${5:
+ * @throws ${6:\Exception}}
  */
 ${1:public} function ${2:name}(${3})
 {
-	${5}
+	${7}
 }$0
 endsnippet
 
