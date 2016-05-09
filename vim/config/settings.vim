@@ -104,7 +104,7 @@ set nocursorcolumn
 
 set showtabline=0
 
-set previewheight=20
+set previewheight=999
 
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]

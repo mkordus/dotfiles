@@ -120,17 +120,18 @@ let g:filebeagle_suppress_keymaps = 1
 " }}}
 " Goyo: {{{
 let g:goyo_width = 120
+let g:goyo_heigh = '100%'
 " }}}
 " GitGutter: {{{
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
 let g:gitgutter_highlight_lines = 0
-" let g:gitgutter_sign_column_always = 1
+let g:gitgutter_sign_column_always = 1
 let g:gitgutter_max_signs = 1500
 let g:gitgutter_map_keys = 0
 nnoremap ]c :GitGutterNextHunk<CR>zz
 nnoremap [c :GitGutterPrevHunk<CR>zz
-nnoremap <leader>gp :GitGutterPreviewHunk<CR>
+nnoremap gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
 " }}}
 " PDV: {{{
@@ -141,8 +142,6 @@ nnoremap <leader>d :Dispatch!<CR>
 " }}}
 " KeyBindings: {{{
 let g:mapleader = "\<Space>"
-
-nnoremap <leader><leader> :Dispatch<CR>
 
 noremap j gj
 noremap k gk
@@ -179,7 +178,6 @@ nnoremap <c-b> <c-b>2<c-y>
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap <leader>t :BTags!<CR>
 nnoremap <leader>T :TagbarOpenAutoClose<CR>
 
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -196,12 +194,13 @@ nnoremap <leader>a :Ag! <right>
 nnoremap <leader>y :YcmDiags<CR>
 " nnoremap <leader>e :Errors<CR>
 
-nnoremap <Leader>ff :Files!<CR>
-nnoremap <leader>fe :Files! /etc<CR>
-nnoremap <leader>fd :Files! ~/dotfiles<CR>
-nnoremap <leader>fl :Files! /var/log<CR>
-nnoremap <leader>fs :BLines!<CR>
-nnoremap <Leader>fb :Buffers!<CR>
+nnoremap ff :Files!<CR>
+nnoremap fe :Files! /etc<CR>
+nnoremap fd :Files! ~/dotfiles<CR>
+nnoremap fl :Files! /var/log<CR>
+nnoremap fs :BLines!<CR>
+nnoremap <c-j> :Buffers!<CR>
+nnoremap ft :BTags!<CR>
 " nnoremap <Leader>fc :FZFTagClassC<CR>
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
@@ -226,12 +225,12 @@ nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
 
 nnoremap <leader>go :Goyo<CR>
 
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
+" nmap f <Plug>Sneak_f
+" nmap F <Plug>Sneak_F
+" xmap f <Plug>Sneak_f
+" xmap F <Plug>Sneak_F
+" omap f <Plug>Sneak_f
+" omap F <Plug>Sneak_F
 
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
@@ -392,7 +391,7 @@ vnoremap <leader>gg :s/\s*\$\(\w\+\)\W\?/    public function get\u\1()\r    {\r 
 vnoremap <leader>gs :s/\s*\$\(\w\+\)\W\?/    public function set\u\1($\1)\r    {\r        $this->\1 = $\1;\r\r        return $this;\r    }\r/<CR>dd
 vnoremap <leader>gt :s/\s*\$\(\w\+\);\?,\?/        $this->\1 = $\1;/<CR>
 
-nnoremap gp `[v`]
+" nnoremap gp `[v`]
 
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
