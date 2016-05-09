@@ -183,7 +183,7 @@ nnoremap <leader>T :TagbarOpenAutoClose<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gvd :Gvdiff<CR>
 nnoremap <silent> <leader>gd :Git! diff<CR>
-nnoremap <silent> <leader>gds :Git! diff --staged<CR>
+nnoremap <silent> <leader>gds :Git! diff --staged --patch-with-stat<CR>:set modifiable<CR>:set noreadonly<CR>:%g/^\(---\\|+++\\|index\\|@@\\|new file mode\)/d<CR>gg
 nnoremap <silent> <leader>gda :Git! diff HEAD<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>glc :silent Glog -n 10 --no-merges<CR>:copen<CR>
