@@ -201,6 +201,7 @@ nnoremap fl :Files! /var/log<CR>
 nnoremap fs :BLines!<CR>
 nnoremap <c-j> :Buffers!<CR>
 nnoremap ft :BTags!<CR>
+nnoremap fh :History!<CR>
 " nnoremap <Leader>fc :FZFTagClassC<CR>
 
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
