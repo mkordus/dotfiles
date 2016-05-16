@@ -331,8 +331,8 @@ nnoremap gf gF
 
 nnoremap K :A<CR>
 " }}}
-" kwbd {{{
-nmap <c-d> <Plug>Kwbd
+" Bclose {{{
+nnoremap <silent> <c-d> :Bclose<CR>
 " }}}
 function! NeatFoldText() "{{{2
 "http://dhruvasagar.com/2013/03/28/vim-better-foldtext
