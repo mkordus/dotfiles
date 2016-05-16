@@ -50,6 +50,8 @@ Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
 Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
 
+Plug 'vim-scripts/kwbdi.vim'
+
 Plug 'junegunn/goyo.vim'
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{

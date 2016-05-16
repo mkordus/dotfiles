@@ -331,6 +331,9 @@ nnoremap gf gF
 
 nnoremap K :A<CR>
 " }}}
+" kwbd {{{
+nmap <c-d> <Plug>Kwbd
+" }}}
 function! NeatFoldText() "{{{2
 "http://dhruvasagar.com/2013/03/28/vim-better-foldtext
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
