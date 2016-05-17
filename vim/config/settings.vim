@@ -45,6 +45,9 @@ set smartcase
 set incsearch
 set magic
 
+"substitute
+set gdefault
+
 "Don't redraw while executing macros(performace)
 set lazyredraw
 if !has('nvim')
