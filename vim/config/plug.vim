@@ -52,10 +52,9 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'rbgrouleff/bclose.vim'
 
-Plug 'junegunn/goyo.vim'
 " Plug 'vim-scripts/listmaps.vim'
 " Colorschemes: {{{
-Plug 'altercation/vim-colors-solarized'
+Plug 'prestidigitator92/vim-colors-solarized'
 " Plug 'chriskempson/vim-tomorrow-theme'
 " Plug 'jnurmine/Zenburn'
 " Plug 'jonathanfilip/vim-lucius'

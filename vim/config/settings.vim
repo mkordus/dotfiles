@@ -10,7 +10,7 @@ set showmode
 set noshowcmd
 
 " set cpoptions+=n
-set number
+set nonumber
 set numberwidth=4
 
 set splitbelow
@@ -74,7 +74,7 @@ set sidescrolloff=10
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-set laststatus=2
+set laststatus=1
 
 if has('php_sql_query')
     unlet php_sql_query
