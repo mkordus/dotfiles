@@ -174,26 +174,22 @@ vnoremap > >gv
 
 nnoremap <leader>T :TagbarOpenAutoClose<CR>
 
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gvd :Gvdiff<CR>
+nnoremap <silent> gs :Gstatus<CR>
+nnoremap <silent> gvd :Gvdiff<CR>
 nnoremap <silent> <leader>gd :Git! diff<CR>
 nnoremap <silent> <leader>gds :Git! diff --staged --patch-with-stat<CR>:set modifiable<CR>:set noreadonly<CR>:%g/^\(---\\|+++\\|index\\|@@\\|new file mode\)/d<CR>gg
 nnoremap <silent> <leader>gda :Git! diff HEAD<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>glc :silent Glog -n 10 --no-merges<CR>:copen<CR>
-nnoremap <silent> <leader>glp :silent Glog -n 10 --no-merges -- %<CR>
+nnoremap <silent> gb :Gblame<CR>
+nnoremap <silent> gl :silent Glog -n 10 --no-merges
 
 nnoremap <leader>a :Ag! <right>
-
-nnoremap <leader>y :YcmDiags<CR>
-" nnoremap <leader>e :Errors<CR>
 
 nnoremap ff :Files!<CR>
 nnoremap fe :Files! /etc<CR>
 nnoremap fd :Files! ~/dotfiles<CR>
 nnoremap fl :Files! /var/log<CR>
 nnoremap fs :BLines!<CR>
-nnoremap <c-j> :Buffers!<CR>
+" nnoremap <c-j> :Buffers!<CR>
 nnoremap ft :BTags!<CR>
 nnoremap fh :History!<CR>
 " nnoremap <Leader>fc :FZFTagClassC<CR>
@@ -214,11 +210,6 @@ map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
 map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
-
-
-" nnoremap <leader>sld :DBExecSQL SELECT datname as "List of databases" FROM pg_database WHERE not datistemplate ORDER BY datname<CR>
-
-nnoremap <leader>go :Goyo<CR>
 
 " nmap f <Plug>Sneak_f
 " nmap F <Plug>Sneak_F
