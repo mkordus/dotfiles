@@ -118,10 +118,6 @@ endfunction
 " FileBeagle: {{{
 let g:filebeagle_suppress_keymaps = 1
 " }}}
-" Goyo: {{{
-let g:goyo_width = 120
-let g:goyo_heigh = '100%'
-" }}}
 " GitGutter: {{{
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
@@ -134,9 +130,6 @@ nnoremap ]c :GitGutterNextHunk<CR>zz
 nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
-" }}}
-" PDV: {{{
-
 " }}}
 " Dispatch: {{{
 nnoremap <leader>d :Dispatch!<CR>
