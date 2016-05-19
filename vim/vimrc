@@ -278,13 +278,13 @@ function! RunPHPUnitTest(filter)
         let args = expand("%")
     endif
 
-    " if filereadable("app/phpunit.xml.dist")
-    "     let configPath = '-c app '
-    " else
-    "     let configPath = ''
-    " endif
+    if filereadable("app/phpunit.xml.dist")
+        let configPath = '-c app '
+    else
+        let configPath = ''
+    endif
     " let configPath = '-c app/phpunit.portal.xml '
-    let configPath = '-c app/phpunit.fakty.xml '
+    " let configPath = '-c app/phpunit.fakty.xml '
     " let phpunitPath = 'bin/phpunit'
     let phpunitPath = '~/.config/composer/vendor/bin/phpunit'
 

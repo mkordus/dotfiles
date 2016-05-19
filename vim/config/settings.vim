@@ -114,3 +114,5 @@ vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
 noremap gV `[v`]
+
+nnoremap <c-l> :b#<cr>
