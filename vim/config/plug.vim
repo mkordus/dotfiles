@@ -24,8 +24,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-repeat'
+" Plug 'radenling/vim-dispatch-neovim'
 " Plug 'tpope/vim-tbone'
 " Plug 'tpope/vim-ragtag'
 " Plug 'tpope/vim-flagship'
@@ -66,24 +66,24 @@ Plug 'prestidigitator92/vim-colors-solarized'
 " Plug 'vim-scripts/wombat256.vim'
 " }}}
 " Languages: {{{
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-markdown'
+Plug 'beyondwords/vim-twig'
+Plug 'leshill/vim-json'
+Plug 'groenewege/vim-less'
+Plug 'othree/html5.vim', {'for': ['html']}
+Plug 'keith/tmux.vim'
 " Plug 'tobyS/pdv'
 " Plug 'artur-shaik/vim-javacomplete2'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
 " Plug 'leafgarland/typescript-vim'
-" Plug 'tpope/vim-git'
-" Plug 'othree/html5.vim', {'for': ['html']}
-" Plug 'tpope/vim-markdown'
 " Plug 'StanAngeloff/php.vim', { 'for': ['php']}
 " Plug 'vim-scripts/phpfolding.vim', { 'for': ['php']}
-Plug 'beyondwords/vim-twig'
-Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
-" Plug 'groenewege/vim-less', { 'for': ['less'] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript'] }
 " Plug 'othree/yajs.vim'
 " Plug 'dart-lang/dart-vim-plugin'
 " Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp', 'hpp']}
 " Plug 'fatih/vim-go'
-" Plug 'keith/tmux.vim'
 " }}}
 call plug#end()
 

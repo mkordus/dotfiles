@@ -3,7 +3,6 @@
 source ~/dotfiles/vim/config/plug.vim
 source ~/dotfiles/vim/config/settings.vim
 source ~/dotfiles/vim/config/autocmd.vim
-source ~/dotfiles/vim/config/symfony.vim
 
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
@@ -72,6 +71,7 @@ let g:ycm_filetype_specific_completion_to_disable = {
     \ 'php': 1
     \}
 
+let g:ycm_key_detailed_diagnostics = '<leader>y'
 
 " }}}
 " WinResizer: {{{
@@ -128,9 +128,6 @@ nnoremap ]c :GitGutterNextHunk<CR>zz
 nnoremap [c :GitGutterPrevHunk<CR>zz
 nnoremap gp :GitGutterPreviewHunk<CR>
 nnoremap cog :GitGutterToggle<CR>
-" }}}
-" Dispatch: {{{
-nnoremap <leader>d :Dispatch!<CR>
 " }}}
 " KeyBindings: {{{
 let g:mapleader = "\<Space>"
@@ -233,6 +230,12 @@ augroup Terminal
 augroup END
 
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
+" }}}
+" Dispatch: {{{
+nnoremap <leader>d :Dispatch!<CR>
+
+nnoremap <leader>dc :Dispatch php app/console ca:cl -e dev<CR>
+nnoremap <leader>da :Dispatch php app/console assetic:dump -e dev<CR>
 " }}}
 " Other: {{{
 command! -nargs=1 Silent
