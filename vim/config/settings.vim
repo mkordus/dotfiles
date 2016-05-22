@@ -11,7 +11,7 @@ set noshowcmd
 
 " set cpoptions+=n
 set nonumber
-set numberwidth=4
+set numberwidth=5
 
 set splitbelow
 set splitright
@@ -113,6 +113,59 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
+" highlight last inserted text
 noremap gV `[v`]
 
+map Q @q
+
+" no idea what it does
+nnoremap > ]mzt
+nnoremap < [mzt
+
+" wrapping lines in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
 nnoremap <c-l> :b#<cr>
+
+noremap j gj
+noremap k gk
+
+nnoremap gG ggVG
+
+nnoremap <leader>ws <c-w>s
+nnoremap <leader>wv <c-w>v
+nnoremap <leader>wh <c-w>H
+nnoremap <leader>wj <c-w>J
+nnoremap <leader>wk <c-w>K
+nnoremap <leader>wl <c-w>L
+nnoremap <leader>wo <c-w>o
+
+inoremap jk <esc>
+
+nnoremap <leader>h <c-w>h
+nnoremap <leader>j <c-w>j
+nnoremap <leader>k <c-w>k
+nnoremap <leader>l <c-w>l
+
+nnoremap <leader>n :noh<CR>
+
+nnoremap <c-f> <c-f>2<c-e>
+nnoremap <c-b> <c-b>2<c-y>
+
+nnoremap gf gF
+
+function! NeatFoldText() "{{{2
+"http://dhruvasagar.com/2013/03/28/vim-better-foldtext
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+  let foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(foldchar, 8)
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
+" }}}2
+

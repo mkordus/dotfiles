@@ -1,6 +1,7 @@
 " vi: fdm=marker
+"
+let g:mapleader = "\<Space>"
 
-source ~/dotfiles/vim/config/plug.vim
 source ~/dotfiles/vim/config/settings.vim
 source ~/dotfiles/vim/config/autocmd.vim
 
@@ -8,7 +9,7 @@ if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
 
-let loaded_netrwPlugin = 1
+source ~/dotfiles/vim/config/plug.vim
 
 " Colorscheme: {{{
 
@@ -20,236 +21,17 @@ let loaded_netrwPlugin = 1
     colorscheme solarized
 
 " }}}
-
-" JavascriptLibrariesSyntax: {{{
-let g:used_javascript_libs = 'jquery,angularjs,jasmine'
-" }}}
-" Tagbar: {{{
-let g:tagbar_width = 85
-let g:tagbar_compact = 1
-let g:tagbar_sort = 0
-" }}}
-" UltiSnips: {{{
-" cannot use '<nop>' in ultisnips mappings
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
-let g:UltiSnipsEditSplit = "vertical"
-
-" let g:ulti_expand_or_jump_res = 0
-" function! ExpandSnippetOrCarriageReturn()
-"     call UltiSnips#ExpandSnippetOrJump()
-"     if g:ulti_expand_or_jump_res == 0
-"         return "\<CR>"
-"     else
-"         return ""
-"     endif
-" endfunction
-" imap <silent> <expr> <CR> "\<C-R>=ExpandSnippetOrCarriageReturn()\<CR>"
-" }}}
-" Syntastic: {{{
-let g:syntastic_php_checkers = ['php']
-let g:syntastic_check_on_open=0
-let g:syntastic_enable_signs=0
-let g:syntastic_always_populate_loc_list=0
-
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" }}}
-" YouCompleteMe: {{{
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_use_ultisnips_completer = 1
-let g:ycm_key_list_previous_completion = ['<c-k>']
-let g:ycm_key_list_select_completion = ['<c-j>']
-
-let g:ycm_filetype_specific_completion_to_disable = {
-    \ 'php': 1
-    \}
-
-let g:ycm_key_detailed_diagnostics = '<leader>y'
-
-" }}}
-" WinResizer: {{{
-let g:winresizer_start_key = '<Leader>wr'
-let g:winresizer_vert_resize=3
-let g:winresizer_horiz_resize=3
-" }}}
-" Oblique: {{{
-let g:oblique#incsearch_highlight_all=1
-" }}}
-" DBext: {{{
-function! DBextPostResult(db_type, buf_nr)
-    set syntax=sql
-endfunction
-" }}}
-" Eclim: {{{
-let g:EclimCompletionMethod = 'omnifunc'
-let g:EclimPhpValidate = 0
-let g:EclimHtmlValidate = 0
-" }}}
-" FZF: {{{
-" let g:fzf_layout = {'window': 'enew'}
-let g:fzf_layout = {'down': '80%'}
-let g:fzf_buffers_jump = 0
-
-function! FZFTagClass(initialQuery)
-    if !empty(tagfiles()) | call fzf#run({
-        \'source': "cat " . join(tagfiles()) . ' | ~/dotfiles/pickClass.sh',
-        \'sink': function('EditTag'),
-        \'down': '80%',
-        \'options': '--ansi --tiebreak=begin --query=' . a:initialQuery
-    \}) | else | echo 'No tags' | endif
-endfunction
-
-command! FZFTagClassC call FZFTagClass('')
-
-function! EditTag(line)
-    execute 'edit ' . matchstr(a:line, '[^ ]\+$')
-endfunction
-
-" }}}
-" FileBeagle: {{{
-let g:filebeagle_suppress_keymaps = 1
-" }}}
-" GitGutter: {{{
-let g:gitgutter_enabled = 1
-let g:gitgutter_signs = 1
-let g:gitgutter_highlight_lines = 0
-let g:gitgutter_sign_column_always = 1
-let g:gitgutter_max_signs = 1500
-let g:gitgutter_map_keys = 0
-let g:gitgutter_override_sign_column_highlight = 0
-nnoremap ]c :GitGutterNextHunk<CR>zz
-nnoremap [c :GitGutterPrevHunk<CR>zz
-nnoremap gp :GitGutterPreviewHunk<CR>
-nnoremap cog :GitGutterToggle<CR>
-" }}}
 " KeyBindings: {{{
-let g:mapleader = "\<Space>"
-
-noremap j gj
-noremap k gk
-
-nnoremap gG ggVG
-
-command! WS :w !sudo tee %<CR>
 
 command! Json :%!python -m json.tool
 
-nnoremap <leader>ws <c-w>s
-nnoremap <leader>wv <c-w>v
-nnoremap <leader>wh <c-w>H
-nnoremap <leader>wj <c-w>J
-nnoremap <leader>wk <c-w>K
-nnoremap <leader>wl <c-w>L
-nnoremap <leader>wo <c-w>o
-
-inoremap jk <esc>
-
-nnoremap <leader>h <c-w>h
-nnoremap <leader>j <c-w>j
-nnoremap <leader>k <c-w>k
-nnoremap <leader>l <c-w>l
-
-nnoremap <leader>n :noh<CR>
-
-nmap <c-w>m <c-w>_
-
-nnoremap <c-f> <c-f>2<c-e>
-nnoremap <c-b> <c-b>2<c-y>
-
-" wrapping lines in visual mode
-vnoremap < <gv
-vnoremap > >gv
-
-nnoremap <leader>T :TagbarOpenAutoClose<CR>
-
-nnoremap <silent> gs :Gstatus<CR>
-nnoremap <silent> gvd :Gvdiff<CR>
-nnoremap <silent> <leader>gd :Git! diff<CR>
-nnoremap <silent> <leader>gds :Git! diff --staged --patch-with-stat<CR>:set modifiable<CR>:set noreadonly<CR>:%g/^\(---\\|+++\\|index\\|@@\\|new file mode\)/d<CR>gg
-nnoremap <silent> <leader>gda :Git! diff HEAD<CR>
-nnoremap <silent> gb :Gblame<CR>
-nnoremap <silent> gl :silent Glog -n 10 --no-merges
-
-nnoremap <leader>a :Ag! <right>
-
-nnoremap ff :Files!<CR>
-nnoremap fe :Files! /etc<CR>
-nnoremap fd :Files! ~/dotfiles<CR>
-nnoremap fl :Files! /var/log<CR>
-nnoremap fs :BLines!<CR>
-" nnoremap <c-j> :Buffers!<CR>
-nnoremap ft :BTags!<CR>
-nnoremap fh :History!<CR>
-" nnoremap <Leader>fc :FZFTagClassC<CR>
-
 nnoremap <C-\> :vsplit<CR>:let word=expand("<cword>")<CR>:exec "tag" word<CR>
-
-nnoremap <leader>gc :FZFGitCheckoutBranch<CR>
-
-map Q @q
-
-" highlight last inserted text
-nnoremap gV `[v`]
-
-nnoremap > ]mzt
-nnoremap < [mzt
-
-map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
-map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
-nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
-nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
-
-" nmap f <Plug>Sneak_f
-" nmap F <Plug>Sneak_F
-" xmap f <Plug>Sneak_f
-" xmap F <Plug>Sneak_F
-" omap f <Plug>Sneak_f
-" omap F <Plug>Sneak_F
-
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
-
-if has('nvim')
-    tnoremap jk <C-\><C-n>
-endif
-
-augroup Terminal
-    au!
-    au WinEnter term://* startinsert
-augroup END
-
 " nnoremap <C-]> <Esc>:exe "ptjump " . expand("<cword>")<Esc>
-" }}}
-" Dispatch: {{{
-nnoremap <leader>d :Dispatch!<CR>
-
-nnoremap <leader>dc :Dispatch php app/console ca:cl -e dev<CR>
-nnoremap <leader>da :Dispatch php app/console assetic:dump -e dev<CR>
 " }}}
 " Other: {{{
 command! -nargs=1 Silent
     \ | execute ':silent !'.<q-args>
     \ | execute ':redraw!'
-
-function! GetGitRootDir()
-    let filePath = expand('%:p:h')
-    let shellcmd = 'cd ' . filePath . ';'
-        \ . 'basename $(readlink -f $(git rev-parse --show-cdup))'
-        \ . '| sed "s/[ \r\n]//g"'
-
-    return system(shellcmd)
-endfunction
 
 function! OpenFileInLastWindow(shouldStayInPlugin)
     let line = substitute(getline('.'), '.\{-}\(\([0-9A-Za-z_-]\+/\)\+[0-9A-Za-z_-]\+\.\?[0-9A-Za-z_-]\+\(:\d\+\)\?\( on line \d\+\)\?\).*', '\1', '')
@@ -312,76 +94,7 @@ endfunction
 
 nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
 nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
-
-nnoremap gf gF
-
-nnoremap K :A<CR>
-" }}}
-" Bclose {{{
-nnoremap <silent> <c-d> :Bclose<CR>
-" }}}
-function! NeatFoldText() "{{{2
-"http://dhruvasagar.com/2013/03/28/vim-better-foldtext
-  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-  let foldchar = matchstr(&fillchars, 'fold:\zs.')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(foldchar, 8)
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
-endfunction
-set foldtext=NeatFoldText()
-" }}}2
-
-function! GetBasePath()
-    let basePath = expand('%:p:.:h')
-    if basePath == '.'
-        return ''
-    else
-        return basePath . '/'
-    endif
-endfunction
-
-function! GetName()
-    let tmpName = expand('%:p:t')
-    if strlen(tmpName)
-        return substitute(tmpName, '\.\w\+$', '', '')
-    else
-        return '[No name]'
-    endif
-endfunction
-
-function! GetExtension()
-    let tmpName = expand('%:p:t')
-    if strlen(tmpName)
-        let extension = substitute(tmpName, '.\{-}\(\.\w\+\)$', '\1', '')
-        if strlen(extension) && tmpName != extension
-            return extension
-        else
-            return ''
-        endif
-    else
-        return ''
-    endif
-endfunction
-
-function! Modified()
-    return &modified ? '[+]' : ''
-endfunction
-
-function! Padding()
-    return '      '
-endfunction
-
-set numberwidth=5
-
-"generate getters
-vnoremap <leader>gg :s/\s*\$\(\w\+\)\W\?/    public function get\u\1()\r    {\r        return $this->\1;\r    }\r/<CR>dd
-vnoremap <leader>gs :s/\s*\$\(\w\+\)\W\?/    public function set\u\1($\1)\r    {\r        $this->\1 = $\1;\r\r        return $this;\r    }\r/<CR>dd
-vnoremap <leader>gt :s/\s*\$\(\w\+\);\?,\?/        $this->\1 = $\1;/<CR>
-
-" nnoremap gp `[v`]
-
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
+" }}}
+
