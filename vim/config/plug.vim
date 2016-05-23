@@ -79,6 +79,26 @@ nnoremap fl :Files! /var/log<CR>
 nnoremap fs :BLines!<CR>
 nnoremap ft :BTags!<CR>
 nnoremap fh :History!<CR>
+nnoremap <silent> <leader>a :call SearchWordWithAg()<CR>
+vnoremap <silent> <leader>a :call SearchVisualSelectionWithAg()<CR>
+
+" github.com/zenbro/dotfiles {{{
+function! SearchWordWithAg()
+    execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ag' selection
+endfunction
+" }}}
 " }}}
 " FileBeagle: {{{
 let loaded_netrwPlugin = 1
