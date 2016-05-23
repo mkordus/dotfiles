@@ -40,6 +40,9 @@ def genStructureWithNamespace(structureType, path, fileName):
 
 	return output
 
+def genStructureName():
+	return re.match(r'.*(?=\.)', fn).group()
+
 def genClassParams(args):
 	output = ""
 	for i in args:
@@ -76,10 +79,14 @@ def genGetter(paramType, paramName):
 
 endglobal
 
-snippet vo "Value Object with namespace" b
-`!p 
-snip.rv = genStructureWithNamespace("class", path, fn)
+snippet na "Namespace" b
+namespace `!p snip.rv += getNamespace(path) `;
+endsnippet
 
+snippet vo "Value Object" b
+class `!p snip.rv = genStructureName() `
+{
+`!p
 if len(t[1]) == 40:
 	t[1] = changeParamsToLines(t[1])
 
@@ -107,12 +114,8 @@ for i in args:
 
 endsnippet
 
-snippet cl "class with namespace" b
-<?php
-
-namespace `!p snip.rv = getNamespace(path)`;
-
-class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() ` ${1}
+snippet cl "class" b
+class `!p snip.rv = genStructureName() `${1}
 {
 `!p 
 if len(t[6]) == 40:
@@ -151,18 +154,18 @@ class `!p snip.rv = re.match(r'.*(?=\.)', fn).group() ` extends \PHPUnit_Framewo
         \Mockery::close();
     }
 }
-    public function test${2:HappyPath}()
-    {
-        ${3}
-    }
+	public function test${2:HappyPath}()
+	{
+		${3}
+	}
 }
 
 endsnippet
 
 snippet in "interface with namespace" b
-`!p 
-snip.rv = genStructureWithNamespace("interface", path, fn)
-`    $0
+interface `!p snip.rv = genStructureName() `
+{
+	$0
 }
 
 endsnippet
