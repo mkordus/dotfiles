@@ -130,8 +130,8 @@ omap T <Plug>Sneak_T
 " Dispatch: {{{
 nnoremap <leader>d :Dispatch!<CR>
 
-nnoremap <leader>dc :Dispatch php app/console ca:cl -e dev<CR>
-nnoremap <leader>da :Dispatch php app/console assetic:dump -e dev<CR>
+nnoremap <leader>dsc :Dispatch php app/console ca:cl -e dev<CR>
+nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
 " }}}
 " Bclose {{{
 nnoremap <silent> <c-d> :Bclose<CR>

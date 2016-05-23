@@ -34,3 +34,20 @@ augroup filespecific
     autocmd FileType html.twig setlocal commentstring={#%s#}
 augroup END
 " }}}
+" BufNewFile: {{
+autocmd BufRead *.php call InsertTempateIfEmpty()
+" autocmd BufNewFile,BufRead *.php call InsertTempateIfEmpty()
+" }}
+
+function! InsertTempateIfEmpty()
+    if @% == ""
+        " No filename for current buffer
+        so ~/dotfiles/vim/template/php.vim
+    elseif filereadable(@%) == 0
+        " File doesn't exist yet
+        so ~/dotfiles/vim/template/php.vim
+    elseif line('$') == 1 && col('$') == 1
+        " File is empty
+        so ~/dotfiles/vim/template/php.vim
+    endif
+endfunction

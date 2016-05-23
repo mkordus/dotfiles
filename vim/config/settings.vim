@@ -155,7 +155,7 @@ nnoremap <c-b> <c-b>2<c-y>
 
 nnoremap gf gF
 
-function! NeatFoldText() "{{{2
+function! NeatFoldText() "{{{
 "http://dhruvasagar.com/2013/03/28/vim-better-foldtext
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
@@ -167,5 +167,5 @@ function! NeatFoldText() "{{{2
   return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 set foldtext=NeatFoldText()
-" }}}2
+" }}}
 
