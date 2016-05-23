@@ -156,6 +156,11 @@ nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
 " Bclose {{{
 nnoremap <silent> <c-d> :Bclose<CR>
 " }}}
+" Hardtime: {{{
+let g:hardtime_default_on = 1
+let g:hardtime_ignore_quickfix = 1
+let g:hardtime_allow_different_key = 1
+" }}}
 " }}}
 
 if !has('nvim')
@@ -165,11 +170,12 @@ filetype off "required by plugin manager
 
 call plug#begin('~/.vim/plugged')
 " Movements: {{{
-" Plug 'bkad/CamelCaseMotion'
+Plug 'takac/vim-hardtime'
 Plug 'justinmk/vim-sneak'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'triglav/vim-visual-increment'
 Plug 'vim-scripts/argtextobj.vim'
+" Plug 'bkad/CamelCaseMotion'
 " Plug 'terryma/vim-expand-region'
 " }}}
 " TPope: {{{
