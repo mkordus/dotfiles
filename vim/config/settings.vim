@@ -155,6 +155,17 @@ nnoremap <c-b> <c-b>2<c-y>
 
 nnoremap gf gF
 
+" Y behave like D or C
+nnoremap Y y$
+
+" Copy current file path to clipboard
+nnoremap <leader>% :call CopyCurrentFilePath()<CR>
+function! CopyCurrentFilePath() " {{{
+  let @+ = expand('%')
+  echo @+
+endfunction
+" }}}
+
 function! NeatFoldText() "{{{
 "http://dhruvasagar.com/2013/03/28/vim-better-foldtext
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
