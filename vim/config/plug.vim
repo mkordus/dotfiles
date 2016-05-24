@@ -70,7 +70,6 @@ function! EditTag(line)
     execute 'edit ' . matchstr(a:line, '[^ ]\+$')
 endfunction
 
-nnoremap <leader>a :Ag! <right>
 nnoremap <silent> <leader>a :call SearchWordWithAg()<CR>
 vnoremap <silent> <leader>a :call SearchVisualSelectionWithAg()<CR>
 nnoremap <leader>ff :Files!<CR>
