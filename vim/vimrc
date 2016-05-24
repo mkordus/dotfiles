@@ -92,7 +92,7 @@ function! ToggleTest()
 endfunction
 
 nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
-nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
+" nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
 " }}}

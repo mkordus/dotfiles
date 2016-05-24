@@ -147,14 +147,27 @@ function! JumpOrOpenNewSplit(key, cmd) " {{{
     let current_window = winnr()
     execute 'wincmd' a:key
     if current_window == winnr()
+        if (a:key == 'h' || a:key == 'l') && TmuxHasMargin()
+            call TmuxSetPaneSize(250)
+        endif
         execute a:cmd
     endif
 endfunction " }}}
+
 nnoremap <silent> <Leader>h :call JumpOrOpenNewSplit('h', ':leftabove vsplit')<CR>
 nnoremap <silent> <Leader>l :call JumpOrOpenNewSplit('l', ':rightbelow vsplit')<CR>
 nnoremap <silent> <Leader>k :call JumpOrOpenNewSplit('k', ':leftabove split')<CR>
 nnoremap <silent> <Leader>j :call JumpOrOpenNewSplit('j', ':rightbelow split')<CR>
 " }}}
+
+function! CloseOtherWindows()
+    if TmuxHasMargin()
+        call TmuxSetPaneSize(120)
+    endif
+    only
+endfunction
+
+nnoremap <silent> <leader>o :call CloseOtherWindows()<CR>
 
 nnoremap <leader>n :noh<CR>
 
