@@ -162,6 +162,24 @@ let g:hardtime_ignore_buffer_patterns = ["filebeagle"]
 " }}}
 " Tbone: {{{
 function! TmuxSetPaneSize(size)
+    let marginSize = TmuxGetMarginSize(a:size)
+
+    silent execute "Tmux select-pane -L"
+    silent execute "Tmux resize-pane -x " . marginSize
+    silent execute "Tmux select-pane -R"
+    silent execute "Tmux select-pane -R"
+    silent execute "Tmux resize-pane -x " . marginSize
+    silent execute "Tmux select-pane -L"
+endfunction
+
+function! TmuxMarginInit(size)
+    let marginSize = TmuxGetMarginSize(a:size)
+
+    silent execute "Tmux split-window -bdh -l " . marginSize . " 'sleep 999999'"
+    silent execute "Tmux split-window -dh -l " . marginSize . " 'sleep 999999'"
+endfunction
+
+function! TmuxGetMarginSize(size)
     redir => panesSize
         silent execute "Tmux list-panes -F '#{pane_width}'"
     redir END
@@ -171,20 +189,13 @@ function! TmuxSetPaneSize(size)
         let totalWidth = i + totalWidth
     endfor
 
-    let marginSize = (totalWidth - a:size) / 2
+    if a:size >= totalWidth
+        let marginSize = 1
+    else
+        let marginSize = (totalWidth - a:size) / 2
+    endif
 
-    " echo marginSize
-    silent execute "Tmux resize-pane -t 1 -x " . marginSize
-    silent execute "Tmux resize-pane -t 3 -x " . marginSize
-endfunction
-
-function! TmuxMarginInit(size)
-    silent execute "Tmux split-window -h -p 99 'sleep 999999'"
-    silent execute "Tmux swap-pane -D"
-    silent execute "Tmux select-pane -R"
-    silent execute "Tmux split-window -h -p 1 'sleep 999999'"
-    silent execute "Tmux select-pane -L"
-    call TmuxSetPaneSize(a:size)
+    return marginSize
 endfunction
 " }}}
 
