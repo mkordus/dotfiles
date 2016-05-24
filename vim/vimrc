@@ -3,13 +3,12 @@
 let g:mapleader = "\<Space>"
 
 source ~/dotfiles/vim/config/settings.vim
+source ~/dotfiles/vim/config/plug.vim
 source ~/dotfiles/vim/config/autocmd.vim
 
 if filereadable(expand('~/dotfiles/vim/vimrc.local'))
     source ~/dotfiles/vim/vimrc.local
 endif
-
-source ~/dotfiles/vim/config/plug.vim
 
 " Colorscheme: {{{
 

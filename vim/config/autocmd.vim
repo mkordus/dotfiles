@@ -34,11 +34,9 @@ augroup filespecific
     autocmd FileType html.twig setlocal commentstring={#%s#}
 augroup END
 " }}}
-" BufNewFile: {{
+" BufNewFile: {{{
 autocmd BufRead *.php call InsertTempateIfEmpty()
 " autocmd BufNewFile,BufRead *.php call InsertTempateIfEmpty()
-" }}
-
 function! InsertTempateIfEmpty()
     if @% == ""
         " No filename for current buffer
@@ -51,3 +49,16 @@ function! InsertTempateIfEmpty()
         so ~/dotfiles/vim/template/php.vim
     endif
 endfunction
+" }}}
+" TmuxMargin: {{{
+let g:shouldTryToCreateTmuxMargin = 1
+function! TryToCreateTmuxMargin()
+    let g:shouldTryToCreateTmuxMargin = 0
+    if !TmuxHasMargin()
+        call TmuxMarginInit(120)
+    endif
+endfunction
+
+autocmd VimEnter * if g:shouldTryToCreateTmuxMargin | call TryToCreateTmuxMargin() | endif
+" }}}
+

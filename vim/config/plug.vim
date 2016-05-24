@@ -155,12 +155,21 @@ nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
 nnoremap <silent> <c-d> :Bclose<CR>
 " }}}
 " Hardtime: {{{
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_ignore_quickfix = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_ignore_buffer_patterns = ["filebeagle"]
 " }}}
 " Tbone: {{{
+function! TmuxHasMargin()
+    redir => panesSize
+        silent execute "Tmux list-panes -F '#{pane_width}'"
+    redir END
+    let numberOfPanes = len(split(panesSize, "\n"))
+
+    return numberOfPanes >= 3
+endfunction
+
 function! TmuxSetPaneSize(size)
     let marginSize = TmuxGetMarginSize(a:size)
 
