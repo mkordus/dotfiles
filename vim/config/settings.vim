@@ -133,8 +133,6 @@ noremap k gk
 
 nnoremap gG ggVG
 
-nnoremap <leader>ws <c-w>s
-nnoremap <leader>wv <c-w>v
 nnoremap <leader>wh <c-w>H
 nnoremap <leader>wj <c-w>J
 nnoremap <leader>wk <c-w>K
@@ -143,10 +141,19 @@ nnoremap <leader>wo <c-w>o
 
 inoremap jk <esc>
 
-nnoremap <leader>h <c-w>h
-nnoremap <leader>j <c-w>j
-nnoremap <leader>k <c-w>k
-nnoremap <leader>l <c-w>l
+" JumpOrOpenNewSplit: {{{
+function! JumpOrOpenNewSplit(key, cmd) " {{{
+    let current_window = winnr()
+    execute 'wincmd' a:key
+    if current_window == winnr()
+        execute a:cmd
+    endif
+endfunction " }}}
+nnoremap <silent> <Leader>h :call JumpOrOpenNewSplit('h', ':leftabove vsplit')<CR>
+nnoremap <silent> <Leader>l :call JumpOrOpenNewSplit('l', ':rightbelow vsplit')<CR>
+nnoremap <silent> <Leader>k :call JumpOrOpenNewSplit('k', ':leftabove split')<CR>
+nnoremap <silent> <Leader>j :call JumpOrOpenNewSplit('j', ':rightbelow split')<CR>
+" }}}
 
 nnoremap <leader>n :noh<CR>
 
