@@ -133,6 +133,7 @@ noremap k gk
 
 nnoremap gG ggVG
 
+nnoremap <leader>wc <c-w>c
 nnoremap <leader>wh <c-w>H
 nnoremap <leader>wj <c-w>J
 nnoremap <leader>wk <c-w>K
