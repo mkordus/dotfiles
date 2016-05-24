@@ -177,6 +177,15 @@ function! TmuxSetPaneSize(size)
     silent execute "Tmux resize-pane -t 1 -x " . marginSize
     silent execute "Tmux resize-pane -t 3 -x " . marginSize
 endfunction
+
+function! TmuxMarginInit(size)
+    silent execute "Tmux split-window -h -p 99 'sleep 999999'"
+    silent execute "Tmux swap-pane -D"
+    silent execute "Tmux select-pane -R"
+    silent execute "Tmux split-window -h -p 1 'sleep 999999'"
+    silent execute "Tmux select-pane -L"
+    call TmuxSetPaneSize(a:size)
+endfunction
 " }}}
 
 if !has('nvim')
