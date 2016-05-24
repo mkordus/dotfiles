@@ -181,6 +181,8 @@ function! TmuxSetPaneSize(size)
     silent execute "Tmux select-pane -L"
 endfunction
 
+command! -nargs=1 Tw call TmuxSetPaneSize(<f-args>)
+
 function! TmuxMarginInit(size)
     let marginSize = TmuxGetMarginSize(a:size)
 
@@ -199,7 +201,7 @@ function! TmuxGetMarginSize(size)
     endfor
 
     if a:size >= totalWidth
-        let marginSize = 1
+        let marginSize = 2
     else
         let marginSize = (totalWidth - a:size) / 2
     endif

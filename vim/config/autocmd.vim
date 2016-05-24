@@ -61,4 +61,7 @@ endfunction
 
 autocmd VimEnter * if g:shouldTryToCreateTmuxMargin | call TryToCreateTmuxMargin() | endif
 " }}}
+" TmuxTitle: {{{
+autocmd BufEnter * silent execute "Tmux rename-window " . shellescape(fnamemodify(getcwd(), ':t'))
+" }}}
 
