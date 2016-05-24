@@ -1,6 +1,5 @@
 " vi: fdm=marker
 
-" Plugins configs: {{{
 " JavascriptLibrariesSyntax: {{{
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " }}}
@@ -162,6 +161,23 @@ let g:hardtime_ignore_quickfix = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_ignore_buffer_patterns = ["filebeagle"]
 " }}}
+" Tbone: {{{
+function! TmuxSetPaneSize(size)
+    redir => panesSize
+        silent execute "Tmux list-panes -F '#{pane_width}'"
+    redir END
+    let panesSizeList = split(panesSize, "\n")
+    let totalWidth = 0
+    for i in panesSizeList
+        let totalWidth = i + totalWidth
+    endfor
+
+    let marginSize = (totalWidth - a:size) / 2
+
+    " echo marginSize
+    silent execute "Tmux resize-pane -t 1 -x " . marginSize
+    silent execute "Tmux resize-pane -t 3 -x " . marginSize
+endfunction
 " }}}
 
 if !has('nvim')
@@ -190,7 +206,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 " Plug 'radenling/vim-dispatch-neovim'
-" Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-tbone'
 " Plug 'tpope/vim-ragtag'
 " Plug 'tpope/vim-flagship'
 " }}}
