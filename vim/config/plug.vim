@@ -72,15 +72,15 @@ function! EditTag(line)
 endfunction
 
 nnoremap <leader>a :Ag! <right>
-nnoremap ff :Files!<CR>
-nnoremap fe :Files! /etc<CR>
-nnoremap fd :Files! ~/dotfiles<CR>
-nnoremap fl :Files! /var/log<CR>
-nnoremap fs :BLines!<CR>
-nnoremap ft :BTags!<CR>
-nnoremap fh :History!<CR>
 nnoremap <silent> <leader>a :call SearchWordWithAg()<CR>
 vnoremap <silent> <leader>a :call SearchVisualSelectionWithAg()<CR>
+nnoremap <leader>ff :Files!<CR>
+nnoremap <leader>fe :Files! /etc<CR>
+nnoremap <leader>fd :Files! ~/dotfiles<CR>
+nnoremap <leader>fl :Files! /var/log<CR>
+nnoremap <leader>fs :BLines!<CR>
+nnoremap <leader>ft :BTags!<CR>
+nnoremap <leader>fh :History!<CR>
 
 " github.com/zenbro/dotfiles {{{
 function! SearchWordWithAg()
@@ -133,12 +133,12 @@ nnoremap <silent> gb :Gblame<CR>
 nnoremap <silent> gl :silent Glog -n 10 --no-merges
 " }}}
 " Sneak: {{{
-" nmap f <Plug>Sneak_f
-" nmap F <Plug>Sneak_F
-" xmap f <Plug>Sneak_f
-" xmap F <Plug>Sneak_F
-" omap f <Plug>Sneak_f
-" omap F <Plug>Sneak_F
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
 
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
