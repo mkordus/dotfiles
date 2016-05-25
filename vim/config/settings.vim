@@ -201,3 +201,4 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}
 
+nnoremap ; :
