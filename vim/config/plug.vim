@@ -136,8 +136,8 @@ let g:sneak#use_ic_scs = 1
 hi link SneakPluginTarget Search
 hi link SneakPluginScope  IncSearch
 
-nmap <expr> N sneak#is_sneaking() ? '<Plug>SneakPrevious' : '<Plug>(Oblique-N!)'
-nmap <expr> n sneak#is_sneaking() ? '<Plug>SneakNext' : '<Plug>(Oblique-n!)'
+nmap <expr> N sneak#is_sneaking() ? '<Plug>SneakPrevious' : '<Plug>(Oblique-N)'
+nmap <expr> n sneak#is_sneaking() ? '<Plug>SneakNext' : '<Plug>(Oblique-n)'
 
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
