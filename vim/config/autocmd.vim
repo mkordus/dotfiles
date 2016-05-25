@@ -62,6 +62,32 @@ endfunction
 autocmd VimEnter * if g:shouldTryToCreateTmuxMargin | call TryToCreateTmuxMargin() | endif
 " }}}
 " TmuxTitle: {{{
-autocmd BufEnter * silent execute "Tmux rename-window " . shellescape(fnamemodify(getcwd(), ':t'))
+function! UpdateTmuxTitle()
+    let lcd = fnamemodify(getcwd(), ':~')
+    let gitPath = fugitive#extract_git_dir(expand('%'))
+    if l:gitPath != ''
+        let gitPath = fnamemodify(l:gitPath, ':h')
+        let gitPath = fnamemodify(l:gitPath, ':~')
+        let gitHead = '[' . fugitive#head() . ']'
+        if l:lcd != l:gitPath
+            let tmuxTitle = '(CWD)' . l:lcd . '  (REPO)' . l:gitPath . ' ' . l:gitHead
+        else
+            let tmuxTitle = l:gitPath . ' ' . l:gitHead
+        endif
+    else
+        let tmuxTitle = l:lcd
+    endif
+
+    let tmuxTitle = shellescape(l:tmuxTitle)
+    execute "Tmux rename-window " . l:tmuxTitle
+endfunction
+autocmd ShellCmdPost,BufEnter,CmdwinLeave * silent call UpdateTmuxTitle()
+
+command! -nargs=1 -complete=dir Cd 
+    \ execute 'silent cd ' . <q-args> 
+    \ | call UpdateTmuxTitle()
+command! -nargs=1 -complete=dir Lcd 
+    \ execute 'silent lcd ' . <q-args> 
+    \ | call UpdateTmuxTitle()
 " }}}
 

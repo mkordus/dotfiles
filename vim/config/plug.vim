@@ -82,7 +82,7 @@ nnoremap <leader>fh :History!<CR>
 
 " github.com/zenbro/dotfiles {{{
 function! SearchWordWithAg()
-    execute 'Ag' expand('<cword>')
+    execute 'Ag! ' expand('<cword>')
 endfunction
 
 function! SearchVisualSelectionWithAg() range
@@ -94,7 +94,7 @@ function! SearchVisualSelectionWithAg() range
     let selection = getreg('"')
     call setreg('"', old_reg, old_regtype)
     let &clipboard = old_clipboard
-    execute 'Ag' selection
+    execute 'Ag! ' selection
 endfunction
 " }}}
 " }}}
