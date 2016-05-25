@@ -76,11 +76,17 @@ function! UpdateTmuxTitle()
     let gitPath = GetCurrentBufferRepoDir()
     if l:gitPath != ''
         let gitPath = fnamemodify(l:gitPath, ':~')
-        let gitHead = '[' . fugitive#head() . ']'
+        let gitHead = fugitive#head()
         if l:lcd != l:gitPath
-            let tmuxTitle = '(CWD)' . l:lcd . '  (REPO)' . l:gitPath . ' ' . l:gitHead
+            let tmuxTitle = '(CWD)' . l:lcd . '  (REPO)' . l:gitPath
+            if l:gitHead != ''
+                let tmuxTitle = l:tmuxTitle . ' [' . l:gitHead . ']'
+            endif
         else
-            let tmuxTitle = l:gitPath . ' ' . l:gitHead
+            let tmuxTitle = l:gitPath
+            if l:gitHead != ''
+                let tmuxTitle = l:tmuxTitle . ' [' . l:gitHead . ']'
+            endif
         endif
     else
         let tmuxTitle = l:lcd
