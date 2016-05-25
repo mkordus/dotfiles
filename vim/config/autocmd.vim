@@ -62,11 +62,19 @@ endfunction
 autocmd VimEnter * if g:shouldTryToCreateTmuxMargin | call TryToCreateTmuxMargin() | endif
 " }}}
 " TmuxTitle: {{{
-function! UpdateTmuxTitle()
-    let lcd = fnamemodify(getcwd(), ':~')
+function! GetCurrentBufferRepoDir()
     let gitPath = fugitive#extract_git_dir(expand('%'))
     if l:gitPath != ''
         let gitPath = fnamemodify(l:gitPath, ':h')
+    endif
+
+    return l:gitPath
+endfunction
+
+function! UpdateTmuxTitle()
+    let lcd = fnamemodify(getcwd(), ':~')
+    let gitPath = GetCurrentBufferRepoDir()
+    if l:gitPath != ''
         let gitPath = fnamemodify(l:gitPath, ':~')
         let gitHead = '[' . fugitive#head() . ']'
         if l:lcd != l:gitPath
@@ -83,11 +91,21 @@ function! UpdateTmuxTitle()
 endfunction
 autocmd ShellCmdPost,BufEnter,CmdwinLeave * silent call UpdateTmuxTitle()
 
+function! CdToGitRoot()
+    let gitPath = GetCurrentBufferRepoDir()
+    if l:gitPath != ''
+        execute 'silent cd ' . l:gitPath
+    endif
+endfunction
+
 command! -nargs=1 -complete=dir Cd 
     \ execute 'silent cd ' . <q-args> 
     \ | call UpdateTmuxTitle()
 command! -nargs=1 -complete=dir Lcd 
     \ execute 'silent lcd ' . <q-args> 
+    \ | call UpdateTmuxTitle()
+command! Cdg 
+    \ call CdToGitRoot()
     \ | call UpdateTmuxTitle()
 " }}}
 
