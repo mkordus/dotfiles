@@ -131,6 +131,14 @@ nnoremap <silent> gb :Gblame<CR>
 nnoremap <silent> gl :silent Glog -n 10 --no-merges
 " }}}
 " Sneak: {{{
+let g:sneak#use_ic_scs = 1
+
+hi link SneakPluginTarget Search
+hi link SneakPluginScope  IncSearch
+
+nmap <expr> N sneak#is_sneaking() ? '<Plug>SneakPrevious' : '<Plug>(Oblique-N!)'
+nmap <expr> n sneak#is_sneaking() ? '<Plug>SneakNext' : '<Plug>(Oblique-n!)'
+
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
 xmap f <Plug>Sneak_f
@@ -144,6 +152,9 @@ xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
+" }}}
+" Oblique: {{{
+" hi! def link ObliquePrompt Structure
 " }}}
 " Dispatch: {{{
 nnoremap <leader>d :Dispatch!<CR>
