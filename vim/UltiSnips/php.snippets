@@ -114,6 +114,30 @@ for i in args:
 
 endsnippet
 
+snippet con "__construct with private properties" b
+`!p
+if len(t[1]) == 40:
+	t[1] = changeParamsToLines(t[1])
+
+args = getArgs(t[1])
+
+snip.rv += genClassParams(args)
+snip.rv += genConstructorDoc(args)
+
+`    public function __construct(${1:${VISUAL}}`!p
+
+if "\n" in t[1]:
+	snip.rv = "\n    ) {"
+else:
+	snip.rv = ")\n    {"
+
+for i in args:
+	snip.rv += "\n        $this->" + i[1] + " = $" + i[1] + ";"
+
+snip.rv += "\n    }"
+`
+endsnippet
+
 snippet cl "class" b
 class `!p snip.rv = genStructureName() `${1}
 {
