@@ -27,7 +27,7 @@ augroup filespecific
     " autocmd FileType sql,php,vim,javascript autocmd BufWritePre <buffer> :%s/\t/    /g
     autocmd FileType javascript setlocal omnifunc=syntaxcomplete#Complete
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-    autocmd FileType gitcommit setlocal cursorline | nnoremap cb :Git checkout 
+    autocmd FileType gitcommit setlocal cursorline | nnoremap gc :Git checkout 
     " eclim
     " autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
     " autocmd FileType php nnoremap <silent> <buffer> <cr> :PhpSearchContext<cr>
