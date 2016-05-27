@@ -192,7 +192,7 @@ function! TmuxSetPaneSize(size)
     silent execute "Tmux select-pane -L"
 endfunction
 
-command! -nargs=1 Tw call TmuxSetPaneSize(<f-args>)
+command! -nargs=1 TT call TmuxSetPaneSize(<f-args>)
 
 function! TmuxMarginInit(size)
     let marginSize = TmuxGetMarginSize(a:size)
