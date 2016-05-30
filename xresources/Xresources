@@ -23,8 +23,8 @@ URxvt.keysym.Control-Tab: \033[27;5;9~
 ! URxvt.keysym.M-p: perl:clipboard:paste
 ! URxvt.clipboard.autocopy: true
  
-URxvt.font:     xft:DejaVu Sans Mono:pixelsize=13
-URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=13
+URxvt.font:     xft:DejaVu Sans Mono:pixelsize=12
+URxvt.boldfont: xft:DejaVu Sans Mono:pixelbold:size=12
 
 URxvt.internalBorder:   1
 URxvt.intensityStyles: false

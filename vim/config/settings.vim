@@ -23,8 +23,6 @@ set wildcharm=<tab>
 set wildignorecase
 set wildignore+=*/tmp/*,*/cache/*
 
-nnoremap <leader>e :b<space><tab>
-
 "matchparen
 let loaded_matchparen = 1
 set noshowmatch
