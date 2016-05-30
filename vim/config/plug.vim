@@ -226,6 +226,7 @@ let g:bufExplorerDisableDefaultKeyMapping=1
 let g:bufExplorerShowNoName=1
 let g:bufExplorerShowRelativePath=1
 let g:bufExplorerShowTabBuffer=1
+let g:bufExplorerSortBy='fullpath'
 nnoremap <leader>e :BufExplorer<CR>
 nnoremap <c-j> :BufExplorer<CR>
 "}}}
