@@ -220,6 +220,15 @@ function! TmuxGetMarginSize(size)
     return marginSize
 endfunction
 " }}}
+" BufferExplorer: {{{
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerDisableDefaultKeyMapping=1
+let g:bufExplorerShowNoName=1
+let g:bufExplorerShowRelativePath=1
+let g:bufExplorerShowTabBuffer=1
+nnoremap <leader>e :BufExplorer<CR>
+nnoremap <c-j> :BufExplorer<CR>
+"}}}
 
 if !has('nvim')
     set nocompatible
@@ -261,6 +270,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 " }}}
 " Other: {{{
+Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
