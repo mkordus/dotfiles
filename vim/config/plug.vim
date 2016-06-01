@@ -43,9 +43,6 @@ let g:ycm_filetype_specific_completion_to_disable = {
 
 let g:ycm_key_detailed_diagnostics = '<leader>y'
 " }}}
-" Oblique: {{{
-let g:oblique#incsearch_highlight_all=1
-" }}}
 " DBext: {{{
 function! DBextPostResult(db_type, buf_nr)
     set syntax=sql
@@ -136,8 +133,8 @@ let g:sneak#use_ic_scs = 1
 hi link SneakPluginTarget Search
 hi link SneakPluginScope  IncSearch
 
-nmap <expr> N sneak#is_sneaking() ? '<Plug>SneakPrevious' : '<Plug>(Oblique-N)'
-nmap <expr> n sneak#is_sneaking() ? '<Plug>SneakNext' : '<Plug>(Oblique-n)'
+" nmap <expr> N sneak#is_sneaking() ? '<Plug>SneakPrevious' : '<Plug>(Oblique-N)'
+" nmap <expr> n sneak#is_sneaking() ? '<Plug>SneakNext' : '<Plug>(Oblique-n)'
 
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
@@ -226,6 +223,19 @@ let g:bufExplorerShowTabBuffer=1
 let g:bufExplorerSortBy='fullpath'
 nnoremap <leader>e :BufExplorer<CR>
 "}}}
+" IncSearch: {{{
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)ncsearch-stay)
+" }}}
 
 if !has('nvim')
     set nocompatible
@@ -268,8 +278,7 @@ Plug 'junegunn/fzf.vim'
 " }}}
 " Other: {{{
 Plug 'jlanzarotta/bufexplorer'
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
+Plug 'haya14busa/incsearch.vim'
 
 Plug 'godlygeek/tabular'
 Plug 'prestidigitator92/vim-filebeagle'
