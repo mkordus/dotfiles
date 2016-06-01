@@ -42,7 +42,7 @@ set ignorecase
 set smartcase
 set incsearch
 set magic
-set nowrapscan
+" set nowrapscan
 
 "substitute
 set gdefault
@@ -201,3 +201,4 @@ set foldtext=NeatFoldText()
 " }}}
 
 nnoremap ; :
+set autowrite

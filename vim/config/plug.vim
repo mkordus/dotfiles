@@ -153,9 +153,6 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 " }}}
-" Oblique: {{{
-" hi! def link ObliquePrompt Structure
-" }}}
 " Dispatch: {{{
 nnoremap <leader>d :Dispatch!<CR>
 
@@ -228,7 +225,6 @@ let g:bufExplorerShowRelativePath=1
 let g:bufExplorerShowTabBuffer=1
 let g:bufExplorerSortBy='fullpath'
 nnoremap <leader>e :BufExplorer<CR>
-nnoremap <c-j> :BufExplorer<CR>
 "}}}
 
 if !has('nvim')

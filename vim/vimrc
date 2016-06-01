@@ -12,12 +12,13 @@ endif
 
 " Colorscheme: {{{
 
-    if !has('nvim')
-        set t_Co=256
-    endif
-    syntax enable
-    set bg=dark
-    colorscheme solarized
+if !has('nvim')
+    set t_Co=256
+endif
+syntax enable
+set bg=dark
+let g:solarized_termtrans = 1
+colorscheme solarized
 
 " }}}
 " KeyBindings: {{{
