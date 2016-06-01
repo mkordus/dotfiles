@@ -67,7 +67,7 @@ set tw=500
 set wrap
 
 "speed up scrolling
-set scrolloff=3
+set scrolloff=999
 set sidescrolloff=10
 
 " use system clipboard instead of default vim
@@ -201,4 +201,4 @@ set foldtext=NeatFoldText()
 " }}}
 
 nnoremap ; :
-set autowrite
+set autowriteall
