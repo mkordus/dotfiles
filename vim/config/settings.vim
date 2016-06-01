@@ -170,8 +170,8 @@ nnoremap <silent> <leader>o :call CloseOtherWindows()<CR>
 
 nnoremap <leader>n :noh<CR>
 
-nnoremap <c-f> <c-f>2<c-e>
-nnoremap <c-b> <c-b>2<c-y>
+nnoremap <c-j> <c-f>2<c-e>
+nnoremap <c-k> <c-b>2<c-y>
 
 nnoremap gf gF
 
