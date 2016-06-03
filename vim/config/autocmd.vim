@@ -52,10 +52,11 @@ endfunction
 " }}}
 " TmuxMargin: {{{
 let g:shouldTryToCreateTmuxMargin = 1
+let g:tmuxCenterPaneDefaultWidth = 130
 function! TryToCreateTmuxMargin()
     let g:shouldTryToCreateTmuxMargin = 0
     if !TmuxHasMargin()
-        call TmuxMarginInit(120)
+        call TmuxMarginInit(g:tmuxCenterPaneDefaultWidth)
     endif
 endfunction
 

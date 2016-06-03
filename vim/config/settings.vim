@@ -67,13 +67,13 @@ set tw=500
 set wrap
 
 "speed up scrolling
-set scrolloff=999
+set scrolloff=0
 set sidescrolloff=10
 
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-set laststatus=1
+set laststatus=2
 
 if has('php_sql_query')
     unlet php_sql_query
@@ -161,7 +161,7 @@ nnoremap <silent> <Leader>j :call JumpOrOpenNewSplit('j', ':rightbelow split')<C
 
 function! CloseOtherWindows()
     if TmuxHasMargin()
-        call TmuxSetPaneSize(120)
+        call TmuxSetPaneSize(g:tmuxCenterPaneDefaultWidth)
     endif
     only
 endfunction
@@ -170,8 +170,8 @@ nnoremap <silent> <leader>o :call CloseOtherWindows()<CR>
 
 nnoremap <leader>n :noh<CR>
 
-nnoremap <c-j> <c-f>2<c-e>
-nnoremap <c-k> <c-b>2<c-y>
+nmap <c-j> [b
+nmap <c-k> ]b
 
 nnoremap gf gF
 
@@ -200,5 +200,5 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}
 
-nnoremap ; :
+" nnoremap ; :
 set autowriteall

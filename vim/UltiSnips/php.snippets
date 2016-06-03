@@ -268,4 +268,19 @@ snippet inh "@inheritdoc docblock"
 /** {@inheritdoc} */
 endsnippet
 
+snippet pre "pre print_r"
+
+echo '<pre>';
+print_r($$1);
+echo '</pre>';
+
+endsnippet
+
+snippet pred "pre print_r"
+
+echo '<pre>';
+print_r($$1);
+echo '</pre>'; die;
+
+endsnippet
 # :vim:ft=snippets:

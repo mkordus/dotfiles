@@ -69,7 +69,7 @@ function! RunPHPUnitTest(filter)
     else
         let configPath = ''
     endif
-    " let configPath = '-c app/phpunit.portal.xml '
+    let configPath = '-c app/phpunit.portal.xml '
     " let configPath = '-c app/phpunit.fakty.xml '
     " let phpunitPath = 'bin/phpunit'
     let phpunitPath = '~/.config/composer/vendor/bin/phpunit'

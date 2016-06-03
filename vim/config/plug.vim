@@ -128,6 +128,7 @@ nnoremap <silent> gb :Gblame<CR>
 nnoremap <silent> gl :silent Glog -n 10 --no-merges
 " }}}
 " Sneak: {{{
+let g:sneak#streak = 1
 let g:sneak#use_ic_scs = 1
 
 hi link SneakPluginTarget Search
@@ -155,6 +156,7 @@ nnoremap <leader>d :Dispatch!<CR>
 
 nnoremap <leader>dsc :Dispatch php app/console ca:cl -e dev<CR>
 nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
+nnoremap <leader>dsi :Dispatch php app/console assets:install -e dev<CR>
 " }}}
 " Bclose {{{
 nnoremap <silent> <c-d> :Bclose<CR>
