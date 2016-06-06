@@ -202,3 +202,5 @@ set foldtext=NeatFoldText()
 
 " nnoremap ; :
 set autowriteall
+
+inoremap <c-u> _<Esc>mzi<S-Right><C-o>b<C-o>gUiw<C-o>`z<Del>
