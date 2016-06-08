@@ -35,7 +35,7 @@ augroup filespecific
 augroup END
 " }}}
 " BufNewFile: {{{
-autocmd BufRead *.php call InsertTempateIfEmpty()
+" autocmd BufRead *.php call InsertTempateIfEmpty()
 " autocmd BufNewFile,BufRead *.php call InsertTempateIfEmpty()
 function! InsertTempateIfEmpty()
     if @% == ""
