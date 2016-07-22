@@ -16,7 +16,7 @@ if !has('nvim')
     set t_Co=256
 endif
 syntax enable
-set bg=dark
+set bg=light
 let g:solarized_termtrans = 1
 colorscheme solarized
 
@@ -69,10 +69,10 @@ function! RunPHPUnitTest(filter)
     else
         let configPath = ''
     endif
-    let configPath = '-c app/phpunit.portal.xml '
+    " let configPath = '-c app/phpunit.portal.xml '
     " let configPath = '-c app/phpunit.fakty.xml '
-    " let phpunitPath = 'bin/phpunit'
-    let phpunitPath = '~/.config/composer/vendor/bin/phpunit'
+    let phpunitPath = 'bin/phpunit'
+    " let phpunitPath = '~/.config/composer/vendor/bin/phpunit'
 
     let result = system('php ' .phpunitPath . ' ' . configPath . args . ' 2>&1 | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
 endfunction

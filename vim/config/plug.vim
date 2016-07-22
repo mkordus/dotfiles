@@ -28,7 +28,7 @@ let g:syntastic_always_populate_loc_list = 0
 " set statusline+=%*
 " }}}
 " YouCompleteMe: {{{
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_global_ycm_extra_conf = '~/dotfiles/vim/ycm_extra_conf.py'
@@ -159,7 +159,7 @@ nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
 nnoremap <leader>dsi :Dispatch php app/console assets:install -e dev<CR>
 " }}}
 " Bclose {{{
-nnoremap <silent> <c-d> :Bclose<CR>
+" nnoremap <silent> <c-d> :Bclose<CR>
 " }}}
 " Hardtime: {{{
 let g:hardtime_default_on = 0
