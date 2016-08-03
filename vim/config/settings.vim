@@ -73,7 +73,7 @@ set sidescrolloff=10
 " use system clipboard instead of default vim
 set clipboard=unnamedplus
 
-set laststatus=2
+set laststatus=1
 
 if has('php_sql_query')
     unlet php_sql_query
@@ -133,11 +133,8 @@ noremap k gk
 nnoremap gG ggVG
 
 nnoremap <leader>c <c-w>c
-nnoremap <leader>wh <c-w>H
 nnoremap <leader>wj <c-w>J
 nnoremap <leader>wk <c-w>K
-nnoremap <leader>wl <c-w>L
-nnoremap <leader>wo <c-w>o
 
 inoremap jk <esc>
 
@@ -157,6 +154,8 @@ nnoremap <silent> <Leader>h :call JumpOrOpenNewSplit('h', ':leftabove vsplit')<C
 nnoremap <silent> <Leader>l :call JumpOrOpenNewSplit('l', ':rightbelow vsplit')<CR>
 nnoremap <silent> <Leader>k :call JumpOrOpenNewSplit('k', ':leftabove split')<CR>
 nnoremap <silent> <Leader>j :call JumpOrOpenNewSplit('j', ':rightbelow split')<CR>
+nnoremap <silent> <Leader>wh :call TmuxSetPaneSize(250)<CR><c-w>H
+nnoremap <silent> <Leader>wl :call TmuxSetPaneSize(250)<CR><c-w>L
 " }}}
 
 function! CloseOtherWindows()

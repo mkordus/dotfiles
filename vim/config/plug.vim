@@ -105,7 +105,7 @@ nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
 nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
 " }}}
 " GitGutter: {{{
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
 let g:gitgutter_signs = 1
 let g:gitgutter_highlight_lines = 0
 let g:gitgutter_sign_column_always = 1
@@ -285,7 +285,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'godlygeek/tabular'
 Plug 'prestidigitator92/vim-filebeagle'
 
-Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
+Plug 'vim-scripts/dbext.vim'
 Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
 
