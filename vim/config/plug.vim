@@ -99,10 +99,14 @@ endfunction
 let loaded_netrwPlugin = 1
 let g:filebeagle_suppress_keymaps = 1
 
-map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
-map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
-nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
-nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
+" map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
+" map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
+" nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
+" nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
+map <silent> _ :EditVifm<CR>
+map <silent> - :EditVifm<CR>
+nmap <silent> <BS> :EditVifm<CR>
+nmap <silent> <c-h> :EditVifm<CR>
 " }}}
 " GitGutter: {{{
 let g:gitgutter_enabled = 0
@@ -283,6 +287,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'haya14busa/incsearch.vim'
 
 Plug 'godlygeek/tabular'
+Plug 'vifm/vifm.vim'
 Plug 'prestidigitator92/vim-filebeagle'
 
 Plug 'vim-scripts/dbext.vim'
