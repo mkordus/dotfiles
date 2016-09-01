@@ -99,14 +99,10 @@ endfunction
 let loaded_netrwPlugin = 1
 let g:filebeagle_suppress_keymaps = 1
 
-" map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
-" map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
-" nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
-" nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
-map <silent> _ :EditVifm<CR>
-map <silent> - :EditVifm<CR>
-nmap <silent> <BS> :EditVifm<CR>
-nmap <silent> <c-h> :EditVifm<CR>
+map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
+map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
+nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
+nmap <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
 " }}}
 " GitGutter: {{{
 let g:gitgutter_enabled = 0
@@ -161,9 +157,6 @@ nnoremap <leader>d :Dispatch!<CR>
 nnoremap <leader>dsc :Dispatch php app/console ca:cl -e dev<CR>
 nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
 nnoremap <leader>dsi :Dispatch php app/console assets:install -e dev<CR>
-" }}}
-" Bclose {{{
-" nnoremap <silent> <c-d> :Bclose<CR>
 " }}}
 " Hardtime: {{{
 let g:hardtime_default_on = 0
@@ -229,19 +222,6 @@ let g:bufExplorerShowTabBuffer=1
 let g:bufExplorerSortBy='fullpath'
 nnoremap <leader>e :BufExplorer<CR>
 "}}}
-" IncSearch: {{{
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)ncsearch-stay)
-" }}}
 
 if !has('nvim')
     set nocompatible
@@ -284,17 +264,11 @@ Plug 'junegunn/fzf.vim'
 " }}}
 " Other: {{{
 Plug 'jlanzarotta/bufexplorer'
-Plug 'haya14busa/incsearch.vim'
-
 Plug 'godlygeek/tabular'
-Plug 'vifm/vifm.vim'
 Plug 'prestidigitator92/vim-filebeagle'
-
 Plug 'vim-scripts/dbext.vim'
 Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
-
-Plug 'rbgrouleff/bclose.vim'
 " }}}
 " Colorschemes: {{{
 Plug 'prestidigitator92/vim-colors-solarized'
