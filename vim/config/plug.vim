@@ -22,6 +22,7 @@ let g:syntastic_php_checkers = ['php']
 let g:syntastic_check_on_open = 0
 let g:syntastic_enable_signs = 0
 let g:syntastic_always_populate_loc_list = 0
+let g:loaded_syntastic_java_javac_checker = 1
 
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -70,11 +71,12 @@ endfunction
 nnoremap <silent> <leader>a :call SearchWordWithAg()<CR>
 vnoremap <silent> <leader>a :call SearchVisualSelectionWithAg()<CR>
 nnoremap <leader>ff :Files!<CR>
+nnoremap <leader>fm :Files! src/main<CR>
+nnoremap <leader>ft :Files! src/test<CR>
 nnoremap <leader>fe :Files! /etc<CR>
 nnoremap <leader>fd :Files! ~/dotfiles<CR>
 nnoremap <leader>fl :Files! /var/log<CR>
 nnoremap <leader>fs :BLines!<CR>
-nnoremap <leader>ft :BTags!<CR>
 nnoremap <leader>fh :History!<CR>
 
 " github.com/zenbro/dotfiles {{{
@@ -222,6 +224,9 @@ let g:bufExplorerShowTabBuffer=1
 let g:bufExplorerSortBy='fullpath'
 nnoremap <leader>e :BufExplorer<CR>
 "}}}
+" JavaComplete2: {{{
+let g:JavaComplete_GradleExecutable = './gradlew'
+" }}}
 
 if !has('nvim')
     set nocompatible
@@ -258,9 +263,12 @@ Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'jiangmiao/auto-pairs', { 'on': [] }
 " }}}
-" FZF: {{{
+" Junegunn: {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
+Plug 'junegunn/rainbow_parentheses.vim'
 " }}}
 " Other: {{{
 Plug 'jlanzarotta/bufexplorer'
@@ -290,6 +298,7 @@ Plug 'leshill/vim-json'
 Plug 'groenewege/vim-less'
 Plug 'othree/html5.vim', {'for': ['html']}
 Plug 'keith/tmux.vim'
+Plug 'artur-shaik/vim-javacomplete2', {'for': ['java']}
 " Plug 'artur-shaik/vim-javacomplete2'
 " Plug 'shawncplus/phpcomplete.vim', { 'for': ['php'] }
 " Plug 'leafgarland/typescript-vim'
