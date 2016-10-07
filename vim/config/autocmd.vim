@@ -31,6 +31,11 @@ augroup filespecific
     " eclim
     " autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
     " autocmd FileType php nnoremap <silent> <buffer> <cr> :PhpSearchContext<cr>
+    function! IPhpInsertUse()
+        call PhpInsertUse()
+        call feedkeys('a',  'n')
+    endfunction
+    autocmd FileType php inoremap <c-y> <Esc>:call IPhpInsertUse()<CR>
     autocmd FileType html.twig setlocal commentstring={#%s#}
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
 augroup END

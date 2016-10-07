@@ -64,17 +64,7 @@ function! RunPHPUnitTest(filter)
         let args = expand("%")
     endif
 
-    if filereadable("app/phpunit.xml.dist")
-        let configPath = '-c app '
-    else
-        let configPath = ''
-    endif
-    " let configPath = '-c app/phpunit.portal.xml '
-    " let configPath = '-c app/phpunit.fakty.xml '
-    let phpunitPath = 'bin/phpunit'
-    " let phpunitPath = '~/.config/composer/vendor/bin/phpunit'
-
-    let result = system('php ' .phpunitPath . ' ' . configPath . args . ' 2>&1 | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
+    let result = system('php vendor/phpunit/phpunit/phpunit ' . args . ' 2>&1 | ~/dotfiles/colorize_phpunit.sh > swap.tmp &')
 endfunction
 
 function! ToggleTest()
@@ -92,8 +82,8 @@ function! ToggleTest()
     execute 'edit' filePath
 endfunction
 
-nnoremap <leader>i :call RunPHPUnitTest(0)<cr>
-" nnoremap <leader>o :call RunPHPUnitTest(1)<cr>
+nnoremap <leader>t :call RunPHPUnitTest(0)<cr>
+nnoremap <leader>i :call RunPHPUnitTest(1)<cr>
 " reverse words order
 " '<,'>!while IFS= read -r; do echo -n "$REPLY " | tac -s' '; echo; done
 " }}}

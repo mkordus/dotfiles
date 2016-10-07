@@ -228,11 +228,9 @@ public function ${1:name}(${2});
 endsnippet
 
 snippet va "@var docblock" b
-/** @var ${1:mixed} `!p
-cursorLine = vim.current.window.cursor[0]
-nextLine = vim.current.buffer[cursorLine] #next line
-snip.rv += re.search(r'\$\w+', nextLine).group()
-` */
+/** 
+ * @var ${1}
+ */
 endsnippet
 
 snippet gs "PHP Class Getter Setter" b

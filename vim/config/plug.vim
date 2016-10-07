@@ -8,7 +8,7 @@ let g:tagbar_width = 85
 let g:tagbar_compact = 1
 let g:tagbar_sort = 0
 
-nnoremap <leader>T :TagbarOpenAutoClose<CR>
+" nnoremap <leader>T :TagbarOpenAutoClose<CR>
 " }}}
 " UltiSnips: {{{
 " cannot use '<nop>' in ultisnips mappings
@@ -154,7 +154,7 @@ omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 " }}}
 " Dispatch: {{{
-nnoremap <leader>d :Dispatch!<CR>
+nnoremap <leader>d :Dispatch<CR>
 
 nnoremap <leader>dsc :Dispatch php app/console ca:cl -e dev<CR>
 nnoremap <leader>dsa :Dispatch php app/console assetic:dump -e dev<CR>
@@ -227,6 +227,8 @@ nnoremap <leader>e :BufExplorer<CR>
 " JavaComplete2: {{{
 let g:JavaComplete_GradleExecutable = './gradlew'
 " }}}
+" Phpinseruse: {{{
+" }}}
 
 if !has('nvim')
     set nocompatible
@@ -291,6 +293,7 @@ Plug 'prestidigitator92/vim-colors-solarized'
 " Plug 'vim-scripts/wombat256.vim'
 " }}}
 " Languages: {{{
+Plug 'arnaud-lb/vim-php-namespace'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'beyondwords/vim-twig'
