@@ -1,0 +1,25 @@
+set incsearch
+set clipboard+=unnamed
+set surround
+set gdefault
+set ignorecase
+set smartcase
+set scrolloff=10
+set visualbell
+
+nmap <space>k <c-w>k
+nmap <space>l <c-w>l
+nmap <space>j <c-w>j
+nmap <space>h <c-w>h
+nmap <space>o <c-w>o
+
+nmap <space>a :action GotoAction<CR>
+nmap <space>p :action FindInPath<CR>
+nmap <space>c :action ReformatCode<CR>
+nmap <space>f :action GotoFile<CR>
+nmap <space>g :action Generate<CR>
+nmap <space>i :action ChooseRunConfiguration<CR>
+nmap <space>m :action FileStructurePopup<CR>
+nmap <space>r :action Refactorings.QuickListPopupAction<CR>
+nmap <space>s :action GotoSuperMethod<CR>
+nmap <space>n :action NewElement<CR>
