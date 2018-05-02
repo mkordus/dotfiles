@@ -12,14 +12,19 @@ nmap <space>l <c-w>l
 nmap <space>j <c-w>j
 nmap <space>h <c-w>h
 nmap <space>o <c-w>o
+nmap <space>v <c-w>v
 
 nmap <space>a :action GotoAction<CR>
-nmap <space>p :action FindInPath<CR>
 nmap <space>c :action ReformatCode<CR>
-nmap <space>f :action GotoFile<CR>
+nmap <space>f :action FindModal<CR>
 nmap <space>g :action Generate<CR>
-nmap <space>i :action ChooseRunConfiguration<CR>
+nmap <space><space> :action ChooseRunConfiguration<CR>
 nmap <space>m :action FileStructurePopup<CR>
 nmap <space>r :action Refactorings.QuickListPopupAction<CR>
 nmap <space>s :action GotoSuperMethod<CR>
 nmap <space>n :action NewElement<CR>
+nmap <space>u :action FindUsages<CR>
+nmap <space>i :action GotoImplementation<CR>
+nmap <space>t :action GotoTest<CR>
+nmap <space>e :action GotoNextError<CR>
+nmap <space>p :action SelectInProjectView<CR>
