@@ -6,6 +6,9 @@ set ignorecase
 set smartcase
 set scrolloff=10
 set visualbell
+let mapleader=","
+set easymotion
+set commentary
 
 nmap <space>k <c-w>k
 nmap <space>l <c-w>l
@@ -13,18 +16,31 @@ nmap <space>j <c-w>j
 nmap <space>h <c-w>h
 nmap <space>o <c-w>o
 nmap <space>v <c-w>v
+nmap <space>s <c-w>s
+nmap <space>q <c-w>c
 
-nmap <space>a :action GotoAction<CR>
+nmap <space>a :action Annotate<CR>
 nmap <space>c :action ReformatCode<CR>
 nmap <space>f :action FindModal<CR>
 nmap <space>g :action Generate<CR>
 nmap <space><space> :action ChooseRunConfiguration<CR>
 nmap <space>m :action FileStructurePopup<CR>
 nmap <space>r :action Refactorings.QuickListPopupAction<CR>
-nmap <space>s :action GotoSuperMethod<CR>
+vmap <space>r :action Refactorings.QuickListPopupAction<CR>
 nmap <space>n :action NewElement<CR>
 nmap <space>u :action FindUsages<CR>
 nmap <space>i :action GotoImplementation<CR>
 nmap <space>t :action GotoTest<CR>
 nmap <space>e :action GotoNextError<CR>
-nmap <space>p :action SelectInProjectView<CR>
+"nmap <space>h :action SelectInProjectView<CR>
+nmap <space>p :action FrameSwitchAction<CR>
+nmap <space>j <Plug>(easymotion-j)
+nmap <space>k <Plug>(easymotion-k)
+nmap s <Plug>(easymotion-s2)
+nmap <M-f> <c-f>
+nmap <M-b> <c-b>
+nmap <M-u> <c-u>
+nmap <M-d> <c-d>
+nmap <M-o> <c-o>
+nmap <M-p> :action GotoClass<CR>
+nmap <c-p> :action GotoClass<CR>
