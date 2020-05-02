@@ -36,7 +36,6 @@ setopt list_ambiguous
 export EDITOR='nvim'
 export FZF_DEFAULT_OPTS='
 --bind ctrl-f:page-down,ctrl-b:page-up
---color=bw
 --reverse
 '
 # --color=dark,hl:160,hl+:160,fg+:-1,bg+:-1,pointer:33,marker:1
