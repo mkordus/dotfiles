@@ -82,13 +82,11 @@ map <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
 " Coc.vim: {{{
 
 " GoTo code navigation.
-" nmap <silent> gd <Plug>(coc-definition)
-nmap gd :call CocAction('jumpDefinition')<CR>
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-nmap <Leader>ws <Plug>(coc-metals-expand-decoration)
+nmap <leader>d <Plug>(coc-definition)
+nmap <leader>t <Plug>(coc-type-definition)
+nmap <leader>i <Plug>(coc-implementation)
+nmap <leader>u <Plug>(coc-references)
+nmap <leader>r <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -111,7 +109,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Fugitive: {{{
 nnoremap <silent> gs :Ge :<CR>
 nnoremap <silent> ga :Git! diff<CR>
-nnoremap <silent> gb :Gblame<CR>
+nnoremap <leader> a :Gblame<CR>
 nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
 " }}}
 " AutoSave: {{{
