@@ -11,6 +11,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-dispatch'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-slash'
 Plug 'neovimhaskell/haskell-vim'
@@ -20,12 +21,14 @@ Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
+Plug 'mkordus/goyo.vim'
 Plug 'gabenespoli/vim-mutton'
 Plug 'easymotion/vim-easymotion'
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'jlanzarotta/bufexplorer'
 Plug '907th/vim-auto-save'
+Plug 'janko/vim-test'
+Plug 'kassio/neoterm'
 call plug#end()
 
 let g:mapleader = "\<Space>"
@@ -109,7 +112,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Fugitive: {{{
 nnoremap <silent> gs :Ge :<CR>
 nnoremap <silent> ga :Git! diff<CR>
-nnoremap <leader> a :Gblame<CR>
+nnoremap <leader>a :Gblame<CR>
 nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
 " }}}
 " AutoSave: {{{
@@ -124,7 +127,26 @@ nmap s <Plug>(easymotion-s2)
 " map  n <Plug>(easymotion-next)
 " map  N <Plug>(easymotion-prev)
 " }}}
+" VimTest: {{{
+function! VimTestCustom(cmd)
+  let originBuffer = bufnr("%")
+  call neoterm#open({ 'mod': '', 'target': 0})
+  call neoterm#clear({ 'target': 0})
+  execute 'nnoremap <buffer> <esc> :b ' . originBuffer . '<CR>'
+  call neoterm#do({ 'cmd': a:cmd})
+endfunction
 
+let test#scala#runner = 'blooptest'
+
+let g:test#custom_strategies = {'custom': function('VimTestCustom')}
+let g:test#strategy = 'custom'
+
+nnoremap <leader>f :TestFile<CR>
+" }}}
+" NeoTerm: {{{
+let g:neoterm_autojump = 1
+let g:neoterm_autoscroll = 1
+" }}}
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
