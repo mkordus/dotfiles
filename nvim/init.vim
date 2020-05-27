@@ -54,7 +54,7 @@ let &showbreak = '↓↓  '
 autocmd! VimEnter * Goyo
 " Exit Vim at exitting Goyo
 autocmd! User GoyoLeave q
-let g:goyo_width = 100
+let g:goyo_width = 110
 let g:goyo_height = "100%"
 " }}}
 " FZF: {{{
@@ -114,6 +114,7 @@ nnoremap <silent> gs :Ge :<CR>
 nnoremap <silent> ga :Git! diff<CR>
 nnoremap <leader>a :Gblame<CR>
 nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
+autocmd! FileType fugitive nnoremap <buffer> <esc> :b#<CR>
 " }}}
 " AutoSave: {{{
 let g:auto_save        = 1
@@ -142,6 +143,7 @@ let g:test#custom_strategies = {'custom': function('VimTestCustom')}
 let g:test#strategy = 'custom'
 
 nnoremap <leader>f :TestFile<CR>
+nnoremap <leader>s :TestSuite<CR>
 " }}}
 " NeoTerm: {{{
 let g:neoterm_autojump = 1
