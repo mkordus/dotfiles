@@ -3,7 +3,6 @@
 set clipboard=unnamedplus
 
 call plug#begin()
-Plug 'mhinz/vim-startify'
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-sensible'
@@ -42,6 +41,7 @@ function! SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+hi EndOfBuffer ctermfg=235 guifg=#282828
 
 set clipboard=unnamedplus
 set mouse=a
