@@ -11,6 +11,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-sleuth'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-slash'
 Plug 'neovimhaskell/haskell-vim'
@@ -111,8 +112,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " }}}
 " Fugitive: {{{
 nnoremap <silent> gs :Ge :<CR>
-nnoremap <silent> ga :Git! diff<CR>
-nnoremap <leader>a :Gblame<CR>
+nnoremap <silent> gd :Git! diff<CR>
+nnoremap <silent> ga :Gblame<CR>
 nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
 autocmd! FileType fugitive nnoremap <buffer> <esc> :b#<CR>
 " }}}
@@ -134,7 +135,8 @@ function! VimTestCustom(cmd)
   call neoterm#open({ 'mod': '', 'target': 0})
   call neoterm#clear({ 'target': 0})
   execute 'nnoremap <buffer> <esc> :b ' . originBuffer . '<CR>'
-  call neoterm#do({ 'cmd': a:cmd})
+  execute 'tnoremap <buffer> <c-space> <C-\><C-n>:b ' . originBuffer . '<CR>'
+  call neoterm#do({ 'cmd': a:cmd, 'target': 0})
 endfunction
 
 let test#scala#runner = 'blooptest'
@@ -148,13 +150,43 @@ nnoremap <leader>s :TestSuite<CR>
 " NeoTerm: {{{
 let g:neoterm_autojump = 1
 let g:neoterm_autoscroll = 1
+
+function! OpenTerminal()
+  let originBuffer = bufnr("%")
+  call neoterm#open({ 'mod': '', 'target': 0})
+  execute 'nnoremap <buffer> <esc> :b ' . originBuffer . '<CR>'
+  execute 'tnoremap <buffer> <c-space> <C-\><C-n>:b ' . originBuffer . '<CR>'
+  startinsert
+endfunction
+
+nnoremap <c-space> :call OpenTerminal()<CR>
+
 " }}}
+" github.com/zenbro/dotfiles {{{
+function! SearchWordWithAg()
+    execute 'Ag ' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ag ' selection
+endfunction
+" }}}
+nnoremap <silent> <leader>a :call SearchWordWithAg()<CR>
+vnoremap <silent> <leader>a :call SearchVisualSelectionWithAg()<CR>
+
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
 
-"tnoremap jk <C-\><C-n>
 set updatetime=300
 
 "searching
