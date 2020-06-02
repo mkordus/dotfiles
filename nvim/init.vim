@@ -52,7 +52,7 @@ let &showbreak = '↓↓  '
 
 " Goyo: {{{
 " Enable Goyo at startup Vim
-autocmd! VimEnter * Goyo
+autocmd VimEnter * Goyo
 " Exit Vim at exitting Goyo
 autocmd! User GoyoLeave q
 let g:goyo_width = 110
@@ -144,8 +144,42 @@ let test#scala#runner = 'blooptest'
 let g:test#custom_strategies = {'custom': function('VimTestCustom')}
 let g:test#strategy = 'custom'
 
-nnoremap <leader>f :TestFile<CR>
-nnoremap <leader>s :TestSuite<CR>
+nnoremap <leader>f :call SetBloopProject(g:bloopProjects)<CR>:TestFile<CR>
+nnoremap <leader>s :call SetBloopProject(g:bloopProjects)<CR>:TestSuite<CR>
+
+func! ParseBloop()
+  let configs = globpath('.bloop', '*.json', 0, 1)
+  let projects = []
+
+  for path in configs
+    let json = json_decode(readfile(path))
+    if has_key(json, 'project')
+      let project = json['project']
+      let sources = project['sources']
+      let name = project['name']
+      call add(projects, {'name': name, 'sources': sources})
+    endif
+  endfor
+
+  return projects
+endfunc
+
+autocmd VimEnter * let g:bloopProjects = ParseBloop()
+
+func! SetBloopProject(projects)
+  if (&filetype == 'scala')
+    let file = expand('%:p')
+    for project in a:projects
+      for path in project['sources']
+        if stridx(file, path) == 0
+          let g:test#scala#blooptest#project_name = project['name']
+          return
+        endif
+      endfor
+    endfor
+  endif
+endfunc
+
 " }}}
 " NeoTerm: {{{
 let g:neoterm_autojump = 1
