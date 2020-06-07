@@ -12,6 +12,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-projectionist'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-slash'
 Plug 'neovimhaskell/haskell-vim'
@@ -212,6 +213,46 @@ function! SearchVisualSelectionWithAg() range
     let &clipboard = old_clipboard
     execute 'Ag ' selection
 endfunction
+" }}}
+" VimProjectionist: {{{
+let g:projectionist_heuristics = {
+      \ "package.json": {
+      \   "README.md": { "type": "doc" },
+      \   "*": {
+      \     "console": "node",
+      \     "make": "npm",
+      \     "start": "npm start"
+      \   },
+      \   "lib/*.js": {
+      \     "type": "src",
+      \     "alternate": "test/{}.js"
+      \   },
+      \   "test/*.js": {
+      \     "type": "test",
+      \     "alternate": "lib/{}.js",
+      \     "dispatch": "yarn test {}"
+      \   },
+      \   "package.json": { "type": "package" }
+      \ },
+      \ "build.sbt": {
+      \   "README.md": { "type": "doc" },
+      \   "*": {
+      \     "console": "bloop console",
+      \     "make": "bloop compile",
+      \     "start": "bloop run"
+      \   },
+      \   "src/main/scala/*.scala": {
+      \     "alternate": "src/test/scala/{}Spec.scala",
+      \     "type": "src"
+      \   },
+      \   "src/test/scala/*Spec.scala": {
+      \     "alternate": "src/main/scala/{}.scala",
+      \     "type": "test"
+      \   },
+      \   "build.sbt": { "type": "config" },
+      \   "*.sbt": { "type": "config" },
+      \ }
+      \}
 " }}}
 nnoremap <silent> <leader>a :call SearchWordWithAg()<CR>
 vnoremap <silent> <leader>a :call SearchVisualSelectionWithAg()<CR>
