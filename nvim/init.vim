@@ -5,7 +5,6 @@ set clipboard=unnamedplus
 
 call plug#begin()
 Plug 'gruvbox-community/gruvbox'
-Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary' 
 Plug 'tpope/vim-fugitive'
@@ -15,16 +14,13 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion', {'do': 'yarn install --frozen-lockfile'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-slash'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'derekwyatt/vim-scala'
-
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
@@ -37,28 +33,27 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
-" Plug 'junegunn/fzf'
-" Plug 'junegunn/fzf.vim'
 Plug 'phaazon/hop.nvim'
 Plug 'jlanzarotta/bufexplorer'
-" Plug '907th/vim-auto-save'
+Plug '907th/vim-auto-save'
 Plug 'janko/vim-test'
 Plug 'kassio/neoterm'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
-Plug 'kristijanhusak/vim-dadbod-completion', {'do': 'yarn install --frozen-lockfile'}
 Plug 'jmckiern/vim-venter'
 Plug 'sirtaj/vim-openscad'
+Plug 'tmhedberg/SimpylFold'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
 if filereadable(expand('~/dotfiles/nvim/local.vim'))
     source ~/dotfiles/nvim/local.vim
 endif
 
-lua require 'init'
 let g:mapleader = "\<Space>"
+lua require 'init'
 
 "new
 
@@ -72,6 +67,14 @@ endif
 set shortmess-=F
 set shortmess+=c
 
+set nu
+set cursorline
+
+"status: {{{
+set noshowmode
+set laststatus=2
+"}}}
+
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
@@ -79,17 +82,17 @@ inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " LSP config (the mappings used in the default file don't quite work right)
-nnoremap <silent> <leader>d :Lspsaga lsp_finder<CR>
-" nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> <leader>d :Lspsaga lsp_finder<CR>
+nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <silent> <leader>D <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> <leader>i <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>i <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
 " nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <C-k> :Lspsaga signature_help<CR>
+" nnoremap <silent> <C-k> :Lspsaga signature_help<CR>
 " nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> <C-j> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <silent> <leader>r :Lspsaga rename<CR>
 nnoremap <silent> <leader>a :Lspsaga code_action<CR>
 
@@ -123,26 +126,15 @@ set virtualedit=block
 set signcolumn=yes
 let &showbreak = '↓↓  '
 
+nnoremap <silent> <c-p> <cmd>Telescope find_files<cr>
+nnoremap <silent> <leader>p <cmd>Telescope project<cr>
+
+nnoremap <silent> s :HopWord<cr>
+
 nnoremap <silent> <Leader>h <c-w>h
 nnoremap <silent> <Leader>l <c-w>l
 nnoremap <silent> <Leader>k <c-w>k
 nnoremap <silent> <Leader>j <c-w>j
-" Goyo: {{{
-" Enable Goyo at startup Vim
-" autocmd VimEnter * Goyo
-" Exit Vim at exitting Goyo
-" autocmd! User GoyoLeave q
-let g:goyo_width = 150
-let g:goyo_height = "100%"
-" }}}
-" FZF: {{{
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_preview_window = ''
-nnoremap <silent> <c-p> <cmd>Telescope find_files<cr>
-nnoremap <silent> <leader>p <cmd>Telescope project<cr>
-" nnoremap <silent> <c-p> :GFiles --cached --others --exclude-standard<CR>
-" nnoremap <silent> <c-space> :Buffers<CR>
-" }}}
 " BufferExplorer: {{{
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerDisableDefaultKeyMapping=1
@@ -158,49 +150,6 @@ let g:ranger_map_keys = 0
 nmap <silent> <BS> :Ranger<CR>
 nmap <silent> <c-h> :Ranger<CR>
 "}}}
-" FileBeagle: {{{
-" let loaded_netrwPlugin = 1
-" let g:filebeagle_suppress_keymaps = 1
-
-" map <silent> _ <Plug>FileBeagleOpenCurrentWorkingDir
-" map <silent> - <Plug>FileBeagleOpenCurrentBufferDir
-" nmap <silent> <BS> <Plug>FileBeagleOpenCurrentBufferDir
-" map <silent> <c-h> <Plug>FileBeagleOpenCurrentBufferDir
-" nmap <silent> <c-h> :CocCommand explorer --open-action-strategy sourceWindow --position floating<CR>
-"}}}
-" Coc.vim: {{{
-
-" GoTo code navigation.
-" nmap <leader>d <Plug>(coc-definition)
-" " nmap <leader>t <Plug>(coc-type-definition)
-" nmap <leader>i <Plug>(coc-implementation)
-" nmap <leader>u <Plug>(coc-references)
-" nmap <leader>r <Plug>(coc-rename)
-" nmap <leader>x <Plug>(coc-fix-current)
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
-" " Remap for do codeAction of current line
-" xmap <leader>c  <Plug>(coc-codeaction-line)
-" nmap <leader>c  <Plug>(coc-codeaction-line)
-
-" " Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
-
-" " Highlight the symbol and its references when holding the cursor.
-" " autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" }}}
 " Fugitive: {{{
 nnoremap <silent> gs :Ge :<CR>
 nnoremap <silent> gd :Git! diff<CR>
@@ -209,16 +158,9 @@ nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
 autocmd! FileType fugitive nnoremap <buffer> <esc> :b#<CR>
 " }}}
 " AutoSave: {{{
-let g:auto_save        = 0
+let g:auto_save        = 1
 let g:auto_save_silent = 1
 let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
-" }}}
-" EasyMotion: {{{
-nmap s <Plug>(easymotion-s2)
-" map  / <Plug>(easymotion-sn)
-" omap / <Plug>(easymotion-tn)
-" map  n <Plug>(easymotion-next)
-" map  N <Plug>(easymotion-prev)
 " }}}
 " VimTest: {{{
 function! VimTestCustom(cmd)
