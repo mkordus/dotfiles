@@ -1,3 +1,5 @@
 vim/vimrc.local
 vim/ycm_extra_conf.pyc
 vim/__pycache__
+nvim/plugged
+nvim/local.vim
