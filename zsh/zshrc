@@ -90,3 +90,5 @@ elif [[ -f /etc/DIR_COLORS ]] ; then
 fi
 
 stty -ixon
+
+export PATH="$PATH:/home/gintoki/.local/share/coursier/bin:/home/linuxbrew/.linuxbrew/bin"
