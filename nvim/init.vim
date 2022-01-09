@@ -4,6 +4,9 @@
 set clipboard=unnamedplus
 
 call plug#begin()
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'folke/zen-mode.nvim'
+
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary' 
@@ -15,38 +18,55 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-repeat'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'kristijanhusak/vim-dadbod-completion', {'do': 'yarn install --frozen-lockfile'}
-Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 Plug 'junegunn/vim-slash'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'derekwyatt/vim-scala'
+Plug 'tmhedberg/SimpylFold'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'scalameta/nvim-metals'
-Plug 'glepnir/lspsaga.nvim'
+" Plug 'glepnir/lspsaga.nvim'
+Plug 'jubnzv/virtual-types.nvim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'phaazon/hop.nvim'
-Plug 'jlanzarotta/bufexplorer'
-Plug '907th/vim-auto-save'
 Plug 'janko/vim-test'
 Plug 'kassio/neoterm'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
-Plug 'jmckiern/vim-venter'
 Plug 'sirtaj/vim-openscad'
 Plug 'tmhedberg/SimpylFold'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
+
+" lua << EOF
+" require("zen-mode").toggle({
+"   window = {
+"     backdrop = 0,
+"     width = 140
+"   }
+" })
+" EOF
 
 if filereadable(expand('~/dotfiles/nvim/local.vim'))
     source ~/dotfiles/nvim/local.vim
@@ -57,29 +77,16 @@ lua require 'init'
 
 "new
 
-if has('nvim-0.5')
-  augroup lsp
-    au!
-    au FileType scala,sbt lua require('metals').initialize_or_attach(metals_config)
-  augroup end
-endif
-
 set shortmess-=F
 set shortmess+=c
 
 set nu
-set cursorline
+" set cursorline
 
 "status: {{{
 set noshowmode
 set laststatus=2
 "}}}
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " LSP config (the mappings used in the default file don't quite work right)
 " nnoremap <silent> <leader>d :Lspsaga lsp_finder<CR>
@@ -87,19 +94,19 @@ nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <silent> <leader>D <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>i <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <C-k> :Lspsaga signature_help<CR>
 " nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-j> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>r :Lspsaga rename<CR>
+" nnoremap <silent> <leader>r :Lspsaga rename<CR>
 nnoremap <silent> <leader>a :Lspsaga code_action<CR>
 
 " auto-format
 autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.scala lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.scala lua vim.lsp.buf.formatting_sync(nil, 500)
 autocmd BufWritePre *.sbt lua vim.lsp.buf.formatting_sync(nil, 100)
 
 "new
@@ -110,13 +117,14 @@ set termguicolors
 
 colorscheme gruvbox
 hi clear SignColumn
-function! SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-hi EndOfBuffer ctermfg=235 guifg=#282828
+hi Normal guibg=NONE ctermbg=NONE
+" function! SynStack()
+"   if !exists("*synstack")
+"     return
+"   endif
+"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
+" hi EndOfBuffer ctermfg=235 guifg=#282828
 
 tnoremap <esc><esc> <c-\><c-n>
 
@@ -128,6 +136,8 @@ let &showbreak = '↓↓  '
 
 nnoremap <silent> <c-p> <cmd>Telescope find_files<cr>
 nnoremap <silent> <leader>p <cmd>Telescope project<cr>
+nnoremap <silent> <leader>e <cmd>Telescope lsp_workspace_diagnostics<cr>
+nnoremap <silent> <leader>w <cmd>Telescope buffers<cr>
 
 nnoremap <silent> s :HopWord<cr>
 
@@ -135,15 +145,6 @@ nnoremap <silent> <Leader>h <c-w>h
 nnoremap <silent> <Leader>l <c-w>l
 nnoremap <silent> <Leader>k <c-w>k
 nnoremap <silent> <Leader>j <c-w>j
-" BufferExplorer: {{{
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerDisableDefaultKeyMapping=1
-let g:bufExplorerShowNoName=1
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerShowTabBuffer=1
-let g:bufExplorerSortBy='fullpath'
-nnoremap <leader>e :BufExplorer<CR>
-"}}}
 " Ranger: {{{
 let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
@@ -152,15 +153,10 @@ nmap <silent> <c-h> :Ranger<CR>
 "}}}
 " Fugitive: {{{
 nnoremap <silent> gs :Ge :<CR>
-nnoremap <silent> gd :Git! diff<CR>
-nnoremap <silent> ga :Gblame<CR>
-nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
+" nnoremap <silent> gd :Git! diff<CR>
+" nnoremap <silent> ga :Gblame<CR>
+" nnoremap <silent> gl :Glog -n 10 --no-merges<CR>
 autocmd! FileType fugitive nnoremap <buffer> <esc> :b#<CR>
-" }}}
-" AutoSave: {{{
-let g:auto_save        = 1
-let g:auto_save_silent = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
 " }}}
 " VimTest: {{{
 function! VimTestCustom(cmd)
@@ -256,14 +252,14 @@ let g:projectionist_heuristics = {
       \     "make": "npm",
       \     "start": "npm start"
       \   },
-      \   "lib/*.js": {
+      \   "src/*.ts": {
       \     "type": "src",
-      \     "alternate": "test/{}.js"
+      \     "alternate": "test/{}.test.ts"
       \   },
-      \   "test/*.js": {
+      \   "test/*.test.ts": {
       \     "type": "test",
-      \     "alternate": "lib/{}.js",
-      \     "dispatch": "yarn test {}"
+      \     "alternate": "src/{}.ts",
+      \     "dispatch": "npm test {}"
       \   },
       \   "package.json": { "type": "package" }
       \ },
@@ -329,3 +325,27 @@ vnoremap > >gv
 
 " uppercase last word
 inoremap <c-u> _<Esc>mzi<S-Right><C-o>b<C-o>gUiw<C-o>`z<Del>
+
+noremap j gj
+noremap k gk
+
+nnoremap gG ggVG
+map Q @q
+
+set autowriteall
+
+set nobackup
+
+augroup CPT
+au!
+au BufReadPre *.cpt set bin
+au BufReadPre *.cpt set viminfo=
+au BufReadPre *.cpt set noswapfile
+au BufReadPost *.cpt let $vimpass = inputsecret("Password: ")
+au BufReadPost *.cpt silent '[,']!ccrypt -cb -E vimpass
+au BufReadPost *.cpt set nobin
+au BufWritePre *.cpt set bin
+au BufWritePre *.cpt '[,']!ccrypt -e -E vimpass
+au BufWritePost *.cpt u
+au BufWritePost *.cpt set nobin
+augroup END
