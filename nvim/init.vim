@@ -92,21 +92,23 @@ set laststatus=2
 " nnoremap <silent> <leader>d :Lspsaga lsp_finder<CR>
 nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <silent> <leader>D <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>u <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>i <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <C-k> :Lspsaga signature_help<CR>
 " nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-j> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" nnoremap <silent> <leader>r :Lspsaga rename<CR>
-nnoremap <silent> <leader>a :Lspsaga code_action<CR>
+nnoremap <silent> <leader>a :Telescope code_action<CR>
+nnoremap <silent> <leader><leader> :w<CR>
 
 " auto-format
 autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.scala lua vim.lsp.buf.formatting_sync(nil, 500)
+autocmd BufWritePre *.sc lua vim.lsp.buf.formatting_sync(nil, 500)
 autocmd BufWritePre *.sbt lua vim.lsp.buf.formatting_sync(nil, 100)
 
 "new
@@ -271,10 +273,14 @@ let g:projectionist_heuristics = {
       \     "start": "bloop run"
       \   },
       \   "src/main/scala/*.scala": {
-      \     "alternate": ["src/test/scala/{}Spec.scala", "src/test/scala/{}ImplSpec.scala", "src/test/scala/{}IntegrationSpec.scala", "src/test/scala/{}Test.scala"],
+      \     "alternate": ["src/test/scala/{}Spec.scala", "src/test/scala/{}ImplSpec.scala", "src/test/scala/{}IntegrationSpec.scala", "src/test/scala/{}Test.scala", "src/test/scala/{}IT.scala"],
       \     "type": "src"
       \   },
       \   "src/test/scala/*Spec.scala": {
+      \     "alternate": "src/main/scala/{}.scala",
+      \     "type": "test"
+      \   },
+      \   "src/test/scala/*IT.scala": {
       \     "alternate": "src/main/scala/{}.scala",
       \     "type": "test"
       \   },
@@ -325,6 +331,8 @@ vnoremap > >gv
 
 " uppercase last word
 inoremap <c-u> _<Esc>mzi<S-Right><C-o>b<C-o>gUiw<C-o>`z<Del>
+" inoremap <s-c-v> <c-r>"
+" tnoremap <s-c-v> <c-\><c-n><c-r>"i
 
 noremap j gj
 noremap k gk
