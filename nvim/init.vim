@@ -25,7 +25,6 @@ Plug 'windwp/nvim-autopairs'
 Plug 'junegunn/vim-slash'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'derekwyatt/vim-scala'
-Plug 'tmhedberg/SimpylFold'
 
 Plug 'neovim/nvim-lspconfig'
 
@@ -43,9 +42,7 @@ Plug 'jubnzv/virtual-types.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-project.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'lewis6991/gitsigns.nvim'
+" Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'phaazon/hop.nvim'
 Plug 'janko/vim-test'
@@ -101,7 +98,7 @@ nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-j> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>a :Telescope code_action<CR>
+nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader><leader> :w<CR>
 
 " auto-format
@@ -113,31 +110,22 @@ autocmd BufWritePre *.sbt lua vim.lsp.buf.formatting_sync(nil, 100)
 
 "new
 
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+" let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+" set termguicolors
 
-colorscheme gruvbox
-hi clear SignColumn
-hi Normal guibg=NONE ctermbg=NONE
-" function! SynStack()
-"   if !exists("*synstack")
-"     return
-"   endif
-"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-" endfunc
-" hi EndOfBuffer ctermfg=235 guifg=#282828
+set guifont=Fira\ Code:h15
+let g:neovide_transparency=0.7
+
 
 tnoremap <esc><esc> <c-\><c-n>
 
-set clipboard=unnamedplus
 set mouse=a
 set virtualedit=block
 set signcolumn=yes
 let &showbreak = '↓↓  '
 
 nnoremap <silent> <c-p> <cmd>Telescope find_files<cr>
-nnoremap <silent> <leader>p <cmd>Telescope project<cr>
 nnoremap <silent> <leader>e <cmd>Telescope lsp_workspace_diagnostics<cr>
 nnoremap <silent> <leader>w <cmd>Telescope buffers<cr>
 
@@ -245,6 +233,12 @@ function! SearchVisualSelectionWithAg() range
     execute 'Ag ' selection
 endfunction
 " }}}
+
+func! FindProjectRoots()
+  let roots = system('bash -c "cd ~/projects; fd -H \"\.git$|build.sbt|package.json\" | sed \"s,^./,,\" | sed \"s,/*[^/]\+/*$,,\" | sort -u"')
+  return roots
+endfunc
+
 " VimProjectionist: {{{
 let g:projectionist_heuristics = {
       \ "package.json": {
@@ -296,8 +290,7 @@ let g:projectionist_heuristics = {
       \     "alternate": "src/main/scala/{}.scala",
       \     "type": "test"
       \   },
-      \   "build.sbt": { "type": "config" },
-      \   "*.sbt": { "type": "config" },
+      \   "*.sbt": { "type": "config" }
       \ }
       \}
 nnoremap <leader>t :A<CR>
@@ -344,16 +337,16 @@ set autowriteall
 
 set nobackup
 
-augroup CPT
-au!
-au BufReadPre *.cpt set bin
-au BufReadPre *.cpt set viminfo=
-au BufReadPre *.cpt set noswapfile
-au BufReadPost *.cpt let $vimpass = inputsecret("Password: ")
-au BufReadPost *.cpt silent '[,']!ccrypt -cb -E vimpass
-au BufReadPost *.cpt set nobin
-au BufWritePre *.cpt set bin
-au BufWritePre *.cpt '[,']!ccrypt -e -E vimpass
-au BufWritePost *.cpt u
-au BufWritePost *.cpt set nobin
-augroup END
+colorscheme gruvbox
+hi clear SignColumn
+hi Normal guibg=NONE ctermbg=NONE
+hi GitSignsAdd guibg=NONE
+hi GitSignsChange guibg=NONE
+hi GitSignsDelete guibg=NONE
+" function! SynStack()
+"   if !exists("*synstack")
+"     return
+"   endif
+"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
+" hi EndOfBuffer ctermfg=235 guifg=#282828
